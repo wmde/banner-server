@@ -1,0 +1,75 @@
+{
+    "name": "wmde/fundraising-banners-server",
+    "description": "WMDE fundraising banner-serving application",
+    "type": "project",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": "^7.1.3",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "symfony/framework-bundle": "4.1.*",
+        "symfony/console": "4.1.*",
+        "symfony/flex": "^1.1",
+        "symfony/yaml": "*",
+        "graylog2/gelf-php": "~1.5",
+
+        "wmde/fun-validators": "~1.0"
+    },
+    "require-dev": {
+        "codeception/specify": "~1.1",
+        "jeroen/nyancat-phpunit-resultprinter": "~2.2",
+        "mikey179/vfsStream": "~1.6",
+        "ockcyp/covers-validator": "~1.0",
+        "phpmd/phpmd": "~2.6",
+        "slevomat/coding-standard": "^4.6",
+        "squizlabs/php_codesniffer": "~3.3",
+        "symfony/dotenv": "*",
+        "symfony/test-pack": "^1.0",
+        "wmde/psr-log-test-doubles": "~2.1"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": true,
+            "require": "4.1.*"
+        }
+    }
+}
