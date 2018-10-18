@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.2-fpm as app
 
 RUN mkdir -p /usr/share/nginx/www/banner.wikipedia.de/current/var/cache \
     && mkdir -p /usr/share/nginx/www/banner.wikipedia.de/current/var/log \
