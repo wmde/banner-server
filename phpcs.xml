@@ -7,7 +7,7 @@
 
     <file>src/</file>
     <file>tests/</file>
-    <file>cli/</file>
+    <file>config/bundles.php</file>
 
     <arg name="extensions" value="php"/>
     <arg value="s"/>

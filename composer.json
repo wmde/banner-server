@@ -16,6 +16,7 @@
         "jeroen/nyancat-phpunit-resultprinter": "~2.2",
         "ockcyp/covers-validator": "~1.0",
         "phpmd/phpmd": "~2.6",
+        "phpstan/phpstan": "^0.10.3",
         "slevomat/coding-standard": "^4.6",
         "squizlabs/php_codesniffer": "~3.3",
         "symfony/dotenv": "*",
@@ -63,7 +64,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "^4.1.*"
+            "require": "^4.1"
         }
     }
 }

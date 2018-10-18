@@ -16,6 +16,9 @@ test: covers phpunit
 
 cs: phpcs stan
 
+fix-cs:
+	docker-compose run --rm app ./vendor/bin/phpcbf -p -s
+
 phpunit:
 	docker-compose run --rm app ./bin/phpunit
 
@@ -23,7 +26,7 @@ phpcs:
 	docker-compose run --rm app ./vendor/bin/phpcs -p -s
 
 stan:
-	docker-compose run --rm app ./vendor/bin/phpstan analyse --level=1 --no-progress src/ tests/
+	docker-compose run --rm app ./vendor/bin/phpstan analyse --level=7 --no-progress src/ tests/
 
 covers:
 	docker-compose run --rm app ./vendor/bin/covers-validator
