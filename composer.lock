@@ -4,64 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fce1e35f5b32a21c77142b0a6566130a",
+    "content-hash": "1f2ed922de3a8ac46c5d6c55e1e566c9",
     "packages": [
-        {
-            "name": "graylog2/gelf-php",
-            "version": "1.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bzikarsky/gelf-php.git",
-                "reference": "c4e0743ba323459b6e62222107a0898e77d2fd6e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bzikarsky/gelf-php/zipball/c4e0743ba323459b6e62222107a0898e77d2fd6e",
-                "reference": "c4e0743ba323459b6e62222107a0898e77d2fd6e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9",
-                "psr/log": "~1.0"
-            },
-            "provide": {
-                "psr/log-implementation": "~1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.3",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Gelf\\": "src/Gelf"
-                },
-                "files": [
-                    "src/check_technical_requirements.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Benjamin Zikarsky",
-                    "email": "benjamin@zikarsky.de"
-                },
-                {
-                    "name": "gelf-php contributors",
-                    "homepage": "https://github.com/bzikarsky/gelf-php/contributors"
-                }
-            ],
-            "description": "A php implementation to send log-messages to a GELF compatible backend like Graylog2.",
-            "time": "2017-06-24T10:38:25+00:00"
-        },
         {
             "name": "psr/cache",
             "version": "1.0.1",
@@ -1240,90 +1184,9 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2018-10-02T16:36:10+00:00"
-        },
-        {
-            "name": "wmde/fun-validators",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wmde/fun-validators.git",
-                "reference": "6e1da9e625ad96f2ae455f3fbdb0bd818ec0e5f4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wmde/fun-validators/zipball/6e1da9e625ad96f2ae455f3fbdb0bd818ec0e5f4",
-                "reference": "6e1da9e625ad96f2ae455f3fbdb0bd818ec0e5f4",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "mediawiki/mediawiki-codesniffer": "~13.0",
-                "ockcyp/covers-validator": "~0.6",
-                "phpstan/phpstan": "~0.8.0",
-                "phpunit/phpunit": "~6.2",
-                "slevomat/coding-standard": "~4.0",
-                "squizlabs/php_codesniffer": "~3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "WMDE\\FunValidators\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "General and shared validation services created as part of the WMDE fundraising software",
-            "time": "2018-07-17T11:11:13+00:00"
         }
     ],
     "packages-dev": [
-        {
-            "name": "codeception/specify",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Codeception/Specify.git",
-                "reference": "504ac7a882e6f7226b0cff44c72a6c0bbd0bad95"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Specify/zipball/504ac7a882e6f7226b0cff44c72a6c0bbd0bad95",
-                "reference": "504ac7a882e6f7226b0cff44c72a6c0bbd0bad95",
-                "shasum": ""
-            },
-            "require": {
-                "myclabs/deep-copy": "~1.1",
-                "php": ">=7.1.0",
-                "phpunit/phpunit": "^7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Codeception\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Bodnarchuk",
-                    "email": "davert@codeception.com"
-                }
-            ],
-            "description": "BDD code blocks for PHPUnit and Codeception",
-            "time": "2018-03-12T23:55:10+00:00"
-        },
         {
             "name": "doctrine/instantiator",
             "version": "1.1.0",
@@ -1494,52 +1357,6 @@
                 "tests"
             ],
             "time": "2018-09-27T04:06:30+00:00"
-        },
-        {
-            "name": "mikey179/vfsStream",
-            "version": "v1.6.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
-                "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
-                "reference": "d5fec95f541d4d71c4823bb5e30cf9b9e5b96145",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.6.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "org\\bovigo\\vfs\\": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Frank Kleine",
-                    "homepage": "http://frankkleine.de/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Virtual file system to mock the real file system in unit tests.",
-            "homepage": "http://vfs.bovigo.org/",
-            "time": "2017-08-01T08:02:14+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -3735,65 +3552,6 @@
                 "tests"
             ],
             "time": "2014-02-12T22:16:49+00:00"
-        },
-        {
-            "name": "wmde/psr-log-test-doubles",
-            "version": "2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wmde/PsrLogTestDoubles.git",
-                "reference": "1978984525fa599f74cedb414e13db0354eaf29d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wmde/PsrLogTestDoubles/zipball/1978984525fa599f74cedb414e13db0354eaf29d",
-                "reference": "1978984525fa599f74cedb414e13db0354eaf29d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1",
-                "psr/log": "~1.0"
-            },
-            "require-dev": {
-                "mediawiki/mediawiki-codesniffer": "~0.6.0",
-                "ockcyp/covers-validator": "~0.4",
-                "phpunit/phpunit": "~6.1",
-                "squizlabs/php_codesniffer": "~2.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "WMDE\\PsrLogTestDoubles\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "description": "Test Doubles for the PSR-3 Logger Interface",
-            "homepage": "https://github.com/wmde/PsrLogTestDoubles",
-            "keywords": [
-                "Fixture",
-                "LoggerSpy",
-                "Test Doubles",
-                "fixtures",
-                "log",
-                "logger spy",
-                "mock",
-                "mocks",
-                "psr",
-                "psr-3",
-                "spies",
-                "spy",
-                "test",
-                "test double"
-            ],
-            "time": "2017-05-23T13:10:22+00:00"
         }
     ],
     "aliases": [],
