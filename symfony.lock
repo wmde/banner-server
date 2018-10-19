@@ -1,7 +1,4 @@
 {
-    "codeception/specify": {
-        "version": "1.1"
-    },
     "composer/xdebug-handler": {
         "version": "1.3.0"
     },
@@ -11,17 +8,11 @@
     "facebook/webdriver": {
         "version": "1.6.0"
     },
-    "graylog2/gelf-php": {
-        "version": "1.5.5"
-    },
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
     "jeroen/nyancat-phpunit-resultprinter": {
         "version": "v2.2.0"
-    },
-    "mikey179/vfsstream": {
-        "version": "v1.6.5"
     },
     "myclabs/deep-copy": {
         "version": "1.8.1"
@@ -280,11 +271,5 @@
     },
     "whatthejeff/nyancat-scoreboard": {
         "version": "v1.1.1"
-    },
-    "wmde/fun-validators": {
-        "version": "1.1.0"
-    },
-    "wmde/psr-log-test-doubles": {
-        "version": "2.2.0"
     }
 }
