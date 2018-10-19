@@ -7,14 +7,14 @@ namespace WMDE\BannerServer\UseCase;
 /**
  * @license GNU GPL v2+
  */
-class BannerProvideRequest {
+class ProvideBannerValues {
 
-	private $impressionCount;
-	private $bannerImpressionCount;
+	private $impressionCount = 0;
+	private $bannerImpressionCount = 0;
 	private $bucketName;
 	private $campaignName;
 
-	public function __construct( int $impressionCount, int $bannerImpressionCount, string $bucketName, string $campaignName ) {
+	public function __construct( int $impressionCount, int $bannerImpressionCount, ?string $bucketName, ?string $campaignName ) {
 		$this->impressionCount = $impressionCount;
 		$this->bannerImpressionCount = $bannerImpressionCount;
 		$this->bucketName = $bucketName;
