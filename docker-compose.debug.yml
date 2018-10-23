@@ -3,7 +3,7 @@ version: '3.4'
 services:
   proxy:
       environment:
-        - NGINX_HOST=spenden.wikimedia.de
+        - NGINX_HOST=banner.wikipedia.de
         - NGINX_PORT=8080
         - PHP_FPM_HOST=app_debug
       links:
@@ -15,13 +15,10 @@ services:
       target: app_debug
     environment:
       - XDEBUG_CONFIG=remote_host=${LOCAL_IP} # This won't work for PHPStorm CLI runs until https://youtrack.jetbrains.com/issue/WI-41043 is fixed
-      - PHP_IDE_CONFIG=serverName=spenden.wikimedia.de
+      - PHP_IDE_CONFIG=serverName=banner.wikipedia.de
     expose:
       - "9000" # PHP-FPM
     volumes:
-      - .:/usr/share/nginx/www/spenden.wikimedia.de/current
-      - var-data:/usr/share/nginx/www/spenden.wikimedia.de/current/var
-    working_dir: /usr/share/nginx/www/spenden.wikimedia.de/current
-    links:
-      - database
-      - mailhog
+      - .:/usr/share/nginx/www/banner.wikipedia.de/current
+      - var-data:/usr/share/nginx/www/banner.wikipedia.de/current/var
+    working_dir: /usr/share/nginx/www/banner.wikipedia.de/current

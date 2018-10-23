@@ -15,19 +15,14 @@ matrix:
 
 install:
   - travis_retry make install-php
-  - make install-js
 
 before_script:
-  - if [ "$MCP_ACCESS_KEY" != "" ] && [ "$MCP_PROJECT_ID" != "" ]; then bash build/travis/createLocalTestConfig.sh > app/config/config.test.local.json; fi
-  - if [ ! -f "app/config/config.development.json" ]; then echo "{}" > app/config/config.development.json; fi
-  - if [ ! -f "$HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar" ]; then mkdir -p $HOME/phpstan; curl -L https://github.com/phpstan/phpstan/releases/download/$PHPSTAN_VERSION/phpstan.phar > $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar;
+  - if [ ! -f "$HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar" ]; then mkdir -p $HOME/phpstan; curl -L https://github.com/phpstan/phpstan/releases/download/$PHPSTAN_VERSION/phpstan.phar > $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar; chmod +x $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar; fi
 
 script:
-  - make setup
-  - make clear
   - make ci-with-coverage
-  - make install-php COMPOSER_FLAGS="--no-dev -q" # Remove dev dependencies to make sure PHPStan creates errors if prod code depends on dev classes
-  - docker-compose run --rm app php $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar analyse --level=7 --no-progress src/ tests/
+  - make install-php COMPOSER_FLAGS="--no-dev -q --no-scripts" # Remove dev dependencies to make sure PHPStan creates errors if prod code depends on dev classes
+  - docker-compose run --rm app -v $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar:/usr/share/nginx/www/banner.wikipedia.de/current/phpstan phpstan analyse --level=7 --no-progress src/ tests/
 
 after_success:
   - if [ "$TYPE" == "coverage" ]; then bash build/travis/uploadCoverage.sh; fi
@@ -43,4 +38,5 @@ notifications:
     on_failure: always
 
 env:
-  - PHPSTAN_VERSION=0.10.5
+  global:
+    - PHPSTAN_VERSION=0.10.5

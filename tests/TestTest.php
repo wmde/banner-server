@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace WMDE\BannerServer\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
