@@ -9,6 +9,9 @@ namespace WMDE\BannerServer\UseCase;
  */
 class ProvideBannerUseCase {
 	public function provideBannerRequest( ProvideBannerValues $request ): BannerResponse {
-		return new BannerResponse( [ 'test' => 123 ], true );
+		return new BannerResponse(
+			new ProvideBannerValues( 1, 2, 'SomeCampaign', 'testAbc' ),
+			true
+		);
 	}
 }

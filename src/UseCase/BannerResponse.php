@@ -9,16 +9,16 @@ namespace WMDE\BannerServer\UseCase;
  */
 class BannerResponse {
 
-	private $cookies = [];
+	private $bannerValues = [];
 	private $displayBanner;
 
-	public function __construct( array $cookies, bool $displayBanner ) {
-		$this->cookies = $cookies;
+	public function __construct( ProvideBannerValues $bannerValues, bool $displayBanner ) {
 		$this->displayBanner = $displayBanner;
+		$this->bannerValues = $bannerValues;
 	}
 
-	public function getCookies(): array {
-		return $this->cookies;
+	public function getBannerValues(): array {
+		return $this->bannerValues;
 	}
 
 	public function displayBanner(): bool {
