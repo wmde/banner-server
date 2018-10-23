@@ -1,0 +1,46 @@
+dist: trusty
+
+services:
+  - docker
+
+language: php
+
+matrix:
+  fast_finish: true
+  include:
+  - php: 7.2
+    env: TYPE=coverage
+  # More PHP instances with different environment variables may be added here
+  # This may be useful if a additional PHP versions or DBMS (SQLite, ...) should be tested by Travis
+
+install:
+  - travis_retry make install-php
+  - make install-js
+
+before_script:
+  - if [ "$MCP_ACCESS_KEY" != "" ] && [ "$MCP_PROJECT_ID" != "" ]; then bash build/travis/createLocalTestConfig.sh > app/config/config.test.local.json; fi
+  - if [ ! -f "app/config/config.development.json" ]; then echo "{}" > app/config/config.development.json; fi
+  - if [ ! -f "$HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar" ]; then mkdir -p $HOME/phpstan; curl -L https://github.com/phpstan/phpstan/releases/download/$PHPSTAN_VERSION/phpstan.phar > $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar;
+
+script:
+  - make setup
+  - make clear
+  - make ci-with-coverage
+  - make install-php COMPOSER_FLAGS="--no-dev -q" # Remove dev dependencies to make sure PHPStan creates errors if prod code depends on dev classes
+  - docker-compose run --rm app php $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar analyse --level=7 --no-progress src/ tests/
+
+after_success:
+  - if [ "$TYPE" == "coverage" ]; then bash build/travis/uploadCoverage.sh; fi
+
+cache:
+  directories:
+  - "$HOME/.composer/cache"
+  - "$HOME/phpstan"
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+env:
+  - PHPSTAN_VERSION=0.10.5
