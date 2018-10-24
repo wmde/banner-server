@@ -2,17 +2,17 @@
 
 declare( strict_types = 1 );
 
-namespace WMDE\BannerServer\UseCase;
+namespace WMDE\BannerServer\UseCase\BannerSelection;
 
 /**
  * @license GNU GPL v2+
  */
-class BannerResponse {
+class BannerSelection {
 
 	private $bannerValues = [];
 	private $displayBanner;
 
-	public function __construct( ProvideBannerValues $bannerValues, bool $displayBanner ) {
+	public function __construct( Visitor $bannerValues, bool $displayBanner ) {
 		$this->displayBanner = $displayBanner;
 		$this->bannerValues = $bannerValues;
 	}
