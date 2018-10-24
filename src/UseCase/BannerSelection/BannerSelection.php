@@ -9,25 +9,29 @@ namespace WMDE\BannerServer\UseCase\BannerSelection;
  */
 class BannerSelection {
 
-	private $bannerValues = [];
-	private $displayBanner;
+	private $bannerIdentifier;
+	private $visitorData;
+	private $campaignEnd;
 
-	public function __construct( Visitor $bannerValues, bool $displayBanner ) {
-		$this->displayBanner = $displayBanner;
-		$this->bannerValues = $bannerValues;
-	}
-
-	public function getBannerValues(): array {
-		return $this->bannerValues;
+	public function __construct( ?string $bannerIdentifier, Visitor $visitorData, \DateTime $campaignEnd ) {
+		$this->bannerIdentifier = $bannerIdentifier;
+		$this->visitorData = $visitorData;
+		$this->campaignEnd = $campaignEnd;
 	}
 
 	public function displayBanner(): bool {
-		return $this->displayBanner;
+		return $this->bannerIdentifier !== null;
 	}
 
-	public function getHeaders(): array {
-		return [
-			'Content-Type' => 'application/javascript'
-		];
+	public function getBannerIdentifier(): ?string {
+		return $this->bannerIdentifier;
+	}
+
+	public function getVisitorData(): Visitor {
+		return $this->visitorData;
+	}
+
+	public function getCampaignEnd(): \DateTime {
+		return $this->campaignEnd;
 	}
 }

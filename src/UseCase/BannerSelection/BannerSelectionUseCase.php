@@ -18,9 +18,22 @@ class BannerSelectionUseCase {
 	}
 
 	public function provideBannerRequest( Visitor $visitor ): BannerSelection {
+		if ( $visitor->hasDonated() ) {
+			return $this->cancelBannerSelection( $visitor );
+		}
+
 		return new BannerSelection(
+			'test',
 			new Visitor( 1, 'Testbucket', false ),
-			true
+			new \DateTime()
+		);
+	}
+
+	private function cancelBannerSelection( Visitor $visitor ): BannerSelection {
+		return new BannerSelection(
+			null,
+			$visitor,
+			new \DateTime()
 		);
 	}
 }
