@@ -13,7 +13,15 @@ class BannerSelection {
 	private $visitorData;
 	private $campaignEnd;
 
-	public function __construct( ?string $bannerIdentifier, Visitor $visitorData, \DateTime $campaignEnd ) {
+	public static function createBannerSelection( string $bannerIdentifier, Visitor $visitorData, \DateTime $campaignEnd ): self {
+		return new self( $bannerIdentifier, $visitorData, $campaignEnd );
+	}
+
+	public static function createEmptySelection( Visitor $visitor ): self {
+		return new self( null, $visitor, new \DateTime() );
+	}
+
+	private function __construct( ?string $bannerIdentifier, Visitor $visitorData, \DateTime $campaignEnd ) {
 		$this->bannerIdentifier = $bannerIdentifier;
 		$this->visitorData = $visitorData;
 		$this->campaignEnd = $campaignEnd;
@@ -23,7 +31,8 @@ class BannerSelection {
 		return $this->bannerIdentifier !== null;
 	}
 
-	public function getBannerIdentifier(): ?string {
+	public function getBannerIdentifier(): string {
+		assert( is_string( $this->bannerIdentifier ) );
 		return $this->bannerIdentifier;
 	}
 
