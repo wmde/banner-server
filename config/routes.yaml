@@ -1,3 +1,3 @@
 banner_server_provide:
   path: /your-contribution-to-free-knowledge.js
-  controller: WMDE\BannerServer\Controller\BannerSelection::selectBanner
+  controller: WMDE\BannerServer\Controller\BannerSelectionController::selectBanner
