@@ -14,7 +14,11 @@ class CampaignCollection {
 	 */
 	private $campaigns;
 
-	public function __construct( array $campaigns ) {
+	public function __construct( Campaign ...$campaigns ) {
 		$this->campaigns = $campaigns;
+	}
+
+	public function getCampaigns(): array {
+		return $this->campaigns;
 	}
 }
