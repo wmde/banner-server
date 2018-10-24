@@ -26,4 +26,8 @@ class Visitor {
 	public function getBucketIdentifier(): string {
 		return $this->bucketIdentifier;
 	}
+
+	public function hasDonated(): bool {
+		return $this->hasDonated;
+	}
 }

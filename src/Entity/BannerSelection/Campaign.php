@@ -26,4 +26,16 @@ class Campaign {
 		$this->buckets = $buckets;
 		$this->impressionThreshold = $impressionThreshold;
 	}
+
+	public function getIdentifier(): string {
+		return $this->identifier;
+	}
+
+	public function getEnd(): \DateTime {
+		return $this->end;
+	}
+
+	public function isActiveAtPointInTime( \DateTime $time ): bool {
+		return $time->getTimestamp() > $this->start->getTimestamp() && $time->getTimestamp() < $this->end->getTimestamp();
+	}
 }
