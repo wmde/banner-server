@@ -18,7 +18,12 @@ class CampaignCollection {
 		$this->campaigns = $campaigns;
 	}
 
-	public function getCampaigns(): array {
-		return $this->campaigns;
+	public function getCampaign( \DateTime $dateTime ): ?Campaign {
+		foreach ($this->campaigns as $campaign) {
+			if ($campaign->isActiveAtPointInTime( $dateTime )) {
+				return $campaign;
+			}
+		}
+		return null;
 	}
 }
