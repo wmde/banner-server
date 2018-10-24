@@ -29,6 +29,10 @@ class Campaign {
 		return $this->identifier;
 	}
 
+	public function getCampaignExpiration(): \DateTime {
+		return $this->end;
+	}
+
 	public function isInActiveDateRange( \DateTime $time ): bool {
 		return $time->getTimestamp() > $this->start->getTimestamp() &&
 			$time->getTimestamp() < $this->end->getTimestamp();
