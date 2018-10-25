@@ -15,12 +15,12 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		$buckets[] = new Bucket(
 			'C18_WMDE_Test_ctrl',
 			new Banner( 'C18_WMDE_Test_ctrl_main' ),
-			new Banner( 'C18_WMDE_Test_ctrl_secondary' )
+			[new Banner( 'C18_WMDE_Test_ctrl_secondary' )]
 		);
 		$buckets[] = new Bucket(
 			'C18_WMDE_Test_var',
 			new Banner( 'C18_WMDE_Test_var_main' ),
-			new Banner( 'C18_WMDE_Test_var_secondary' )
+			[new Banner( 'C18_WMDE_Test_var_secondary' )]
 		);
 		return $buckets;
 	}
@@ -48,6 +48,7 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			$campaign->isInActiveDateRange( new \DateTime( '2018-10-31 14:00:00' ) ),
 			'date given is exactly the end date of the campaign'
 		);
+
 	}
 
 	public function test_given_time_in_the_date_range_campaign_is_active() {
@@ -58,6 +59,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			$this->createBuckets()
 		);
 		$this->assertFalse(
+			$campaign->isInActiveDateRange( new \DateTime( '2018-09-22 14:00:00' ) ),
+			'date given is before the start of the campaign'
+		);
+		$this->assertFalse(
 			$campaign->isInActiveDateRange( new \DateTime( '2018-10-01 13:59:59' ) ),
 			'date given is before the start of the campaign'
 		);
@@ -65,6 +70,7 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			$campaign->isInActiveDateRange( new \DateTime( '2018-10-31 14:00:01' ) ),
 			'date given is after the end of the campaign'
 		);
+
 	}
 
 	public function test_given_valid_bucket_id_returns_bucket() {

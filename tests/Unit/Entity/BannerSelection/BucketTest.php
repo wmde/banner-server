@@ -13,7 +13,7 @@ class BucketTest extends \PHPUnit\Framework\TestCase {
 		$bucket = new Bucket(
 			'C18_WMDE_Test_ctrl',
 			new Banner( 'C18_WMDE_Test_ctrl_main' ),
-			new Banner( 'C18_WMDE_Test_ctrl_secondary' )
+			[new Banner( 'C18_WMDE_Test_ctrl_secondary' )]
 		);
 		$this->assertEquals( $bucket->getBanner( 0 ), 'C18_WMDE_Test_ctrl_main' );
 	}
@@ -22,7 +22,7 @@ class BucketTest extends \PHPUnit\Framework\TestCase {
 		$bucket = new Bucket(
 			'C18_WMDE_Test_ctrl',
 			new Banner( 'C18_WMDE_Test_ctrl_main' ),
-			new Banner( 'C18_WMDE_Test_ctrl_secondary' )
+			[new Banner( 'C18_WMDE_Test_ctrl_secondary' )]
 		);
 		$this->assertEquals( $bucket->getBanner( 1 ), 'C18_WMDE_Test_ctrl_secondary' );
 	}
@@ -31,7 +31,7 @@ class BucketTest extends \PHPUnit\Framework\TestCase {
 		$bucket = new Bucket(
 			'C18_WMDE_Test_ctrl',
 			new Banner( 'C18_WMDE_Test_ctrl_main' ),
-			new Banner( 'C18_WMDE_Test_ctrl_secondary' )
+			[new Banner( 'C18_WMDE_Test_ctrl_secondary' )]
 		);
 		$this->assertEquals( $bucket->getBanner( 5 ), 'C18_WMDE_Test_ctrl_secondary' );
 	}
