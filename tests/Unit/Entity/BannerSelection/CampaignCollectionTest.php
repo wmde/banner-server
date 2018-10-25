@@ -30,10 +30,10 @@ class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 				[]
 			)
 		);
-		$this->assertEquals(
-			$campaignCollection->getCampaign( new \DateTime( '2018-10-22 13:59:59' ) )->getIdentifier(),
-			'C18_WMDE_Test_present'
-		);
+
+		$campaign = $campaignCollection->getCampaign( new \DateTime( '2018-10-22 13:59:59' ) );
+		$this->assertNotNull( $campaign );
+		$this->assertEquals( $campaign->getIdentifier(), 'C18_WMDE_Test_present' );
 	}
 
 	public function test_given_date_out_of_range_does_not_return_campaign() {
