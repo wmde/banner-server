@@ -32,4 +32,8 @@ services:
 
     WMDE\BannerServer\Controller\BannerSelectionController:
         arguments:
-            $bannerPath: '/banners/'
+            $bannerPath: 'banners/wikipedia.de-banners/'
+
+    WMDE\BannerServer\UseCase\BannerSelection\CampaignConfigurationLoader:
+        arguments:
+            $configFile: 'config/campaigns/campaigns.yml'

@@ -1,0 +1,84 @@
+<?php
+
+declare( strict_types = 1 );
+
+namespace WMDE\BannerServer\Tests\Unit\UseCase\BannerSelection;
+
+use Monolog\Handler\TestHandler;
+use Monolog\Logger;
+use Psr\Log\NullLogger;
+use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
+use WMDE\BannerServer\UseCase\BannerSelection\CampaignConfigurationLoader;
+
+/**
+ * @covers \WMDE\BannerServer\UseCase\BannerSelection\CampaignConfigurationLoader
+ * Class ActiveBannerSelectionDataTest
+ */
+class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
+
+	const TEST_VALID_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/campaigns.yml';
+	const TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_bucket_campaign.yml';
+	const TEST_BROKEN_BANNER_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_banner_campaign.yml';
+	const TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_data_campaign.yml';
+
+	public function test_given_campaigns_are_loaded_then_loaded_campaign_data_is_correct() {
+		$loader = new CampaignConfigurationLoader( new NullLogger(), self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );
+		$collection = $loader->getCampaignCollection();
+
+		$campaign = $collection->getCampaign( new \DateTime( '2018-12-12' ) );
+		$this->assertNotNull( $campaign );
+		$this->assertEquals( 'B18WPDE_01_180131', $campaign->getIdentifier() );
+		$this->assertEquals( '2019-01-01 14:00:00', $campaign->getEnd()->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( 10, $campaign->getDisplayPercentage() );
+
+		$bucketA = $campaign->selectBucket( 'B18WPDE_01_180131_ctrl' );
+		$bucketB = $campaign->selectBucket( 'B18WPDE_01_180131_var' );
+		$this->assertEquals( $bucketA->getIdentifier(), 'B18WPDE_01_180131_ctrl' );
+		$this->assertEquals( $bucketB->getIdentifier(), 'B18WPDE_01_180131_var' );
+
+		$this->assertEquals( 'B18WPDE_01_180131_fulltop_ctrl', $bucketA->getBanner( 0 ) );
+		$this->assertEquals( 'B18WPDE_01_180131_top_ctrl2', $bucketA->getBanner( 1 ) );
+		$this->assertEquals( 'B18WPDE_02_180511_top_ctrl_last', $bucketA->getBanner( 5 ) );
+		$this->assertEquals( 'B18WPDE_02_180511_top_ctrl_last', $bucketA->getBanner( 10 ) );
+	}
+
+	public function test_given_broken_bucket_campaign_configuration_then_errors_are_caught() {
+		$testHandler = new TestHandler();
+		$loader = new CampaignConfigurationLoader(
+			new Logger( 'TestLogger', [ $testHandler ] ),
+			self::TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE
+		);
+		$loader->getCampaignCollection();
+		$this->assertTrue( $testHandler->hasCritical( 'A configured bucket has no name.' ) );
+	}
+
+	public function test_given_broken_banner_campaign_configuration_then_errors_are_caught() {
+		$testHandler = new TestHandler();
+		$loader = new CampaignConfigurationLoader(
+			new Logger( 'TestLogger', [ $testHandler ] ),
+			self::TEST_BROKEN_BANNER_CAMPAIGN_CONFIGURATION_FILE
+		);
+		$loader->getCampaignCollection();
+		$this->assertTrue( $testHandler->hasCritical( 'A configured bucket has no associated banners.' ) );
+	}
+
+	public function test_given_missing_campaign_data_then_errors_are_caught() {
+		$testHandler = new TestHandler();
+		$loader = new CampaignConfigurationLoader(
+			new Logger( 'TestLogger', [ $testHandler ] ),
+			self::TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE
+		);
+		$loader->getCampaignCollection();
+		$this->assertTrue( $testHandler->hasCritical( 'Campaign data is incomplete.' ) );
+	}
+
+	public function test_given_invalid_campaign_file_then_empty_campaign_configuration_is_returned() {
+		$testHandler = new TestHandler();
+		$loader = new CampaignConfigurationLoader(
+			new Logger( 'TestLogger', [ $testHandler ] ),
+			'SOME_INVALID_PATH/' . self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE
+		);
+		$this->assertEquals( new CampaignCollection(), $loader->getCampaignCollection() );
+		$this->assertTrue( $testHandler->hasCritical( 'Unable to read banner server config file.' ) );
+	}
+}
