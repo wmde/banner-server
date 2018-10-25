@@ -19,21 +19,24 @@ class Bucket {
 	public function __construct( string $identifier, Banner $mainBanner, Banner ...$otherBanners ) {
 		$this->identifier = $identifier;
 		$this->banners[] = $mainBanner;
-		array_push( $this->banners, $otherBanners );
+		$this->banners = array_merge( $this->banners, $otherBanners );
 	}
 
 	public function getIdentifier(): string {
-		return $this->getIdentifier();
+		return $this->identifier;
+	}
+
+	private function getLastBanner(): Banner {
+		return $this->banners[count( $this->banners ) - 1];
 	}
 
 	/**
-	 * Returns banner for given impression count
-	 * If impression count is over banner sequence, returns last banner in sequence
+	 * Decides which banner to return based on visitor's impression count
 	 */
-	public function getBanner( int $visitorImpressions ): string {
-		if ( isset( $this->banners[$visitorImpressions] ) ) {
-			return $this->banners[$visitorImpressions]->getIdentifier();
+	public function getBanner( int $visitorImpressionCount ): string {
+		if ( $visitorImpressionCount >= count( $this->banners ) ) {
+			return $this->getLastBanner()->getIdentifier();
 		}
-		return $this->banners[count( $this->banners ) - 1]->getIdentifier();
+		return $this->banners[$visitorImpressionCount]->getIdentifier();
 	}
 }
