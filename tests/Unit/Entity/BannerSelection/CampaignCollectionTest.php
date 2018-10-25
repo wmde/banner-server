@@ -51,9 +51,12 @@ class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 				[]
 			)
 		);
+
 		$this->assertEquals(
 			$campaignCollection->getCampaign( new \DateTime( '2017-09-01 14:00:00' ) ),
 			null
 		);
+
+		$this->assertNull( $campaignCollection->getCampaign( new \DateTime( '2017-09-01 14:00:00' ) ) );
 	}
 }

@@ -21,7 +21,7 @@ class Bucket {
 		$this->identifier = $identifier;
 		$this->mainBanner = $mainBanner;
 		$this->banners[] = $mainBanner;
-		array_push( $this->banners, ...$otherBanners );
+		$this->banners = array_merge( $this->banners, $otherBanners );
 	}
 
 	public function getIdentifier(): string {
