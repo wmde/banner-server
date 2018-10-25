@@ -7,6 +7,7 @@ namespace WMDE\BannerServer\UseCase\BannerSelection;
 use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
+use WMDE\BannerServer\Entity\BannerSelection\ImpressionThresholdInterface;
 
 /**
  * @license GNU GPL v2+
@@ -15,15 +16,17 @@ class BannerSelectionUseCase {
 
 	private $campaignCollection;
 	private $currentCampaign;
+	private $impressionThreshold;
 
-	public function __construct( CampaignCollection $campaignCollection ) {
+	public function __construct( CampaignCollection $campaignCollection, ImpressionThresholdInterface $impressionThreshold ) {
 		$this->campaignCollection = $campaignCollection;
+		$this->impressionThreshold = $impressionThreshold;
 	}
 
 	public function provideBannerRequest( Visitor $visitor ): BannerSelection {
 		if ( $visitor->hasDonated() ||
 			$this->getCurrentCampaign() === null ||
-			$this->getCurrentCampaign()->impressionThresholdReached( $visitor->getTotalImpressionCount() ) ) {
+			$this->impressionThreshold->getIsOverThreshold( $visitor->getTotalImpressionCount() ) ) {
 			return BannerSelection::createEmptySelection( $visitor );
 		}
 
