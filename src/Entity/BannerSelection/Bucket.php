@@ -36,7 +36,7 @@ class Bucket {
 	 * Decides which banner to return based on visitor's impression count
 	 */
 	public function getBanner( int $visitorImpressionCount ): string {
-		if ($visitorImpressionCount >= count( $this->banners ) ) {
+		if ( $visitorImpressionCount >= count( $this->banners ) ) {
 			return $this->getLastBanner()->getIdentifier();
 		}
 		return $this->banners[$visitorImpressionCount]->getIdentifier();

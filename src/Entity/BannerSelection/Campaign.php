@@ -34,8 +34,8 @@ class Campaign {
 	}
 
 	public function isInActiveDateRange( \DateTime $time ): bool {
-		return $time->getTimestamp() > $this->start->getTimestamp() &&
-			$time->getTimestamp() < $this->end->getTimestamp();
+		return $time->getTimestamp() >= $this->start->getTimestamp() &&
+			$time->getTimestamp() <= $this->end->getTimestamp();
 	}
 
 	public function selectBucket( ?string $bucketId, callable $fallbackSelectionStrategy ): Bucket {
