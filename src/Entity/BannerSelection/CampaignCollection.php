@@ -19,8 +19,8 @@ class CampaignCollection {
 	}
 
 	public function getCampaign( \DateTime $dateTime ): ?Campaign {
-		foreach ($this->campaigns as $campaign) {
-			if ($campaign->isActiveAtPointInTime( $dateTime )) {
+		foreach ( $this->campaigns as $campaign ) {
+			if ( $campaign->isInActiveDateRange( $dateTime ) ) {
 				return $campaign;
 			}
 		}

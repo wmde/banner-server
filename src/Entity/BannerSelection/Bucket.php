@@ -25,4 +25,15 @@ class Bucket {
 	public function getIdentifier(): string {
 		return $this->getIdentifier();
 	}
+
+	/**
+	 * Returns banner for given impression count
+	 * If impression count is over banner sequence, returns last banner in sequence
+	 */
+	public function getBanner( int $visitorImpressions ): string {
+		if ( isset( $this->banners[$visitorImpressions] ) ) {
+			return $this->banners[$visitorImpressions]->getIdentifier();
+		}
+		return $this->banners[count( $this->banners ) - 1]->getIdentifier();
+	}
 }

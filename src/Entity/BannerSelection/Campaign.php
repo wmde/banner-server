@@ -44,4 +44,8 @@ class Campaign {
 		}
 		return $fallbackSelectionStrategy( $this->buckets );
 	}
+
+	public function impressionThresholdReached( int $visitorImpressions ): bool {
+		return $this->impressionThreshold->getIsOverThreshold( $visitorImpressions );
+	}
 }
