@@ -31,11 +31,21 @@ class Campaign {
 		return $this->identifier;
 	}
 
-	public function getEnd(): \DateTime {
-		return $this->end;
+	public function isInActiveDateRange( \DateTime $time ): bool {
+		return $time->getTimestamp() > $this->start->getTimestamp() &&
+			$time->getTimestamp() < $this->end->getTimestamp();
 	}
 
-	public function isActiveAtPointInTime( \DateTime $time ): bool {
-		return $time->getTimestamp() > $this->start->getTimestamp() && $time->getTimestamp() < $this->end->getTimestamp();
+	public function selectBucket( ?string $bucketId, callable $fallbackSelectionStrategy ): Bucket {
+		foreach ( $this->buckets as $bucket ) {
+			if ( $bucket->getIdentifier() === $bucketId ) {
+				return $bucket;
+			}
+		}
+		return $fallbackSelectionStrategy( $this->buckets );
+	}
+
+	public function impressionThresholdReached( int $visitorImpressions ): bool {
+		return $this->impressionThreshold->getIsOverThreshold( $visitorImpressions );
 	}
 }
