@@ -77,6 +77,9 @@
     "phpstan/phpstan": {
         "version": "0.10.3"
     },
+    "phpstan/phpstan-phpunit": {
+        "version": "0.10"
+    },
     "phpunit/php-code-coverage": {
         "version": "6.1.0"
     },

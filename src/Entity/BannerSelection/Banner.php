@@ -16,6 +16,6 @@ class Banner {
 	}
 
 	public function getIdentifier(): string {
-		return $this->getIdentifier();
+		return $this->identifier;
 	}
 }

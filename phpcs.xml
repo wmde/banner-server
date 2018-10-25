@@ -58,9 +58,8 @@
     </rule>
 
     <rule ref="Generic.NamingConventions" />
-    <!-- TODO: create variation of this sniff that allows underscores in test methods -->
+    <!-- Our test methods are snake_case for better readability -->
     <rule ref="Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps">
-        <!-- Exclude test methods like "testGivenInvalidInput_methodThrowsException". -->
         <exclude-pattern>*Test\.php</exclude-pattern>
     </rule>
 
