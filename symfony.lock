@@ -5,9 +5,6 @@
     "doctrine/instantiator": {
         "version": "1.1.0"
     },
-    "facebook/webdriver": {
-        "version": "1.6.0"
-    },
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
@@ -167,6 +164,9 @@
             "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
         }
     },
+    "symfony/asset": {
+        "version": "v4.1.6"
+    },
     "symfony/browser-kit": {
         "version": "v4.1.6"
     },
@@ -233,9 +233,6 @@
     "symfony/http-kernel": {
         "version": "v4.1.6"
     },
-    "symfony/panther": {
-        "version": "v0.2.0"
-    },
     "symfony/phpunit-bridge": {
         "version": "4.1",
         "recipe": {
@@ -247,12 +244,6 @@
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.9.0"
-    },
-    "symfony/polyfill-php72": {
-        "version": "v1.9.0"
-    },
-    "symfony/process": {
-        "version": "v4.1.6"
     },
     "symfony/routing": {
         "version": "4.0",
@@ -280,8 +271,5 @@
     },
     "whatthejeff/nyancat-scoreboard": {
         "version": "v1.1.1"
-    },
-    "wmde/clock": {
-        "version": "1.0.0"
     }
 }

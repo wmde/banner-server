@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use WMDE\BannerServer\UseCase\BannerSelection\BannerSelection;
 use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
 use WMDE\BannerServer\UseCase\BannerSelection\Visitor;
 
@@ -22,15 +21,17 @@ class BannerSelectionController {
 	public const DONATED_COOKIE = 'd';
 
 	private $useCase;
+	private $assets;
 
-	public function __construct( BannerSelectionUseCase $useCase ) {
+	public function __construct( BannerSelectionUseCase $useCase, \Symfony\Component\Asset\Packages $assets ) {
 		$this->useCase = $useCase;
+		$this->assets = $assets;
 	}
 
 	public function selectBanner( Request $request ): Response {
 		$bannerResponseData = $this->useCase->provideBannerRequest( $this->buildValuesFromRequest( $request ) );
 		if ( !$bannerResponseData->displayBanner() ) {
-			return new Response( '', Response::HTTP_OK );
+			return new Response( '', Response::HTTP_NO_CONTENT );
 		}
 
 		$response = new RedirectResponse(
@@ -57,7 +58,7 @@ class BannerSelectionController {
 	}
 
 	private function getBannerUrl( string $bannerIdentifier ): string {
-		return 'content/' . $bannerIdentifier . '.js';
+		return $this->assets->getUrl( 'banners/' . $bannerIdentifier . '.js' );
 	}
 
 	private function getCookies( Visitor $visitor, \DateTime $cookieExpirationDate ): array {

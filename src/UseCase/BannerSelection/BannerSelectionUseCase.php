@@ -17,12 +17,10 @@ class BannerSelectionUseCase {
 
 	private $campaignCollection;
 	private $currentCampaign;
-	private $randomInteger;
 	private $impressionThreshold;
 
-	public function __construct( CampaignCollection $campaignCollection, RandomIntegerInterface $randomInteger, ImpressionThreshold $impressionThreshold ) {
+	public function __construct( CampaignCollection $campaignCollection, ImpressionThreshold $impressionThreshold ) {
 		$this->campaignCollection = $campaignCollection;
-		$this->randomInteger = $randomInteger;
 		$this->impressionThreshold = $impressionThreshold;
 	}
 
