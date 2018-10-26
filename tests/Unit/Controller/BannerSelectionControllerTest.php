@@ -119,7 +119,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( BannerSelectionController::IMPRESSION_COUNT_COOKIE, $cookies[1]->getName() );
 		$this->assertEquals( '1', $cookies[1]->getValue() );
 		$this->assertEquals(
-			( new \DateTime( '2099-12-31 23:59:59' ) )->modify( '+2 week' )->getTimestamp(),
+			( new \DateTime( 'midnight first day of next month' ) )->modify( '+3 month' )->getTimestamp(),
 			$cookies[1]->getExpiresTime(),
 			'Cookie life-time should be the campaign expiration date plus two weeks.'
 		);

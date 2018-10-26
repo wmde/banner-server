@@ -67,7 +67,7 @@ class BannerSelectionController {
 			new Cookie(
 				self::IMPRESSION_COUNT_COOKIE,
 				(string)$visitor->getTotalImpressionCount(),
-				$cookieExpirationDate
+				( new \DateTime( 'midnight first day of next month' ) )->modify( '+3 month' )
 			)
 		];
 	}
