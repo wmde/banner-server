@@ -20,9 +20,8 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Migrations,Tests,Kernel.php}'
 
-    WMDE\BannerServer\Entity\BannerSelection\TrafficImpressionThreshold:
+    WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold:
         arguments:
-            $trafficLimit: 0.01
             $seasonalLimit: 10
 
     # controllers are imported separately to make sure services can be injected

@@ -6,6 +6,7 @@ namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
+use WMDE\BannerServer\Tests\Utils\FakeRandomInteger;
 
 class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 
@@ -15,19 +16,25 @@ class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 				'C18_WMDE_Test_future',
 				new \DateTime( '2099-10-01 14:00:00' ),
 				new \DateTime( '2099-10-31 14:00:00' ),
-				[]
+				[],
+				1,
+				new FakeRandomInteger( 1 )
 			),
 			new Campaign(
 				'C18_WMDE_Test_present',
 				new \DateTime( '2018-10-01 14:00:00' ),
 				new \DateTime( '2018-10-31 14:00:00' ),
-				[]
+				[],
+				1,
+				new FakeRandomInteger( 1 )
 			),
 			new Campaign(
 				'C18_WMDE_Test_past',
 				new \DateTime( '1999-10-01 14:00:00' ),
 				new \DateTime( '1999-10-31 14:00:00' ),
-				[]
+				[],
+				1,
+				new FakeRandomInteger( 1 )
 			)
 		);
 
@@ -42,13 +49,17 @@ class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 				'C18_WMDE_Test_present',
 				new \DateTime( '2018-10-01 14:00:00' ),
 				new \DateTime( '2018-10-31 14:00:00' ),
-				[]
+				[],
+				1,
+				new FakeRandomInteger( 1 )
 			),
 			new Campaign(
 				'C18_WMDE_Test_past',
 				new \DateTime( '1999-10-01 14:00:00' ),
 				new \DateTime( '1999-10-31 14:00:00' ),
-				[]
+				[],
+				1,
+				new FakeRandomInteger( 1 )
 			)
 		);
 

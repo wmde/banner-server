@@ -280,5 +280,8 @@
     },
     "whatthejeff/nyancat-scoreboard": {
         "version": "v1.1.1"
+    },
+    "wmde/clock": {
+        "version": "1.0.0"
     }
 }

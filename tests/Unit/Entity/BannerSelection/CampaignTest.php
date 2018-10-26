@@ -7,6 +7,7 @@ namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 use WMDE\BannerServer\Entity\BannerSelection\Banner;
 use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
+use WMDE\BannerServer\Tests\Utils\FakeRandomInteger;
 
 class CampaignTest extends \PHPUnit\Framework\TestCase {
 
@@ -25,16 +26,14 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		return $buckets;
 	}
 
-	public static function returnRandomBucket( array $buckets ): Bucket {
-		return $buckets[0];
-	}
-
 	public function test_given_time_out_of_date_range_campaign_is_not_active() {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets()
+			$this->createBuckets(),
+			1,
+			new FakeRandomInteger( 1 )
 		);
 		$this->assertTrue(
 			$campaign->isInActiveDateRange( new \DateTime( '2018-10-01 14:00:00' ) ),
@@ -56,7 +55,9 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets()
+			$this->createBuckets(),
+			1,
+			new FakeRandomInteger( 1 )
 		);
 		$this->assertFalse(
 			$campaign->isInActiveDateRange( new \DateTime( '2018-09-22 14:00:00' ) ),
@@ -70,7 +71,6 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			$campaign->isInActiveDateRange( new \DateTime( '2018-10-31 14:00:01' ) ),
 			'date given is after the end of the campaign'
 		);
-
 	}
 
 	public function test_given_valid_bucket_id_returns_bucket() {
@@ -78,10 +78,12 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets()
+			$this->createBuckets(),
+			1,
+			new FakeRandomInteger( 1 )
 		);
 		$this->assertEquals(
-			$campaign->selectBucket( 'C18_WMDE_Test_var', [ self::class, 'returnRandomBucket' ] )->getIdentifier(),
+			$campaign->selectBucket( 'C18_WMDE_Test_var' )->getIdentifier(),
 			'C18_WMDE_Test_var'
 		);
 	}
@@ -91,11 +93,13 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets()
+			$this->createBuckets(),
+			1,
+			new FakeRandomInteger( 1 )
 		);
 		$this->assertEquals(
-			$campaign->selectBucket( 'C18_WMDE_Test_var_666', [ self::class, 'returnRandomBucket' ] )->getIdentifier(),
-			'C18_WMDE_Test_ctrl'
+			$campaign->selectBucket( 'C18_WMDE_Test_var_666' )->getIdentifier(),
+			'C18_WMDE_Test_var'
 		);
 	}
 
@@ -104,11 +108,56 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets()
+			$this->createBuckets(),
+			1,
+			new FakeRandomInteger( 1 )
 		);
 		$this->assertEquals(
-			$campaign->selectBucket( null, [ self::class, 'returnRandomBucket' ] )->getIdentifier(),
-			'C18_WMDE_Test_ctrl'
+			$campaign->selectBucket( null )->getIdentifier(),
+			'C18_WMDE_Test_var'
+		);
+	}
+
+	public function test_given_max_ratio_limit_is_not_applied() {
+		$campaign = new Campaign(
+			'C18_WMDE_Test',
+			new \DateTime( '2018-10-01 14:00:00' ),
+			new \DateTime( '2018-10-31 14:00:00' ),
+			$this->createBuckets(),
+			1,
+			new FakeRandomInteger( 100 )
+		);
+		$this->assertFalse(
+			$campaign->isRatioLimited()
+		);
+	}
+
+	public function test_given_one_percent_ratio_limit_is_not_applied_for_one_percent_rng() {
+		$campaign = new Campaign(
+			'C18_WMDE_Test',
+			new \DateTime( '2018-10-01 14:00:00' ),
+			new \DateTime( '2018-10-31 14:00:00' ),
+			$this->createBuckets(),
+			0.01,
+			new FakeRandomInteger( 1 )
+		);
+		$this->assertFalse(
+			$campaign->isRatioLimited()
+		);
+	}
+
+
+	public function test_given_one_percent_ratio_limit_is_applied_for_two_percent_rng() {
+		$campaign = new Campaign(
+			'C18_WMDE_Test',
+			new \DateTime( '2018-10-01 14:00:00' ),
+			new \DateTime( '2018-10-31 14:00:00' ),
+			$this->createBuckets(),
+			0.01,
+			new FakeRandomInteger( 2 )
+		);
+		$this->assertTrue(
+			$campaign->isRatioLimited()
 		);
 	}
 }
