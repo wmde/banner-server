@@ -17,7 +17,7 @@ class Bucket {
 	 */
 	private $banners = [];
 
-	public function __construct( string $identifier, Banner $mainBanner, array $otherBanners ) {
+	public function __construct( string $identifier, Banner $mainBanner, Banner ...$otherBanners ) {
 		$this->identifier = $identifier;
 		$this->mainBanner = $mainBanner;
 		$this->banners[] = $mainBanner;

@@ -4,11 +4,20 @@ declare(strict_types = 1);
 
 namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
+use WMDE\BannerServer\Entity\BannerSelection\Banner;
+use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
 use WMDE\BannerServer\Tests\Utils\FakeRandomInteger;
 
 class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
+
+	private function getTestbucket(): Bucket {
+		return new Bucket(
+			'test',
+			new Banner( 'TestMain' )
+		);
+	}
 
 	public function test_given_date_returns_active_campaign() {
 		$campaignCollection = new CampaignCollection(
@@ -16,25 +25,25 @@ class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 				'C18_WMDE_Test_future',
 				new \DateTime( '2099-10-01 14:00:00' ),
 				new \DateTime( '2099-10-31 14:00:00' ),
-				[],
 				1,
-				new FakeRandomInteger( 1 )
+				new FakeRandomInteger( 1 ),
+				$this->getTestbucket()
 			),
 			new Campaign(
 				'C18_WMDE_Test_present',
 				new \DateTime( '2018-10-01 14:00:00' ),
 				new \DateTime( '2018-10-31 14:00:00' ),
-				[],
 				1,
-				new FakeRandomInteger( 1 )
+				new FakeRandomInteger( 1 ),
+				$this->getTestbucket()
 			),
 			new Campaign(
 				'C18_WMDE_Test_past',
 				new \DateTime( '1999-10-01 14:00:00' ),
 				new \DateTime( '1999-10-31 14:00:00' ),
-				[],
 				1,
-				new FakeRandomInteger( 1 )
+				new FakeRandomInteger( 1 ),
+				$this->getTestbucket()
 			)
 		);
 
@@ -49,17 +58,17 @@ class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 				'C18_WMDE_Test_present',
 				new \DateTime( '2018-10-01 14:00:00' ),
 				new \DateTime( '2018-10-31 14:00:00' ),
-				[],
 				1,
-				new FakeRandomInteger( 1 )
+				new FakeRandomInteger( 1 ),
+				$this->getTestbucket()
 			),
 			new Campaign(
 				'C18_WMDE_Test_past',
 				new \DateTime( '1999-10-01 14:00:00' ),
 				new \DateTime( '1999-10-31 14:00:00' ),
-				[],
 				1,
-				new FakeRandomInteger( 1 )
+				new FakeRandomInteger( 1 ),
+				$this->getTestbucket()
 			)
 		);
 

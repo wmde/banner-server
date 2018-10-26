@@ -11,19 +11,20 @@ use WMDE\BannerServer\Tests\Utils\FakeRandomInteger;
 
 class CampaignTest extends \PHPUnit\Framework\TestCase {
 
-	private function createBuckets(): array {
-		$buckets = [];
-		$buckets[] = new Bucket(
+	private function getControlBucket(): Bucket {
+		return new Bucket(
 			'C18_WMDE_Test_ctrl',
 			new Banner( 'C18_WMDE_Test_ctrl_main' ),
-			[new Banner( 'C18_WMDE_Test_ctrl_secondary' )]
+			new Banner( 'C18_WMDE_Test_ctrl_secondary' )
 		);
-		$buckets[] = new Bucket(
+	}
+
+	private function getVariantBucket(): Bucket {
+		return new Bucket(
 			'C18_WMDE_Test_var',
 			new Banner( 'C18_WMDE_Test_var_main' ),
-			[new Banner( 'C18_WMDE_Test_var_secondary' )]
+			new Banner( 'C18_WMDE_Test_var_secondary' )
 		);
-		return $buckets;
 	}
 
 	public function test_given_time_out_of_date_range_campaign_is_not_active() {
@@ -31,9 +32,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets(),
 			1,
-			new FakeRandomInteger( 1 )
+			new FakeRandomInteger( 1 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
 		);
 		$this->assertTrue(
 			$campaign->isInActiveDateRange( new \DateTime( '2018-10-01 14:00:00' ) ),
@@ -55,9 +57,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets(),
 			1,
-			new FakeRandomInteger( 1 )
+			new FakeRandomInteger( 1 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
 		);
 		$this->assertFalse(
 			$campaign->isInActiveDateRange( new \DateTime( '2018-09-22 14:00:00' ) ),
@@ -78,9 +81,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets(),
 			1,
-			new FakeRandomInteger( 1 )
+			new FakeRandomInteger( 1 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
 		);
 		$this->assertEquals(
 			$campaign->selectBucket( 'C18_WMDE_Test_var' )->getIdentifier(),
@@ -93,9 +97,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets(),
 			1,
-			new FakeRandomInteger( 1 )
+			new FakeRandomInteger( 1 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
 		);
 		$this->assertEquals(
 			$campaign->selectBucket( 'C18_WMDE_Test_var_666' )->getIdentifier(),
@@ -108,9 +113,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets(),
 			1,
-			new FakeRandomInteger( 1 )
+			new FakeRandomInteger( 1 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
 		);
 		$this->assertEquals(
 			$campaign->selectBucket( null )->getIdentifier(),
@@ -123,9 +129,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets(),
 			1,
-			new FakeRandomInteger( 100 )
+			new FakeRandomInteger( 100 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
 		);
 		$this->assertFalse(
 			$campaign->isRatioLimited()
@@ -137,9 +144,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets(),
 			0.01,
-			new FakeRandomInteger( 1 )
+			new FakeRandomInteger( 1 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
 		);
 		$this->assertFalse(
 			$campaign->isRatioLimited()
@@ -152,9 +160,10 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
-			$this->createBuckets(),
 			0.01,
-			new FakeRandomInteger( 2 )
+			new FakeRandomInteger( 2 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
 		);
 		$this->assertTrue(
 			$campaign->isRatioLimited()

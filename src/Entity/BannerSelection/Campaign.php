@@ -22,13 +22,22 @@ class Campaign {
 	 */
 	private $buckets;
 
-	public function __construct( string $identifier, \DateTime $start, \DateTime $end, array $buckets, float $displayRatio, RandomIntegerInterface $rng ) {
+	public function __construct(
+		string $identifier,
+		\DateTime $start,
+		\DateTime $end,
+		float $displayRatio,
+		RandomIntegerInterface $rng,
+		Bucket $mainBucket,
+		Bucket ...$additionalBuckets ) {
+
 		$this->identifier = $identifier;
 		$this->start = $start;
 		$this->end = $end;
-		$this->buckets = $buckets;
 		$this->displayRatio = $displayRatio;
 		$this->rng = $rng;
+		$this->buckets = $additionalBuckets;
+		array_unshift( $this->buckets, $mainBucket );
 	}
 
 	public function getIdentifier(): string {
