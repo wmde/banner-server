@@ -13,8 +13,6 @@ use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\CampaignCollection
  * Class CampaignCollectionTest
- *
- * @package WMDE\BannerServer\Tests\Unit\Entity\ActiveBannerSelectionData
  */
 class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 

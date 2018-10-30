@@ -12,8 +12,6 @@ use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\Campaign
  * Class CampaignTest
- *
- * @package WMDE\BannerServer\Tests\Unit\Entity\ActiveBannerSelectionData
  */
 class CampaignTest extends \PHPUnit\Framework\TestCase {
 
@@ -128,5 +126,23 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 			$campaign->selectBucket( null )->getIdentifier(),
 			'C18_WMDE_Test_var'
 		);
+	}
+
+	public function test_getters_return_correct_values() {
+		$identifier = 'C18_WMDE_Test';
+		$displayPercentage = 12;
+		$endDate = new \DateTime( '2018-10-31 14:00:00' );
+		$campaign = new Campaign(
+			$identifier,
+			new \DateTime( '2018-10-01 14:00:00' ),
+			$endDate,
+			$displayPercentage,
+			new FakeRandomIntegerGenerator( 1 ),
+			$this->getControlBucket(),
+			$this->getVariantBucket()
+		);
+		$this->assertEquals( $identifier, $campaign->getIdentifier() );
+		$this->assertEquals( $displayPercentage, $campaign->getDisplayPercentage() );
+		$this->assertEquals( $endDate, $campaign->getEnd() );
 	}
 }

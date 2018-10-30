@@ -10,8 +10,6 @@ use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\Bucket
  * Class BucketTest
- *
- * @package WMDE\BannerServer\Tests\Unit\Entity\ActiveBannerSelectionData
  */
 class BucketTest extends \PHPUnit\Framework\TestCase {
 
@@ -51,5 +49,14 @@ class BucketTest extends \PHPUnit\Framework\TestCase {
 			new Banner( 'C18_WMDE_Test_ctrl_tertiary' )
 		);
 		$this->assertEquals( $bucket->getBanner( 5 ), 'C18_WMDE_Test_ctrl_tertiary' );
+	}
+
+	public function test_identifier_is_returned_correctly() {
+		$bucket = new Bucket(
+			'C18_WMDE_Test_ctrl',
+			new Banner( 'C18_WMDE_Test_ctrl_main' ),
+			new Banner( 'C18_WMDE_Test_ctrl_secondary' )
+		);
+		$this->assertEquals( $bucket->getIdentifier(), 'C18_WMDE_Test_ctrl' );
 	}
 }

@@ -17,8 +17,6 @@ use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
 /**
  * @covers \WMDE\BannerServer\Controller\BannerSelectionController
  * Class BannerSelectionControllerTest
- *
- * @package WMDE\BannerServer\Tests\Unit\Controller
  */
 class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 	private const BANNER_DIRECTORY = 'banners/';
