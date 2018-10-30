@@ -4,12 +4,12 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Utils;
 
-use WMDE\BannerServer\Utils\RandomIntegerInterface;
+use WMDE\BannerServer\Entity\BannerSelection\RandomIntegerGenerator;
 
 /**
  * @license GNU GPL v2+
  */
-class FakeRandomInteger implements RandomIntegerInterface {
+class FakeRandomIntegerGenerator implements RandomIntegerGenerator {
 
 	private $returnValue;
 

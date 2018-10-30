@@ -21,11 +21,11 @@ class BannerSelectionController {
 	public const DONATED_COOKIE = 'd';
 
 	private $useCase;
-	private $assets;
+	private $bannerDirectory;
 
-	public function __construct( BannerSelectionUseCase $useCase, \Symfony\Component\Asset\Packages $assets ) {
+	public function __construct( BannerSelectionUseCase $useCase, string $bannerDirectory ) {
 		$this->useCase = $useCase;
-		$this->assets = $assets;
+		$this->bannerDirectory = $bannerDirectory;
 	}
 
 	public function selectBanner( Request $request ): Response {
@@ -58,7 +58,7 @@ class BannerSelectionController {
 	}
 
 	private function getBannerUrl( string $bannerIdentifier ): string {
-		return $this->assets->getUrl( 'banners/' . $bannerIdentifier . '.js' );
+		return 'banners/' . $bannerIdentifier . '.js';
 	}
 
 	private function getCookies( Visitor $visitor, \DateTime $cookieExpirationDate ): array {
@@ -67,7 +67,7 @@ class BannerSelectionController {
 			new Cookie(
 				self::IMPRESSION_COUNT_COOKIE,
 				(string)$visitor->getTotalImpressionCount(),
-				( new \DateTime( 'midnight first day of next month' ) )->modify( '+3 month' )
+				new \DateTime( 'midnight first day of next year' )
 			)
 		];
 	}

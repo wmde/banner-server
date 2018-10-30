@@ -29,3 +29,7 @@ services:
     WMDE\BannerServer\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    WMDE\BannerServer\Controller\BannerSelectionController:
+        arguments:
+            $bannerDirectory: 'banners/'

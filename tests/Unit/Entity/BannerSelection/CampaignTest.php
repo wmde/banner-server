@@ -1,14 +1,20 @@
 <?php
 
-declare(strict_types = 1);
+declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
 use WMDE\BannerServer\Entity\BannerSelection\Banner;
 use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
-use WMDE\BannerServer\Tests\Utils\FakeRandomInteger;
+use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 
+/**
+ * @covers \WMDE\BannerServer\Entity\BannerSelection\Campaign
+ * Class CampaignTest
+ *
+ * @package WMDE\BannerServer\Tests\Unit\Entity\ActiveBannerSelectionData
+ */
 class CampaignTest extends \PHPUnit\Framework\TestCase {
 
 	private function getControlBucket(): Bucket {
@@ -27,13 +33,13 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_time_out_of_date_range_campaign_is_not_active() {
+	public function test_given_time_out_of_date_range_then_campaign_is_not_active() {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
-			new FakeRandomInteger( 1 ),
+			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -52,13 +58,13 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 
 	}
 
-	public function test_given_time_in_the_date_range_campaign_is_active() {
+	public function test_given_time_in_the_date_range_then_campaign_is_active() {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
-			new FakeRandomInteger( 1 ),
+			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -76,13 +82,13 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_valid_bucket_id_returns_bucket() {
+	public function test_given_valid_bucket_id_then_returns_bucket() {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
-			new FakeRandomInteger( 1 ),
+			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -92,13 +98,13 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_invalid_bucket_id_returns_random_bucket() {
+	public function test_given_invalid_bucket_id_then_returns_random_bucket() {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
-			new FakeRandomInteger( 1 ),
+			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -108,65 +114,19 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_no_bucket_id_returns_random_bucket() {
+	public function test_given_no_bucket_id_then_returns_random_bucket() {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
-			new FakeRandomInteger( 1 ),
+			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
 		$this->assertEquals(
 			$campaign->selectBucket( null )->getIdentifier(),
 			'C18_WMDE_Test_var'
-		);
-	}
-
-	public function test_given_max_ratio_limit_is_not_applied() {
-		$campaign = new Campaign(
-			'C18_WMDE_Test',
-			new \DateTime( '2018-10-01 14:00:00' ),
-			new \DateTime( '2018-10-31 14:00:00' ),
-			1,
-			new FakeRandomInteger( 100 ),
-			$this->getControlBucket(),
-			$this->getVariantBucket()
-		);
-		$this->assertFalse(
-			$campaign->isRatioLimited()
-		);
-	}
-
-	public function test_given_one_percent_ratio_limit_is_not_applied_for_one_percent_rng() {
-		$campaign = new Campaign(
-			'C18_WMDE_Test',
-			new \DateTime( '2018-10-01 14:00:00' ),
-			new \DateTime( '2018-10-31 14:00:00' ),
-			0.01,
-			new FakeRandomInteger( 1 ),
-			$this->getControlBucket(),
-			$this->getVariantBucket()
-		);
-		$this->assertFalse(
-			$campaign->isRatioLimited()
-		);
-	}
-
-
-	public function test_given_one_percent_ratio_limit_is_applied_for_two_percent_rng() {
-		$campaign = new Campaign(
-			'C18_WMDE_Test',
-			new \DateTime( '2018-10-01 14:00:00' ),
-			new \DateTime( '2018-10-31 14:00:00' ),
-			0.01,
-			new FakeRandomInteger( 2 ),
-			$this->getControlBucket(),
-			$this->getVariantBucket()
-		);
-		$this->assertTrue(
-			$campaign->isRatioLimited()
 		);
 	}
 }

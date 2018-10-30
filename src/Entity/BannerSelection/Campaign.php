@@ -4,8 +4,6 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Entity\BannerSelection;
 
-use WMDE\BannerServer\Utils\RandomIntegerInterface;
-
 /**
  * @license GNU GPL v2+
  */
@@ -15,7 +13,7 @@ class Campaign {
 	private $start;
 	private $end;
 	private $rng;
-	private $displayRatio;
+	private $displayPercentage;
 
 	/**
 	 * @var Bucket[]
@@ -26,18 +24,18 @@ class Campaign {
 		string $identifier,
 		\DateTime $start,
 		\DateTime $end,
-		float $displayRatio,
-		RandomIntegerInterface $rng,
-		Bucket $mainBucket,
+		int $displayPercentage,
+		RandomIntegerGenerator $rng,
+		Bucket $firstBucket,
 		Bucket ...$additionalBuckets ) {
 
 		$this->identifier = $identifier;
 		$this->start = $start;
 		$this->end = $end;
-		$this->displayRatio = $displayRatio;
+		$this->displayPercentage = $displayPercentage;
 		$this->rng = $rng;
 		$this->buckets = $additionalBuckets;
-		array_unshift( $this->buckets, $mainBucket );
+		array_unshift( $this->buckets, $firstBucket );
 	}
 
 	public function getIdentifier(): string {
@@ -62,7 +60,7 @@ class Campaign {
 		return $this->buckets[$this->rng->getRandomInteger( 0, count( $this->buckets ) - 1 )];
 	}
 
-	public function isRatioLimited(): bool {
-		return ( $this->rng->getRandomInteger( 1, 100 ) / 100 ) > $this->displayRatio;
+	public function getDisplayPercentage(): int {
+		return $this->displayPercentage;
 	}
 }
