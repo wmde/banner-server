@@ -8,7 +8,7 @@ Accepted
 
 ## Context
 
-When deciding on a naming scheme for unit test methods, the following criteria where most important to us:
+When deciding on a naming scheme for unit test methods, the following criteria were most important to us:
 
 * **Readability** - The test method names should read like English sentences, with clear word boundaries
 * **Flexibility** - We should be able to follow different patterns, like "Given ... When .. Then", but also like "Does X". 
