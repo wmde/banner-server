@@ -32,4 +32,4 @@ services:
 
     WMDE\BannerServer\Controller\BannerSelectionController:
         arguments:
-            $bannerDirectory: 'banners/'
+            $bannerPath: '/banners/'

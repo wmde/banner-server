@@ -25,7 +25,7 @@ class BannerSelectionUseCase {
 		$this->rng = $rng;
 	}
 
-	public function provideBannerRequest( Visitor $visitor ): BannerSelectionData {
+	public function selectBanner( Visitor $visitor ): BannerSelectionData {
 		if ( $visitor->hasDonated() ||
 			$this->getCurrentCampaign() === null ||
 			$this->impressionThreshold->isThresholdReached( $visitor->getTotalImpressionCount() ) ||

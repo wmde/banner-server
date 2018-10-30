@@ -23,7 +23,7 @@ class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 			new SystemRandomIntegerGenerator()
 		);
 
-		$bannerSelectionData = $useCase->provideBannerRequest( VisitorFixture::getFirstTimeVisitor() );
+		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getFirstTimeVisitor() );
 		$this->assertEquals( 'test', $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
 		$this->assertEquals( 1, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
 		$this->assertEquals( 'TestBanner', $bannerSelectionData->getBannerIdentifier() );
@@ -37,7 +37,7 @@ class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 			new FakeRandomIntegerGenerator( 1 )
 		);
 
-		$bannerSelectionData = $useCase->provideBannerRequest( VisitorFixture::getFirstTimeVisitor() );
+		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getFirstTimeVisitor() );
 		$this->assertEquals( 'test', $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
 		$this->assertEquals( 1, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
 		$this->assertEquals( 'TestBanner', $bannerSelectionData->getBannerIdentifier() );
@@ -51,7 +51,7 @@ class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 			new FakeRandomIntegerGenerator( 2 )
 		);
 
-		$bannerSelectionData = $useCase->provideBannerRequest( VisitorFixture::getFirstTimeVisitor() );
+		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getFirstTimeVisitor() );
 		$this->assertEquals( false, $bannerSelectionData->displayBanner() );
 		$this->assertEquals( null, $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
 		$this->assertEquals( 0, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );

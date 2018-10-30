@@ -21,15 +21,15 @@ class BannerSelectionController {
 	public const DONATED_COOKIE = 'd';
 
 	private $useCase;
-	private $bannerDirectory;
+	private $bannerPath;
 
-	public function __construct( BannerSelectionUseCase $useCase, string $bannerDirectory ) {
+	public function __construct( BannerSelectionUseCase $useCase, string $bannerPath ) {
 		$this->useCase = $useCase;
-		$this->bannerDirectory = $bannerDirectory;
+		$this->bannerPath = $bannerPath;
 	}
 
 	public function selectBanner( Request $request ): Response {
-		$bannerResponseData = $this->useCase->provideBannerRequest( $this->buildValuesFromRequest( $request ) );
+		$bannerResponseData = $this->useCase->selectBanner( $this->buildValuesFromRequest( $request ) );
 		if ( !$bannerResponseData->displayBanner() ) {
 			return new Response( '', Response::HTTP_NO_CONTENT );
 		}
@@ -58,7 +58,7 @@ class BannerSelectionController {
 	}
 
 	private function getBannerUrl( string $bannerIdentifier ): string {
-		return 'banners/' . $bannerIdentifier . '.js';
+		return $this->bannerPath . $bannerIdentifier . '.js';
 	}
 
 	private function getCookies( Visitor $visitor, \DateTime $cookieExpirationDate ): array {
@@ -67,7 +67,7 @@ class BannerSelectionController {
 			new Cookie(
 				self::IMPRESSION_COUNT_COOKIE,
 				(string)$visitor->getTotalImpressionCount(),
-				new \DateTime( 'midnight first day of next year' )
+				new \DateTime( 'midnight first day of january next year' )
 			)
 		];
 	}

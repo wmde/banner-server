@@ -34,8 +34,8 @@ class Campaign {
 		$this->end = $end;
 		$this->displayPercentage = $displayPercentage;
 		$this->rng = $rng;
-		$this->buckets = $additionalBuckets;
-		array_unshift( $this->buckets, $firstBucket );
+		$this->buckets[] = $firstBucket;
+		$this->buckets = array_merge( $this->buckets, $additionalBuckets );
 	}
 
 	public function getIdentifier(): string {
