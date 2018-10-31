@@ -10,18 +10,14 @@ namespace WMDE\BannerServer\Entity\BannerSelection;
 class Bucket {
 
 	private $identifier;
-	private $firstBanner;
-
 	/**
 	 * @var Banner[]
 	 */
 	private $banners = [];
 
-	public function __construct( string $identifier, Banner $firstBanner, Banner ...$otherBanners ) {
+	public function __construct( string $identifier, Banner $firstBanner, Banner ...$additionalBanners ) {
 		$this->identifier = $identifier;
-		$this->firstBanner = $firstBanner;
-		$this->banners[] = $firstBanner;
-		$this->banners = array_merge( $this->banners, $otherBanners );
+		$this->banners = array_merge( [$firstBanner], $additionalBanners );
 	}
 
 	public function getIdentifier(): string {
