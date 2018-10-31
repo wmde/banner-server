@@ -10,7 +10,8 @@
         "symfony/framework-bundle": "^4.1",
         "symfony/console": "^4.1",
         "symfony/flex": "^1.1",
-        "symfony/yaml": "^4.1"
+        "symfony/yaml": "^4.1",
+        "symfony/asset": "^4.1"
     },
     "require-dev": {
         "jeroen/nyancat-phpunit-resultprinter": "~2.2",

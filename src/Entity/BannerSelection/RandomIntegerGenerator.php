@@ -7,6 +7,7 @@ namespace WMDE\BannerServer\Entity\BannerSelection;
 /**
  * @license GNU GPL v2+
  */
-interface ImpressionThresholdInterface {
-	public function getIsOverThreshold( int $visitorTotalImpressions );
+interface RandomIntegerGenerator {
+
+	public function getRandomInteger( int $min, int $max ): int;
 }

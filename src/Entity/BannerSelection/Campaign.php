@@ -12,24 +12,36 @@ class Campaign {
 	private $identifier;
 	private $start;
 	private $end;
+	private $rng;
+	private $displayPercentage;
 
 	/**
 	 * @var Bucket[]
 	 */
 	private $buckets;
 
-	public function __construct( string $identifier, \DateTime $start, \DateTime $end, array $buckets ) {
+	public function __construct(
+		string $identifier,
+		\DateTime $start,
+		\DateTime $end,
+		int $displayPercentage,
+		RandomIntegerGenerator $rng,
+		Bucket $firstBucket,
+		Bucket ...$additionalBuckets ) {
+
 		$this->identifier = $identifier;
 		$this->start = $start;
 		$this->end = $end;
-		$this->buckets = $buckets;
+		$this->displayPercentage = $displayPercentage;
+		$this->rng = $rng;
+		$this->buckets = array_merge( [$firstBucket], $additionalBuckets );
 	}
 
 	public function getIdentifier(): string {
 		return $this->identifier;
 	}
 
-	public function getCampaignExpiration(): \DateTime {
+	public function getEnd(): \DateTime {
 		return $this->end;
 	}
 
@@ -38,12 +50,16 @@ class Campaign {
 			$time->getTimestamp() <= $this->end->getTimestamp();
 	}
 
-	public function selectBucket( ?string $bucketId, callable $fallbackSelectionStrategy ): Bucket {
+	public function selectBucket( ?string $bucketId ): Bucket {
 		foreach ( $this->buckets as $bucket ) {
 			if ( $bucket->getIdentifier() === $bucketId ) {
 				return $bucket;
 			}
 		}
-		return $fallbackSelectionStrategy( $this->buckets );
+		return $this->buckets[$this->rng->getRandomInteger( 0, count( $this->buckets ) - 1 )];
+	}
+
+	public function getDisplayPercentage(): int {
+		return $this->displayPercentage;
 	}
 }

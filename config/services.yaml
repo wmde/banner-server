@@ -20,8 +20,16 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Migrations,Tests,Kernel.php}'
 
+    WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold:
+        arguments:
+            $seasonalLimit: 10
+
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     WMDE\BannerServer\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    WMDE\BannerServer\Controller\BannerSelectionController:
+        arguments:
+            $bannerPath: '/banners/'

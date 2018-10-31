@@ -13,7 +13,7 @@ class Visitor {
 	private $bucketIdentifier;
 	private $hasDonated;
 
-	public function __construct( int $totalImpressionCount, string $bucketIdentifier, bool $hasDonated ) {
+	public function __construct( int $totalImpressionCount, ?string $bucketIdentifier, bool $hasDonated ) {
 		$this->totalImpressionCount = $totalImpressionCount;
 		$this->bucketIdentifier = $bucketIdentifier;
 		$this->hasDonated = $hasDonated;
@@ -23,7 +23,7 @@ class Visitor {
 		return $this->totalImpressionCount;
 	}
 
-	public function getBucketIdentifier(): string {
+	public function getBucketIdentifier(): ?string {
 		return $this->bucketIdentifier;
 	}
 
