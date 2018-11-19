@@ -1,0 +1,19 @@
+# Campaign configuration file for unit tests
+# See config/campaigns/campaigns.yml for actual campaigns
+B18WPDE_01_180131:
+  description: This is a very enticing banner description
+  start: "2018-11-31 01:23:45"
+  end: "2019-01-01 14:00:00"
+  trafficLimit: 10
+  buckets:
+    - name: B18WPDE_01_180131_ctrl
+      banners:
+        - B18WPDE_01_180131_fulltop_ctrl
+        - B18WPDE_01_180131_top_ctrl2
+        - B18WPDE_02_180511_top_ctrl3
+        - B18WPDE_02_180511_top_ctrl4
+        - B18WPDE_02_180511_top_ctrl_last
+    - name: B18WPDE_01_180131_var
+      banners:
+        - B18WPDE_01_180131_fulltop_var
+        - B18WPDE_01_180131_top_var

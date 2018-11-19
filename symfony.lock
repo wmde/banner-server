@@ -11,6 +11,9 @@
     "jeroen/nyancat-phpunit-resultprinter": {
         "version": "v2.2.0"
     },
+    "monolog/monolog": {
+        "version": "1.24.0"
+    },
     "myclabs/deep-copy": {
         "version": "1.8.1"
     },
