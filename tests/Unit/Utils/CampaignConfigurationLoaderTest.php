@@ -2,16 +2,13 @@
 
 declare( strict_types = 1 );
 
-namespace WMDE\BannerServer\Tests\Unit\UseCase\BannerSelection;
+namespace WMDE\BannerServer\Tests\Unit\Utils;
 
-use Monolog\Handler\TestHandler;
-use Monolog\Logger;
-use Psr\Log\NullLogger;
-use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
-use WMDE\BannerServer\UseCase\BannerSelection\CampaignConfigurationLoader;
+use Symfony\Component\Yaml\Exception\ParseException;
+use WMDE\BannerServer\Utils\CampaignConfigurationLoader;
 
 /**
- * @covers \WMDE\BannerServer\UseCase\BannerSelection\CampaignConfigurationLoader
+ * @covers \WMDE\BannerServer\Utils\CampaignConfigurationLoader
  * Class ActiveBannerSelectionDataTest
  */
 class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
@@ -22,7 +19,7 @@ class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 	const TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_data_campaign.yml';
 
 	public function test_given_campaigns_are_loaded_then_loaded_campaign_data_is_correct() {
-		$loader = new CampaignConfigurationLoader( new NullLogger(), self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );
+		$loader = new CampaignConfigurationLoader( self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );
 		$collection = $loader->getCampaignCollection();
 
 		$campaign = $collection->getCampaign( new \DateTime( '2018-12-12' ) );
@@ -43,42 +40,34 @@ class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function test_given_broken_bucket_campaign_configuration_then_errors_are_caught() {
-		$testHandler = new TestHandler();
 		$loader = new CampaignConfigurationLoader(
-			new Logger( 'TestLogger', [ $testHandler ] ),
 			self::TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE
 		);
+		$this->expectExceptionMessage( 'A configured bucket has no name.' );
 		$loader->getCampaignCollection();
-		$this->assertTrue( $testHandler->hasCritical( 'A configured bucket has no name.' ) );
 	}
 
 	public function test_given_broken_banner_campaign_configuration_then_errors_are_caught() {
-		$testHandler = new TestHandler();
 		$loader = new CampaignConfigurationLoader(
-			new Logger( 'TestLogger', [ $testHandler ] ),
 			self::TEST_BROKEN_BANNER_CAMPAIGN_CONFIGURATION_FILE
 		);
+		$this->expectExceptionMessage( 'A configured bucket has no associated banners.' );
 		$loader->getCampaignCollection();
-		$this->assertTrue( $testHandler->hasCritical( 'A configured bucket has no associated banners.' ) );
 	}
 
 	public function test_given_missing_campaign_data_then_errors_are_caught() {
-		$testHandler = new TestHandler();
 		$loader = new CampaignConfigurationLoader(
-			new Logger( 'TestLogger', [ $testHandler ] ),
 			self::TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE
 		);
+		$this->expectExceptionMessage( 'Campaign data is incomplete.' );
 		$loader->getCampaignCollection();
-		$this->assertTrue( $testHandler->hasCritical( 'Campaign data is incomplete.' ) );
 	}
 
 	public function test_given_invalid_campaign_file_then_empty_campaign_configuration_is_returned() {
-		$testHandler = new TestHandler();
 		$loader = new CampaignConfigurationLoader(
-			new Logger( 'TestLogger', [ $testHandler ] ),
 			'SOME_INVALID_PATH/' . self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE
 		);
-		$this->assertEquals( new CampaignCollection(), $loader->getCampaignCollection() );
-		$this->assertTrue( $testHandler->hasCritical( 'Unable to read banner server config file.' ) );
+		$this->expectException( ParseException::class );
+		$loader->getCampaignCollection();
 	}
 }

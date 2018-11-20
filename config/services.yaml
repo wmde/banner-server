@@ -33,7 +33,11 @@ services:
     WMDE\BannerServer\Controller\BannerSelectionController:
         arguments:
             $bannerPath: 'banners/wikipedia.de-banners/'
+        tags: ['controller.service_arguments']
 
-    WMDE\BannerServer\UseCase\BannerSelection\CampaignConfigurationLoader:
+    WMDE\BannerServer\Entity\BannerSelection\CampaignCollection:
+        factory: 'WMDE\BannerServer\Utils\CampaignConfigurationLoader:getCampaignCollection'
+
+    WMDE\BannerServer\Utils\CampaignConfigurationLoader:
         arguments:
-            $configFile: 'config/campaigns/campaigns.yml'
+            $configFile: '%kernel.project_dir%/config/campaigns/campaigns.yml'
