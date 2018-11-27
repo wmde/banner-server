@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace WMDE\BannerServer\Tests\Unit\UseCase\BannerSelection;
 
 use WMDE\BannerServer\Tests\Fixtures\VisitorFixture;
-use WMDE\BannerServer\UseCase\BannerSelection\ActiveBannerSelectionData;
 use WMDE\BannerServer\UseCase\BannerSelection\EmptyBannerSelectionData;
 
 /**

@@ -1,5 +1,5 @@
 # Campaign configuration file for unit tests
-# See config/campaigns/campaigns.yml for actual campaigns
+# See campaigns.yml of banner repository for actual campaigns
 B18WPDE_01_180131:
   description: This is a very enticing banner description
   start: "2018-11-31 01:23:45"

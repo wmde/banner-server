@@ -9,7 +9,7 @@ use WMDE\BannerServer\Utils\CampaignConfigurationLoader;
 
 /**
  * @covers \WMDE\BannerServer\Utils\CampaignConfigurationLoader
- * Class ActiveBannerSelectionDataTest
+ * Class CampaignConfigurationLoaderTest
  */
 class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 
