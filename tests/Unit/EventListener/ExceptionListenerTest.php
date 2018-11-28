@@ -14,7 +14,6 @@ use WMDE\BannerServer\EventListener\ExceptionListener;
 
 /**
  * @covers \WMDE\BannerServer\EventListener\ExceptionListener
- * Class ExceptionListenerTest
  */
 class ExceptionListenerTest extends \PHPUnit\Framework\TestCase {
 
@@ -75,7 +74,7 @@ class ExceptionListenerTest extends \PHPUnit\Framework\TestCase {
 			->method( 'getRequest' )
 			->will( $this->returnValue( $request ) );
 
-		$response->expects( $this->once() )
+		$response->expects( $this->exactly( 2 ) )
 			->method( 'getException' )
 			->will( $this->returnValue( new \Exception( '❌❌❌ Fatal Error: Not enough emojis used. ❌❌❌' ) ) );
 

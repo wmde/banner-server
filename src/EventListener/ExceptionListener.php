@@ -21,7 +21,7 @@ class ExceptionListener {
 
 	public function onKernelException( GetResponseForExceptionEvent $event ) {
 		$this->logger->critical(
-			'An exception has occured.',
+			$event->getException()->getMessage(),
 			[ 'exception' => $event->getException() ]
 		);
 

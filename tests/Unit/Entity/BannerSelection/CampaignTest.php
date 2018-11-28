@@ -11,7 +11,6 @@ use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\Campaign
- * Class CampaignTest
  */
 class CampaignTest extends \PHPUnit\Framework\TestCase {
 

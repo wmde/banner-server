@@ -8,7 +8,6 @@ use WMDE\BannerServer\Entity\BannerSelection\Banner;
 
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\Banner
- * Class BannerTest
  */
 class BannerTest extends \PHPUnit\Framework\TestCase {
 

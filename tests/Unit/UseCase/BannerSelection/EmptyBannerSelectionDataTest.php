@@ -9,7 +9,6 @@ use WMDE\BannerServer\UseCase\BannerSelection\EmptyBannerSelectionData;
 
 /**
  * @covers \WMDE\BannerServer\UseCase\BannerSelection\EmptyBannerSelectionData
- * Class EmptyBannerSelectionDataTest
  */
 class EmptyBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
 

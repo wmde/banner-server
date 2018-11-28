@@ -9,7 +9,6 @@ use WMDE\BannerServer\UseCase\BannerSelection\ActiveBannerSelectionData;
 
 /**
  * @covers \WMDE\BannerServer\UseCase\BannerSelection\ActiveBannerSelectionData
- * Class ActiveBannerSelectionDataTest
  */
 class ActiveBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
 

@@ -16,7 +16,6 @@ use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
 
 /**
  * @covers \WMDE\BannerServer\Controller\BannerSelectionController
- * Class BannerSelectionControllerTest
  */
 class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 
