@@ -1,5 +1,5 @@
 # Campaign configuration file for unit tests
-# See config/campaigns/campaigns.yml for actual campaigns
+# See campaigns.yml of banner repository for actual campaigns
 B18WPDE_DATA_MISSING:
   description: This campaign is missing a traffic limit
   start: "2018-11-31 01:23:45"

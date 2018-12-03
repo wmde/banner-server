@@ -9,7 +9,6 @@ use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\Bucket
- * Class BucketTest
  */
 class BucketTest extends \PHPUnit\Framework\TestCase {
 

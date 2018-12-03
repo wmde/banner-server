@@ -13,7 +13,6 @@ use WMDE\BannerServer\Utils\SystemRandomIntegerGenerator;
 
 /**
  * @covers \WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase
- * Class BannerSelectionUseCaseTest
  */
 class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 	public function test_given_max_percentage_then_limit_is_not_applied() {

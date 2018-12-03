@@ -10,7 +10,6 @@ use WMDE\BannerServer\UseCase\BannerSelection\Visitor;
 
 /**
  * @covers \WMDE\BannerServer\UseCase\BannerSelection\Visitor
- * Class VisitorTest
  */
 class VisitorTest extends \PHPUnit\Framework\TestCase {
 

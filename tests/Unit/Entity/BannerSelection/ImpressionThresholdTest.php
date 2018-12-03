@@ -8,7 +8,6 @@ use WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold;
 
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold
- * Class ImpressionThresholdTest
  */
 class ImpressionThresholdTest extends \PHPUnit\Framework\TestCase {
 

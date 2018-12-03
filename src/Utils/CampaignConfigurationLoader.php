@@ -22,6 +22,7 @@ class CampaignConfigurationLoader {
 	}
 
 	/**
+	 * @throws \Exception
 	 * @throws \DomainException
 	 * @throws \Symfony\Component\Yaml\Exception\ParseException
 	 */
@@ -35,6 +36,7 @@ class CampaignConfigurationLoader {
 	}
 
 	/**
+	 * @throws \Exception
 	 * @throws \DomainException
 	 */
 	private function buildCampaignFromData( string $campaignName, array $campaignData ): Campaign {
