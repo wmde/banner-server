@@ -15,6 +15,7 @@ use WMDE\BannerServer\Utils\SystemRandomIntegerGenerator;
  * @covers \WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase
  */
 class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
+
 	public function test_given_max_percentage_then_limit_is_not_applied() {
 		$useCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection( 100 ),
@@ -54,5 +55,33 @@ class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( false, $bannerSelectionData->displayBanner() );
 		$this->assertEquals( null, $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
 		$this->assertEquals( 0, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
+	}
+
+	public function test_when_banner_is_returned_then_view_count_is_incremented() {
+		$useCase = new BannerSelectionUseCase(
+			CampaignFixture::getTrueRandomTestCampaignCollection( 100 ),
+			new ImpressionThreshold( 10 ),
+			new SystemRandomIntegerGenerator()
+		);
+
+		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getTestVisitor() );
+		$this->assertEquals(
+			VisitorFixture::VISITOR_TEST_IMPRESSION_COUNT + 1,
+			$bannerSelectionData->getVisitorData()->getTotalImpressionCount()
+		);
+	}
+
+	public function test_when_no_banner_is_returned_then_view_count_is_unchanged() {
+		$useCase = new BannerSelectionUseCase(
+			CampaignFixture::getTrueRandomTestCampaignCollection( 1 ),
+			new ImpressionThreshold( 10 ),
+			new FakeRandomIntegerGenerator( 2 )
+		);
+
+		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getTestVisitor() );
+		$this->assertEquals(
+			VisitorFixture::VISITOR_TEST_IMPRESSION_COUNT,
+			$bannerSelectionData->getVisitorData()->getTotalImpressionCount()
+		);
 	}
 }
