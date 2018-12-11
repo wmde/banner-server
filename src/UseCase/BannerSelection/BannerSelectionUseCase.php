@@ -38,7 +38,7 @@ class BannerSelectionUseCase {
 		);
 
 		return new ActiveBannerSelectionData(
-			new Visitor( 1, $visitorBucket->getIdentifier(), false ),
+			new Visitor( $visitor->getTotalImpressionCount() + 1, $visitorBucket->getIdentifier(), false ),
 			$visitorBucket->getBanner( $visitor->getTotalImpressionCount() ),
 			$this->getCurrentCampaign()->getEnd()
 		);
