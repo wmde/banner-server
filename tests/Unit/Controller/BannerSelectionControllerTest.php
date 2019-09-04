@@ -82,7 +82,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( '/test_banners/TestBanner.js', $response->headers->get( 'location' ) );
 	}
 
-	public function test_given_impression_limit_is_reached_then_it_returns_no_content_response() {
+	public function test_given_impression_limit_is_reached_then_it_returns_http_ok_response() {
 		$testUseCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection(),
 			new ImpressionThreshold( VisitorFixture::VISITOR_TEST_IMPRESSION_COUNT ),
@@ -91,6 +91,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 		$controller = new BannerSelectionController( $testUseCase, self::BANNER_PATH );
 		$response = $controller->selectBanner( VisitorFixture::getReturningVisitorRequest() );
 
-		$this->assertEquals( Response::HTTP_NO_CONTENT, $response->getStatusCode() );
+		$this->assertEquals( Response::HTTP_OK, $response->getStatusCode() );
+		$this->assertEquals( '// Sorry, no banner for you!', $response->getContent() );
 	}
 }
