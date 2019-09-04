@@ -31,7 +31,7 @@ class BannerSelectionController {
 	public function selectBanner( Request $request ): Response {
 		$bannerResponseData = $this->useCase->selectBanner( $this->buildValuesFromRequest( $request ) );
 		if ( !$bannerResponseData->displayBanner() ) {
-			$response = new Response( '', Response::HTTP_NO_CONTENT );
+			$response = new Response( '// Sorry, no banner for you!' );
 			$response->headers->set( 'Content-Type', 'application/javascript; charset=UTF-8' );
 			return $response;
 		}
