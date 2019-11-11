@@ -22,7 +22,7 @@ services:
 
     WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold:
         arguments:
-            $seasonalLimit: 1
+            $seasonalLimit: 10
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
