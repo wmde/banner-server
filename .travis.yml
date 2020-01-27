@@ -1,17 +1,7 @@
-dist: trusty
+language: bash
 
 services:
   - docker
-
-language: php
-
-matrix:
-  fast_finish: true
-  include:
-  - php: 7.2
-    env: TYPE=coverage
-  # More PHP instances with different environment variables may be added here
-  # This may be useful if a additional PHP versions or DBMS (SQLite, ...) should be tested by Travis
 
 install:
   - travis_retry make install-php
@@ -25,7 +15,7 @@ script:
   - docker-compose run --rm app -v $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar:/usr/share/nginx/www/banner.wikipedia.de/current/phpstan phpstan analyse --level=7 --no-progress src/ tests/
 
 after_success:
-  - if [ "$TYPE" == "coverage" ]; then bash build/travis/uploadCoverage.sh; fi
+  - bash build/travis/uploadCoverage.sh
 
 cache:
   directories:
