@@ -15,9 +15,13 @@ use WMDE\BannerServer\Entity\BannerSelection\RandomIntegerGenerator;
 class BannerSelectionUseCase {
 
 	private $campaignCollection;
-	private $currentCampaign;
 	private $impressionThreshold;
 	private $rng;
+
+	/**
+	 * @var Campaign
+	 */
+	private $currentCampaign;
 
 	public function __construct( CampaignCollection $campaignCollection, ImpressionThreshold $impressionThreshold, RandomIntegerGenerator $rng ) {
 		$this->campaignCollection = $campaignCollection;

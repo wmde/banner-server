@@ -29,4 +29,4 @@ notifications:
 
 env:
   global:
-    - PHPSTAN_VERSION=0.10.5
+    - PHPSTAN_VERSION=0.12.5

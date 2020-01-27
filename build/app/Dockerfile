@@ -6,7 +6,7 @@ RUN mkdir -p /usr/share/nginx/www/banner.wikipedia.de/current/var/cache \
 
 # Install ZIP PHP extension for composer
 RUN apt-get update \
-    && apt-get install -y libzip-dev \
+    && apt-get install -y libzip-dev unzip \
     && docker-php-ext-install zip
 
 RUN curl https://getcomposer.org/installer | php -- --filename=composer --install-dir=/bin

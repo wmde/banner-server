@@ -17,7 +17,7 @@ class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 	const TEST_BROKEN_BANNER_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_banner_campaign.yml';
 	const TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_data_campaign.yml';
 
-	public function test_given_campaigns_are_loaded_then_loaded_campaign_data_is_correct() {
+	public function test_given_campaigns_are_loaded_then_loaded_campaign_data_is_correct(): void {
 		$loader = new CampaignConfigurationLoader( self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );
 		$collection = $loader->getCampaignCollection();
 
@@ -38,7 +38,7 @@ class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( 'B18WPDE_02_180511_top_ctrl_last', $bucketA->getBanner( 10 ) );
 	}
 
-	public function test_given_broken_bucket_campaign_configuration_then_errors_are_caught() {
+	public function test_given_broken_bucket_campaign_configuration_then_errors_are_caught(): void {
 		$loader = new CampaignConfigurationLoader(
 			self::TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE
 		);
@@ -46,7 +46,7 @@ class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 		$loader->getCampaignCollection();
 	}
 
-	public function test_given_broken_banner_campaign_configuration_then_errors_are_caught() {
+	public function test_given_broken_banner_campaign_configuration_then_errors_are_caught(): void {
 		$loader = new CampaignConfigurationLoader(
 			self::TEST_BROKEN_BANNER_CAMPAIGN_CONFIGURATION_FILE
 		);
@@ -54,7 +54,7 @@ class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 		$loader->getCampaignCollection();
 	}
 
-	public function test_given_missing_campaign_data_then_errors_are_caught() {
+	public function test_given_missing_campaign_data_then_errors_are_caught(): void {
 		$loader = new CampaignConfigurationLoader(
 			self::TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE
 		);
@@ -62,7 +62,7 @@ class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 		$loader->getCampaignCollection();
 	}
 
-	public function test_given_invalid_campaign_file_then_empty_campaign_configuration_is_returned() {
+	public function test_given_invalid_campaign_file_then_empty_campaign_configuration_is_returned(): void {
 		$loader = new CampaignConfigurationLoader(
 			'SOME_INVALID_PATH/' . self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE
 		);

@@ -24,3 +24,8 @@ var/
 /phpunit.xml
 
 wikipedia.de-banners/
+
+.phpunit.result.cache
+
+coverage.clover
+coverage/

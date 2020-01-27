@@ -16,7 +16,7 @@ use WMDE\BannerServer\Utils\SystemRandomIntegerGenerator;
  */
 class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 
-	public function test_given_max_percentage_then_limit_is_not_applied() {
+	public function test_given_max_percentage_then_limit_is_not_applied(): void {
 		$useCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection( 100 ),
 			new ImpressionThreshold( 10 ),
@@ -30,7 +30,7 @@ class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( CampaignFixture::getTestCampaignEndDate(), $bannerSelectionData->getCampaignEnd() );
 	}
 
-	public function test_given_one_percent_ratio_then_limit_is_not_applied_for_one_percent_rng() {
+	public function test_given_one_percent_ratio_then_limit_is_not_applied_for_one_percent_rng(): void {
 		$useCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection( 1 ),
 			new ImpressionThreshold( 10 ),
@@ -44,7 +44,7 @@ class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( CampaignFixture::getTestCampaignEndDate(), $bannerSelectionData->getCampaignEnd() );
 	}
 
-	public function test_given_one_percent_ratio_then_limit_is_applied_for_two_percent_rng() {
+	public function test_given_one_percent_ratio_then_limit_is_applied_for_two_percent_rng(): void {
 		$useCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection( 1 ),
 			new ImpressionThreshold( 10 ),
@@ -57,7 +57,7 @@ class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( 0, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
 	}
 
-	public function test_when_banner_is_returned_then_view_count_is_incremented() {
+	public function test_when_banner_is_returned_then_view_count_is_incremented(): void {
 		$useCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection( 100 ),
 			new ImpressionThreshold( 10 ),
@@ -71,7 +71,7 @@ class BannerSelectionUseCaseTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_when_no_banner_is_returned_then_view_count_is_unchanged() {
+	public function test_when_no_banner_is_returned_then_view_count_is_unchanged(): void {
 		$useCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection( 1 ),
 			new ImpressionThreshold( 10 ),

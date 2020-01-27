@@ -15,7 +15,7 @@ class ActiveBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
 	const BANNER_TEST_IDENTIFIER = 'testIdentifier';
 	const TEST_DATETIME = '19-06-1992 01:02:03';
 
-	public function test_given_active_campaign_for_visitor_then_correct_values_are_stored_and_returned() {
+	public function test_given_active_campaign_for_visitor_then_correct_values_are_stored_and_returned(): void {
 		$bannerSelectionData = new ActiveBannerSelectionData(
 			VisitorFixture::getTestVisitor(),
 			self::BANNER_TEST_IDENTIFIER,
