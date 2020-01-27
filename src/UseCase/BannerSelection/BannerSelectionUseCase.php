@@ -8,6 +8,7 @@ use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
 use WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold;
 use WMDE\BannerServer\Entity\BannerSelection\RandomIntegerGenerator;
+use WMDE\BannerServer\Entity\Visitor;
 
 /**
  * @license GNU GPL v2+

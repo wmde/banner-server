@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace WMDE\BannerServer\UseCase\BannerSelection;
+namespace WMDE\BannerServer\Entity;
 
 /**
  * @license GNU GPL v2+

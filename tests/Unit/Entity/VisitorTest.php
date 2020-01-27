@@ -2,14 +2,15 @@
 
 declare( strict_types = 1 );
 
-namespace WMDE\BannerServer\Tests\Unit\UseCase\BannerSelection;
+namespace WMDE\BannerServer\Tests\Unit\Entity;
 
-use WMDE\BannerServer\UseCase\BannerSelection\Visitor;
+use PHPUnit\Framework\TestCase;
+use WMDE\BannerServer\Entity\Visitor;
 
 /**
- * @covers \WMDE\BannerServer\UseCase\BannerSelection\Visitor
+ * @covers \WMDE\BannerServer\Entity\Visitor
  */
-class VisitorTest extends \PHPUnit\Framework\TestCase {
+class VisitorTest extends TestCase {
 
 	const TEST_IMPRESSION_COUNT = 2;
 	const TEST_BUCKET = 'TEST_BUCKET123';

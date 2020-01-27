@@ -6,7 +6,7 @@ namespace WMDE\BannerServer\Tests\Fixtures;
 
 use Symfony\Component\HttpFoundation\Request;
 use WMDE\BannerServer\Controller\BannerSelectionController;
-use WMDE\BannerServer\UseCase\BannerSelection\Visitor;
+use WMDE\BannerServer\Entity\Visitor;
 
 class VisitorFixture {
 

@@ -4,6 +4,8 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\UseCase\BannerSelection;
 
+use WMDE\BannerServer\Entity\Visitor;
+
 /**
  * @license GNU GPL v2+
  */
