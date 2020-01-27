@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
-use WMDE\BannerServer\UseCase\BannerSelection\Visitor;
+use WMDE\BannerServer\Entity\Visitor;
 
 /**
  * @license GNU GPL v2+
