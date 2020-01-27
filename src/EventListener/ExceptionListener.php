@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace WMDE\BannerServer\EventListener;
 
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -19,10 +19,10 @@ class ExceptionListener {
 		$this->logger = $logger;
 	}
 
-	public function onKernelException( GetResponseForExceptionEvent $event ) {
+	public function onKernelException( ExceptionEvent $event ): void {
 		$this->logger->critical(
-			$event->getException()->getMessage(),
-			[ 'exception' => $event->getException() ]
+			$event->getThrowable()->getMessage(),
+			[ 'exception' => $event->getThrowable() ]
 		);
 
 		if ( preg_match( '/^.*\.js$/', $event->getRequest()->getPathInfo() ) ) {

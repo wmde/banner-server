@@ -21,7 +21,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 
 	private const BANNER_PATH = '/test_banners/';
 
-	public function test_given_controller_receives_cookies_then_it_passes_cookie_values_to_use_case() {
+	public function test_given_controller_receives_cookies_then_it_passes_cookie_values_to_use_case(): void {
 		$mockUseCase = $this->createMock( BannerSelectionUseCase::class );
 		$mockUseCase->expects( $this->once() )->method( 'selectBanner' )->with(
 			VisitorFixture::getTestVisitor()
@@ -30,7 +30,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 		$controller->selectBanner( VisitorFixture::getReturningVisitorRequest() );
 	}
 
-	public function test_given_no_cookies_then_it_assigns_default_values() {
+	public function test_given_no_cookies_then_it_assigns_default_values(): void {
 		$mockUseCase = $this->createMock( BannerSelectionUseCase::class );
 		$mockUseCase->expects( $this->once() )->method( 'selectBanner' )->with(
 			VisitorFixture::getFirstTimeVisitor()
@@ -39,7 +39,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 		$controller->selectBanner( new Request() );
 	}
 
-	public function test_given_no_cookies_passed_through_request_then_it_creates_cookies_with_updated_default_values() {
+	public function test_given_no_cookies_passed_through_request_then_it_creates_cookies_with_updated_default_values(): void {
 		$testUseCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection(),
 			new ImpressionThreshold( 10 ),
@@ -69,7 +69,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_banner_is_to_be_shown_then_it_returns_redirect_response() {
+	public function test_given_banner_is_to_be_shown_then_it_returns_redirect_response(): void {
 		$testUseCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection(),
 			new ImpressionThreshold( 10 ),
@@ -82,7 +82,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( '/test_banners/TestBanner.js', $response->headers->get( 'location' ) );
 	}
 
-	public function test_given_impression_limit_is_reached_then_it_returns_http_ok_response() {
+	public function test_given_impression_limit_is_reached_then_it_returns_http_ok_response(): void {
 		$testUseCase = new BannerSelectionUseCase(
 			CampaignFixture::getTrueRandomTestCampaignCollection(),
 			new ImpressionThreshold( VisitorFixture::VISITOR_TEST_IMPRESSION_COUNT ),

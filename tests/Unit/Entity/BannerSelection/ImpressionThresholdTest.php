@@ -13,7 +13,7 @@ class ImpressionThresholdTest extends \PHPUnit\Framework\TestCase {
 
 	const BANNER_TEST_IDENTIFIER = 'testIdentifier';
 
-	public function test_given_impression_value_then_correct_threshold_reached_state_is_returned() {
+	public function test_given_impression_value_then_correct_threshold_reached_state_is_returned(): void {
 		$threshold = new ImpressionThreshold( 10 );
 		$this->assertFalse( $threshold->isThresholdReached( 9 ) );
 		$this->assertTrue( $threshold->isThresholdReached( 10 ) );

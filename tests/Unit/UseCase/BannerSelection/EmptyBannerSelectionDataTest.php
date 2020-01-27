@@ -15,7 +15,7 @@ class EmptyBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
 	const BANNER_TEST_IDENTIFIER = 'testIdentifier';
 	const TEST_DATETIME = '19-06-1992 01:02:03';
 
-	public function test_given_inactive_campaign_for_visitor_then_banner_is_not_displayed() {
+	public function test_given_inactive_campaign_for_visitor_then_banner_is_not_displayed(): void {
 		$bannerSelectionData = new EmptyBannerSelectionData(
 			VisitorFixture::getTestVisitor()
 		);
@@ -23,7 +23,7 @@ class EmptyBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( VisitorFixture::getTestVisitor(), $bannerSelectionData->getVisitorData() );
 	}
 
-	public function test_given_inactive_campaign_for_visitor_then_get_campaign_end_throws_exception() {
+	public function test_given_inactive_campaign_for_visitor_then_get_campaign_end_throws_exception(): void {
 		$bannerSelectionData = new EmptyBannerSelectionData(
 			VisitorFixture::getTestVisitor()
 		);
@@ -31,7 +31,7 @@ class EmptyBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
 		$bannerSelectionData->getCampaignEnd();
 	}
 
-	public function test_given_inactive_campaign_for_visitor_then_get_banner_identifier_throws_exception() {
+	public function test_given_inactive_campaign_for_visitor_then_get_banner_identifier_throws_exception(): void {
 		$bannerSelectionData = new EmptyBannerSelectionData(
 			VisitorFixture::getTestVisitor()
 		);

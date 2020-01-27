@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
+use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Entity\BannerSelection\Banner;
 use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
@@ -12,7 +13,7 @@ use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\Campaign
  */
-class CampaignTest extends \PHPUnit\Framework\TestCase {
+class CampaignTest extends TestCase {
 
 	private function getControlBucket(): Bucket {
 		return new Bucket(
@@ -30,7 +31,7 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_time_out_of_date_range_then_campaign_is_not_active() {
+	public function test_given_time_out_of_date_range_then_campaign_is_not_active(): void {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
@@ -55,7 +56,7 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 
 	}
 
-	public function test_given_time_in_the_date_range_then_campaign_is_active() {
+	public function test_given_time_in_the_date_range_then_campaign_is_active(): void {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
@@ -79,7 +80,7 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_valid_bucket_id_then_returns_bucket() {
+	public function test_given_valid_bucket_id_then_returns_bucket(): void {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
@@ -95,7 +96,7 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_invalid_bucket_id_then_returns_random_bucket() {
+	public function test_given_invalid_bucket_id_then_returns_random_bucket(): void {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
@@ -111,7 +112,7 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_no_bucket_id_then_returns_random_bucket() {
+	public function test_given_no_bucket_id_then_returns_random_bucket(): void {
 		$campaign = new Campaign(
 			'C18_WMDE_Test',
 			new \DateTime( '2018-10-01 14:00:00' ),
@@ -127,7 +128,7 @@ class CampaignTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_getters_return_correct_values() {
+	public function test_getters_return_correct_values(): void {
 		$identifier = 'C18_WMDE_Test';
 		$displayPercentage = 12;
 		$endDate = new \DateTime( '2018-10-31 14:00:00' );

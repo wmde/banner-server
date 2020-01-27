@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
+use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Entity\BannerSelection\Banner;
 use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
@@ -13,7 +14,7 @@ use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\CampaignCollection
  */
-class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
+class CampaignCollectionTest extends TestCase {
 
 	private function getTestbucket(): Bucket {
 		return new Bucket(
@@ -22,7 +23,7 @@ class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_given_date_then_returns_active_campaign() {
+	public function test_given_date_then_returns_active_campaign(): void {
 		$campaignCollection = new CampaignCollection(
 			new Campaign(
 				'C18_WMDE_Test_future',
@@ -55,7 +56,7 @@ class CampaignCollectionTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( $campaign->getIdentifier(), 'C18_WMDE_Test_present' );
 	}
 
-	public function test_given_date_out_of_range_then_does_not_return_campaign() {
+	public function test_given_date_out_of_range_then_does_not_return_campaign(): void {
 		$campaignCollection = new CampaignCollection(
 			new Campaign(
 				'C18_WMDE_Test_present',

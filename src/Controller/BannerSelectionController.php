@@ -63,10 +63,13 @@ class BannerSelectionController {
 		return $this->bannerPath . $bannerIdentifier . '.js';
 	}
 
+	/**
+	 * @return Cookie[]
+	 */
 	private function getCookies( Visitor $visitor, \DateTime $cookieExpirationDate ): array {
 		return [
-			new Cookie( self::BUCKET_COOKIE, $visitor->getBucketIdentifier(), $cookieExpirationDate ),
-			new Cookie(
+			Cookie::create( self::BUCKET_COOKIE, $visitor->getBucketIdentifier(), $cookieExpirationDate ),
+			Cookie::create(
 				self::IMPRESSION_COUNT_COOKIE,
 				(string)$visitor->getTotalImpressionCount(),
 				new \DateTime( 'midnight first day of january next year' )
