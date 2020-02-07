@@ -4,13 +4,14 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Utils;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Exception\ParseException;
 use WMDE\BannerServer\Utils\CampaignConfigurationLoader;
 
 /**
  * @covers \WMDE\BannerServer\Utils\CampaignConfigurationLoader
  */
-class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
+class CampaignConfigurationLoaderTest extends TestCase {
 
 	const TEST_VALID_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/campaigns.yml';
 	const TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_bucket_campaign.yml';
@@ -22,10 +23,13 @@ class CampaignConfigurationLoaderTest extends \PHPUnit\Framework\TestCase {
 		$collection = $loader->getCampaignCollection();
 
 		$campaign = $collection->getCampaign( new \DateTime( '2018-12-12' ) );
+		$categorizedCampaign = $collection->getCampaign( new \DateTime( '2020-11-12' ) );
 		$this->assertNotNull( $campaign );
 		$this->assertEquals( 'B18WPDE_01_180131', $campaign->getIdentifier() );
 		$this->assertEquals( '2019-01-01 14:00:00', $campaign->getEnd()->format( 'Y-m-d H:i:s' ) );
 		$this->assertEquals( 10, $campaign->getDisplayPercentage() );
+		$this->assertEquals( 'default', $campaign->getCategory() );
+		$this->assertEquals( 'fundraising_2020', $categorizedCampaign->getCategory() );
 
 		$bucketA = $campaign->selectBucket( 'B18WPDE_01_180131_ctrl' );
 		$bucketB = $campaign->selectBucket( 'B18WPDE_01_180131_var' );

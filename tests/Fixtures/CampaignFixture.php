@@ -24,6 +24,7 @@ class CampaignFixture {
 			self::getTestCampaignStartDate(),
 			self::getTestCampaignEndDate(),
 			$displayPercentage,
+			'default',
 			new SystemRandomIntegerGenerator(),
 			BucketFixture::getTestBucket()
 		);
