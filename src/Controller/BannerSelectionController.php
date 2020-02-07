@@ -18,7 +18,7 @@ class BannerSelectionController {
 
 	public const IMPRESSION_COUNT_COOKIE = 'impCount';
 	public const BUCKET_COOKIE = 'b';
-	public const DONATED_COOKIE = 'd';
+	public const CATEGORY_COOKIE = 'cat';
 
 	private $useCase;
 	private $bannerPath;
@@ -52,10 +52,12 @@ class BannerSelectionController {
 	}
 
 	private function buildValuesFromRequest( Request $request ): Visitor {
+		$rawCategories = $request->cookies->get( self::CATEGORY_COOKIE, '' );
+		$categories = array_filter( explode( ',', $rawCategories ) );
 		return new Visitor(
 			$request->cookies->getInt( self::IMPRESSION_COUNT_COOKIE, 0 ),
 			$request->cookies->get( self::BUCKET_COOKIE, null ),
-			$request->cookies->get( self::DONATED_COOKIE, false )
+			...$categories
 		);
 	}
 

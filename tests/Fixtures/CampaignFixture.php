@@ -10,6 +10,8 @@ use WMDE\BannerServer\Utils\SystemRandomIntegerGenerator;
 
 class CampaignFixture {
 
+	public const TEST_CATEGORY = 'test_category';
+
 	public static function getTestCampaignStartDate(): \DateTime {
 		return new \DateTime( '2000-01-01 00:00:00' );
 	}
@@ -24,7 +26,7 @@ class CampaignFixture {
 			self::getTestCampaignStartDate(),
 			self::getTestCampaignEndDate(),
 			$displayPercentage,
-			'default',
+			self::TEST_CATEGORY,
 			new SystemRandomIntegerGenerator(),
 			BucketFixture::getTestBucket()
 		);

@@ -11,12 +11,17 @@ class Visitor {
 
 	private $totalImpressionCount = 0;
 	private $bucketIdentifier;
-	private $hasDonated;
+	private $activeCategories;
 
-	public function __construct( int $totalImpressionCount, ?string $bucketIdentifier, bool $hasDonated ) {
+	/**
+	 * @param int $totalImpressionCount How many banners the visitor has seen overall
+	 * @param string|null $bucketIdentifier Last bucket identifier of the visitor (to put recurring visitors in the same buckets, but only per-campaign)
+	 * @param string ...$activeCategories Categories the user has interacted with (close button, donation, etc)
+	 */
+	public function __construct( int $totalImpressionCount, ?string $bucketIdentifier, string ...$activeCategories ) {
 		$this->totalImpressionCount = $totalImpressionCount;
 		$this->bucketIdentifier = $bucketIdentifier;
-		$this->hasDonated = $hasDonated;
+		$this->activeCategories = $activeCategories;
 	}
 
 	public function getTotalImpressionCount(): int {
@@ -27,7 +32,14 @@ class Visitor {
 		return $this->bucketIdentifier;
 	}
 
-	public function hasDonated(): bool {
-		return $this->hasDonated;
+	public function inCategory( string $categoryName ): bool {
+		return in_array( $categoryName, $this->activeCategories, true );
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getCategories(): array {
+		return $this->activeCategories;
 	}
 }

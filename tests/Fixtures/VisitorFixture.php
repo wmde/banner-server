@@ -12,7 +12,7 @@ class VisitorFixture {
 
 	public const VISITOR_TEST_IMPRESSION_COUNT = 5;
 	public const VISITOR_TEST_BUCKET = 'test_bucket';
-	public const VISITOR_TEST_DONATION_HISTORY = false;
+	public const VISITOR_TEST_DONATION_CATEGORY = 'fundraising_2020';
 
 	public static function getReturningVisitorRequest(): Request {
 		return new Request(
@@ -22,7 +22,7 @@ class VisitorFixture {
 			[
 				BannerSelectionController::IMPRESSION_COUNT_COOKIE => self::VISITOR_TEST_IMPRESSION_COUNT,
 				BannerSelectionController::BUCKET_COOKIE => self::VISITOR_TEST_BUCKET,
-				BannerSelectionController::DONATED_COOKIE => self::VISITOR_TEST_DONATION_HISTORY ]
+				BannerSelectionController::CATEGORY_COOKIE => self::VISITOR_TEST_DONATION_CATEGORY ]
 		);
 	}
 
@@ -30,15 +30,14 @@ class VisitorFixture {
 		return new Visitor(
 			self::VISITOR_TEST_IMPRESSION_COUNT,
 			self::VISITOR_TEST_BUCKET,
-			self::VISITOR_TEST_DONATION_HISTORY
+			self::VISITOR_TEST_DONATION_CATEGORY
 		);
 	}
 
 	public static function getFirstTimeVisitor(): Visitor {
 		return new Visitor(
 			0,
-			null,
-			false
+			null
 		);
 	}
 }

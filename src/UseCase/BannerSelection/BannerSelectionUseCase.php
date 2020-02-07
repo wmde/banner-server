@@ -31,9 +31,9 @@ class BannerSelectionUseCase {
 	}
 
 	public function selectBanner( Visitor $visitor ): BannerSelectionData {
-		if ( $visitor->hasDonated() ||
-			$this->getCurrentCampaign() === null ||
+		if ( $this->getCurrentCampaign() === null ||
 			$this->impressionThreshold->isThresholdReached( $visitor->getTotalImpressionCount() ) ||
+			$visitor->inCategory( $this->getCurrentCampaign()->getCategory() ) ||
 			$this->isRatioLimited( $this->getCurrentCampaign()->getDisplayPercentage() ) ) {
 			return new EmptyBannerSelectionData( $visitor );
 		}
@@ -43,7 +43,11 @@ class BannerSelectionUseCase {
 		);
 
 		return new ActiveBannerSelectionData(
-			new Visitor( $visitor->getTotalImpressionCount() + 1, $visitorBucket->getIdentifier(), false ),
+			new Visitor(
+				$visitor->getTotalImpressionCount() + 1,
+				$visitorBucket->getIdentifier(),
+				...$visitor->getCategories()
+			),
 			$visitorBucket->getBanner( $visitor->getTotalImpressionCount() ),
 			$this->getCurrentCampaign()->getEnd()
 		);
