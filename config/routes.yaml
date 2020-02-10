@@ -1,3 +1,7 @@
 banner_server_provide:
   path: /your-contribution-to-free-knowledge.js
   controller: WMDE\BannerServer\Controller\BannerSelectionController::selectBanner
+
+banner_server_finish_donation:
+  path: /finish-donation
+  controller: WMDE\BannerServer\Controller\DonationFinishedController::index

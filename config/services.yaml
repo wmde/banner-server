@@ -35,6 +35,11 @@ services:
             $bannerPath: 'banners/wikipedia.de-banners/'
         tags: ['controller.service_arguments']
 
+    WMDE\BannerServer\Controller\DonationFinishedController:
+        arguments:
+            $donationFinishedCookieLifetime: 'P180D'
+        tags: ['controller.service_arguments']
+
     WMDE\BannerServer\Entity\BannerSelection\CampaignCollection:
         factory: 'WMDE\BannerServer\Utils\CampaignConfigurationLoader:getCampaignCollection'
 
