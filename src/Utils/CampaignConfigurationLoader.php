@@ -52,6 +52,7 @@ class CampaignConfigurationLoader {
 			new \DateTime( $campaignData['start'] ),
 			new \DateTime( $campaignData['end'] ),
 			(int)$campaignData['trafficLimit'],
+			$campaignData['category']?? 'default',
 			new SystemRandomIntegerGenerator(),
 			array_shift( $buckets ),
 			...$buckets

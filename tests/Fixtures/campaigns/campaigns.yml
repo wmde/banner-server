@@ -17,3 +17,17 @@ B18WPDE_01_180131:
       banners:
         - B18WPDE_01_180131_fulltop_var
         - B18WPDE_01_180131_top_var
+
+B20WPDE_01_201111:
+  description: This is a simple campaign with a category
+  start: "2020-11-11 11:11:11"
+  end: "2020-11-25 14:00:00"
+  trafficLimit: 10
+  category: fundraising_2020
+  buckets:
+    - name: B20WPDE_01_201111_ctrl
+      banners:
+        - B20WPDE_01_201111_ctrl
+    - name: B20WPDE_01_201111_var
+      banners:
+        - B20WPDE_01_201111_var

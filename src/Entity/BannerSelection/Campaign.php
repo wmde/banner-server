@@ -12,6 +12,7 @@ class Campaign {
 	private $identifier;
 	private $start;
 	private $end;
+	private $category;
 	private $rng;
 	private $displayPercentage;
 
@@ -25,6 +26,7 @@ class Campaign {
 		\DateTime $start,
 		\DateTime $end,
 		int $displayPercentage,
+		string $category,
 		RandomIntegerGenerator $rng,
 		Bucket $firstBucket,
 		Bucket ...$additionalBuckets ) {
@@ -32,6 +34,7 @@ class Campaign {
 		$this->identifier = $identifier;
 		$this->start = $start;
 		$this->end = $end;
+		$this->category = $category;
 		$this->displayPercentage = $displayPercentage;
 		$this->rng = $rng;
 		$this->buckets = array_merge( [$firstBucket], $additionalBuckets );
@@ -43,6 +46,10 @@ class Campaign {
 
 	public function getEnd(): \DateTime {
 		return $this->end;
+	}
+
+	public function getCategory(): string {
+		return $this->category;
 	}
 
 	public function isInActiveDateRange( \DateTime $time ): bool {

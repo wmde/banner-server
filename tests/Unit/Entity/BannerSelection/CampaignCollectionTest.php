@@ -30,6 +30,7 @@ class CampaignCollectionTest extends TestCase {
 				new \DateTime( '2099-10-01 14:00:00' ),
 				new \DateTime( '2099-10-31 14:00:00' ),
 				1,
+				'default',
 				new FakeRandomIntegerGenerator( 1 ),
 				$this->getTestbucket()
 			),
@@ -38,6 +39,7 @@ class CampaignCollectionTest extends TestCase {
 				new \DateTime( '2018-10-01 14:00:00' ),
 				new \DateTime( '2018-10-31 14:00:00' ),
 				1,
+				'default',
 				new FakeRandomIntegerGenerator( 1 ),
 				$this->getTestbucket()
 			),
@@ -46,6 +48,7 @@ class CampaignCollectionTest extends TestCase {
 				new \DateTime( '1999-10-01 14:00:00' ),
 				new \DateTime( '1999-10-31 14:00:00' ),
 				1,
+				'default',
 				new FakeRandomIntegerGenerator( 1 ),
 				$this->getTestbucket()
 			)
@@ -63,6 +66,7 @@ class CampaignCollectionTest extends TestCase {
 				new \DateTime( '2018-10-01 14:00:00' ),
 				new \DateTime( '2018-10-31 14:00:00' ),
 				1,
+				'default',
 				new FakeRandomIntegerGenerator( 1 ),
 				$this->getTestbucket()
 			),
@@ -71,6 +75,7 @@ class CampaignCollectionTest extends TestCase {
 				new \DateTime( '1999-10-01 14:00:00' ),
 				new \DateTime( '1999-10-31 14:00:00' ),
 				1,
+				'default',
 				new FakeRandomIntegerGenerator( 1 ),
 				$this->getTestbucket()
 			)

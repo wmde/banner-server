@@ -37,6 +37,7 @@ class CampaignTest extends TestCase {
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
+			'default',
 			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
@@ -62,6 +63,7 @@ class CampaignTest extends TestCase {
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
+			'default',
 			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
@@ -86,6 +88,7 @@ class CampaignTest extends TestCase {
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
+			'default',
 			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
@@ -102,6 +105,7 @@ class CampaignTest extends TestCase {
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
+			'default',
 			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
@@ -118,6 +122,7 @@ class CampaignTest extends TestCase {
 			new \DateTime( '2018-10-01 14:00:00' ),
 			new \DateTime( '2018-10-31 14:00:00' ),
 			1,
+			'default',
 			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
@@ -137,6 +142,7 @@ class CampaignTest extends TestCase {
 			new \DateTime( '2018-10-01 14:00:00' ),
 			$endDate,
 			$displayPercentage,
+			'default',
 			new FakeRandomIntegerGenerator( 1 ),
 			$this->getControlBucket(),
 			$this->getVariantBucket()
