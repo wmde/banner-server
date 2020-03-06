@@ -35,7 +35,17 @@ class DonationFinishedController {
 		}
 
 		$expiry = ( new \DateTime() )->add( new \DateInterval( $this->donationFinishedCookieLifetime ) );
-		$response->headers->setCookie( Cookie::create( BannerSelectionController::CATEGORY_COOKIE, $categories, $expiry, '/', null, false, false ) );
+		$response->headers->setCookie( Cookie::create(
+			BannerSelectionController::CATEGORY_COOKIE,
+			$categories,
+			$expiry,
+			'/',
+			null,
+			true,
+			true,
+			false,
+			Cookie::SAMESITE_NONE
+		) );
 		return $response;
 	}
 
