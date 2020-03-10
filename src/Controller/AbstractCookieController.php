@@ -17,7 +17,7 @@ abstract class AbstractCookieController {
 		$this->cookieLifetime = $cookieLifetime;
 	}
 
-	public function index( Request $request ) {
+	public function index( Request $request ): Response {
 		$categories = trim( $request->query->get( self::CATEGORY_PARAM, '' ) );
 		if ( $categories === '' || !preg_match( '/^[-0-9a-zA-Z_,]+$/', $categories ) ) {
 			return $this->newHtmlResponse( 'No donation category specified', Response::HTTP_BAD_REQUEST );

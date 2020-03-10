@@ -5,3 +5,7 @@ banner_server_provide:
 banner_server_finish_donation:
   path: /finish-donation
   controller: WMDE\BannerServer\Controller\DonationFinishedController::index
+
+banner_server_close_banner:
+  path: /close-banner
+  controller: WMDE\BannerServer\Controller\BannerClosedController::index
