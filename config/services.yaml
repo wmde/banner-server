@@ -37,7 +37,12 @@ services:
 
     WMDE\BannerServer\Controller\DonationFinishedController:
         arguments:
-            $donationFinishedCookieLifetime: 'P180D'
+            $cookieLifetime: 'P180D'
+        tags: ['controller.service_arguments']
+
+    WMDE\BannerServer\Controller\BannerClosedController:
+        arguments:
+            $cookieLifetime: 'P7D'
         tags: ['controller.service_arguments']
 
     WMDE\BannerServer\Entity\BannerSelection\CampaignCollection:
