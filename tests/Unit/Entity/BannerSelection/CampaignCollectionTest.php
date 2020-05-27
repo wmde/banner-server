@@ -32,6 +32,8 @@ class CampaignCollectionTest extends TestCase {
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
+				null,
+				null,
 				$this->getTestbucket()
 			),
 			new Campaign(
@@ -41,6 +43,8 @@ class CampaignCollectionTest extends TestCase {
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
+				null,
+				null,
 				$this->getTestbucket()
 			),
 			new Campaign(
@@ -50,6 +54,8 @@ class CampaignCollectionTest extends TestCase {
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
+				null,
+				null,
 				$this->getTestbucket()
 			)
 		);
@@ -68,6 +74,8 @@ class CampaignCollectionTest extends TestCase {
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
+				null,
+				null,
 				$this->getTestbucket()
 			),
 			new Campaign(
@@ -77,6 +85,8 @@ class CampaignCollectionTest extends TestCase {
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
+				null,
+				null,
 				$this->getTestbucket()
 			)
 		);
@@ -87,5 +97,70 @@ class CampaignCollectionTest extends TestCase {
 		);
 
 		$this->assertNull( $campaignCollection->getCampaign( new \DateTime( '2017-09-01 14:00:00' ) ) );
+	}
+
+	public function test_filter_function_drops_invalid_campaigns(): void {
+		$testCampaign1 = new Campaign(
+			'C18_WMDE_Test_present',
+			new \DateTime( '2018-10-01 14:00:00' ),
+			new \DateTime( '2018-10-31 14:00:00' ),
+			1,
+			'default',
+			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
+			$this->getTestbucket()
+		);
+		$testCampaign2 = new Campaign(
+			'C18_WMDE_Test_past',
+			new \DateTime( '1999-10-01 14:00:00' ),
+			new \DateTime( '1999-10-31 14:00:00' ),
+			1,
+			'default',
+			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
+			$this->getTestbucket()
+		);
+
+		$campaignCollection = new CampaignCollection(
+			$testCampaign1,
+			$testCampaign2
+		);
+
+		$filteredCampaignCollection = $campaignCollection->filter(
+			function ( Campaign $campaign ) { return $campaign->getIdentifier() === 'C18_WMDE_Test_past'; }
+			);
+
+		$this->assertSame( $testCampaign2, $filteredCampaignCollection->getFirstCampaign() );
+	}
+
+	public function test_given_empty_collection_then_isEmpty_results_true(): void {
+		$emptyCampaignCollection = new CampaignCollection();
+		$this->assertTrue( $emptyCampaignCollection->isEmpty() );
+	}
+
+	public function test_given_non_empty_collection_then_isEmpty_results_false(): void {
+		$nonEmptyCampaignCollection = new CampaignCollection(
+			new Campaign(
+				'C18_WMDE_Test_past',
+				new \DateTime( '1999-10-01 14:00:00' ),
+				new \DateTime( '1999-10-31 14:00:00' ),
+				1,
+				'default',
+				new FakeRandomIntegerGenerator( 1 ),
+				null,
+				null,
+				$this->getTestbucket()
+			)
+		);
+		$this->assertFalse( $nonEmptyCampaignCollection->isEmpty() );
+	}
+
+	public function test_given_empty_collection_then_get_first_throws_exception(): void {
+		$emptyCampaignCollection = new CampaignCollection();
+
+		$this->expectException( 'OutOfBoundsException' );
+		$emptyCampaignCollection->getFirstCampaign();
 	}
 }

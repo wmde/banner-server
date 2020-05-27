@@ -4,6 +4,8 @@ B18WPDE_DATA_MISSING:
   description: This campaign is missing a traffic limit
   start: "2018-11-31 01:23:45"
   end: "2019-01-01 14:00:00"
+  minDisplayWidth: 0
+  maxDisplayWidth: null
   buckets:
   - name: B18WPDE_01_180131_ctrl
     banners:

@@ -12,7 +12,7 @@ class CampaignCollection {
 	/**
 	 * @var Campaign[]
 	 */
-	private $campaigns;
+	private array $campaigns;
 
 	public function __construct( Campaign ...$campaigns ) {
 		$this->campaigns = $campaigns;
@@ -25,5 +25,20 @@ class CampaignCollection {
 			}
 		}
 		return null;
+	}
+
+	public function filter( callable $isValid ): CampaignCollection {
+		return new CampaignCollection( ...array_filter( $this->campaigns, $isValid ) );
+	}
+
+	public function getFirstCampaign(): Campaign {
+		if( $this->isEmpty() ) {
+			throw new \OutOfBoundsException("No campaigns found.");
+		}
+		return $this->campaigns[0];
+	}
+
+	public function isEmpty(): bool {
+		return count ( $this->campaigns ) === 0;
 	}
 }

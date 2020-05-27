@@ -13,10 +13,11 @@ class VisitorFixture {
 	public const VISITOR_TEST_IMPRESSION_COUNT = 5;
 	public const VISITOR_TEST_BUCKET = 'test_bucket';
 	public const VISITOR_TEST_DONATION_CATEGORY = 'fundraising_2020';
+	public const VISITOR_TEST_DISPLAY_WIDTH = 500;
 
 	public static function getReturningVisitorRequest(): Request {
 		return new Request(
-			[],
+			[ 'vWidth' => self::VISITOR_TEST_DISPLAY_WIDTH ],
 			[],
 			[],
 			[
@@ -30,6 +31,7 @@ class VisitorFixture {
 		return new Visitor(
 			self::VISITOR_TEST_IMPRESSION_COUNT,
 			self::VISITOR_TEST_BUCKET,
+			self::VISITOR_TEST_DISPLAY_WIDTH,
 			self::VISITOR_TEST_DONATION_CATEGORY
 		);
 	}
@@ -37,7 +39,8 @@ class VisitorFixture {
 	public static function getFirstTimeVisitor(): Visitor {
 		return new Visitor(
 			0,
-			null
+			null,
+			0
 		);
 	}
 }

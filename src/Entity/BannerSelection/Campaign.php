@@ -9,12 +9,14 @@ namespace WMDE\BannerServer\Entity\BannerSelection;
  */
 class Campaign {
 
-	private $identifier;
-	private $start;
-	private $end;
-	private $category;
-	private $rng;
-	private $displayPercentage;
+	private string $identifier;
+	private \DateTime $start;
+	private \DateTime $end;
+	private string $category;
+	private RandomIntegerGenerator $rng;
+	private int $displayPercentage;
+	private ?int $minDisplayWidth;
+	private ?int $maxDisplayWidth;
 
 	/**
 	 * @var Bucket[]
@@ -28,6 +30,8 @@ class Campaign {
 		int $displayPercentage,
 		string $category,
 		RandomIntegerGenerator $rng,
+		?int $minDisplayWidth = null,
+		?int $maxDisplayWidth = null,
 		Bucket $firstBucket,
 		Bucket ...$additionalBuckets ) {
 
@@ -37,6 +41,8 @@ class Campaign {
 		$this->category = $category;
 		$this->displayPercentage = $displayPercentage;
 		$this->rng = $rng;
+		$this->minDisplayWidth = $minDisplayWidth;
+		$this->maxDisplayWidth = $maxDisplayWidth;
 		$this->buckets = array_merge( [$firstBucket], $additionalBuckets );
 	}
 
@@ -68,5 +74,16 @@ class Campaign {
 
 	public function getDisplayPercentage(): int {
 		return $this->displayPercentage;
+	}
+
+	public function isInDisplayRange( int $width): bool {
+
+		if ( $this->minDisplayWidth !== null && $width < $this->minDisplayWidth ) {
+			return false;
+		}
+		if( $this->maxDisplayWidth !== null && $width > $this->maxDisplayWidth ){
+			return false;
+		}
+		return true;
 	}
 }

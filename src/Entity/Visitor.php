@@ -9,18 +9,26 @@ namespace WMDE\BannerServer\Entity;
  */
 class Visitor {
 
-	private $totalImpressionCount = 0;
-	private $bucketIdentifier;
-	private $activeCategories;
+	private int $totalImpressionCount = 0;
+	private ?string $bucketIdentifier;
+	private array $activeCategories;
+	private int $displayWidth;
 
 	/**
 	 * @param int $totalImpressionCount How many banners the visitor has seen overall
 	 * @param string|null $bucketIdentifier Last bucket identifier of the visitor (to put recurring visitors in the same buckets, but only per-campaign)
-	 * @param string ...$activeCategories Categories the user has interacted with (close button, donation, etc)
+	 * @param int|null $minDisplayWidth Minimum window size to display the banner in.
+	 * @param int|null $maxDisplayWidth Maximum window size to display the banner in.
+	 * @param string ...$activeCategories
 	 */
-	public function __construct( int $totalImpressionCount, ?string $bucketIdentifier, string ...$activeCategories ) {
+	public function __construct(
+			int $totalImpressionCount,
+			?string $bucketIdentifier,
+			int $displayWidth,
+			string ...$activeCategories ) {
 		$this->totalImpressionCount = $totalImpressionCount;
 		$this->bucketIdentifier = $bucketIdentifier;
+		$this->displayWidth = $displayWidth;
 		$this->activeCategories = $activeCategories;
 	}
 
@@ -34,6 +42,10 @@ class Visitor {
 
 	public function inCategory( string $categoryName ): bool {
 		return in_array( $categoryName, $this->activeCategories, true );
+	}
+
+	public function getDisplayWidth(): ?int {
+		return $this->displayWidth;
 	}
 
 	/**
