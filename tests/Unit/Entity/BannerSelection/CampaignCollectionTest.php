@@ -129,7 +129,9 @@ class CampaignCollectionTest extends TestCase {
 		);
 
 		$filteredCampaignCollection = $campaignCollection->filter(
-			function ( Campaign $campaign ) { return $campaign->getIdentifier() === 'C18_WMDE_Test_past'; }
+			function ( Campaign $campaign ) {
+				return $campaign->getIdentifier() === 'C18_WMDE_Test_past';
+			}
 			);
 
 		$this->assertSame( $testCampaign2, $filteredCampaignCollection->getFirstCampaign() );

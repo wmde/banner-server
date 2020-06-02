@@ -108,7 +108,7 @@ class BannerSelectionUseCaseTest extends TestCase {
 	}
 
 
-	public function test_given_display_width_range_filters_banners():void {
+	public function test_given_display_width_range_filters_banners(): void {
 		$smallMobileMaxWidth = 400;
 
 		$useCase = new BannerSelectionUseCase(

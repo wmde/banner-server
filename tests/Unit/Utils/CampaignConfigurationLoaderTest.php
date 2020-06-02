@@ -71,7 +71,7 @@ class CampaignConfigurationLoaderTest extends TestCase {
 		$loader = new CampaignConfigurationLoader(
 			self::TEST_BROKEN_DISPLAYWIDTH_CAMPAIGN_CONFIGURATION_FILE
 		);
-		$this->expectExceptionMessage('Campaign data display width values are invalid (if defined, max must be higher than min)');
+		$this->expectExceptionMessage( 'Campaign data display width values are invalid (if defined, max must be higher than min)' );
 		$loader->getCampaignCollection();
 	}
 

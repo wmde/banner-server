@@ -76,7 +76,7 @@ class Campaign {
 		return $this->displayPercentage;
 	}
 
-	public function isInDisplayRange( int $width): bool {
+	public function isInDisplayRange( int $width ): bool {
 
 		if ( $this->minDisplayWidth !== null && $width < $this->minDisplayWidth ) {
 			return false;

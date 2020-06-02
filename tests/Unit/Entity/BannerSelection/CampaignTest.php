@@ -178,8 +178,8 @@ class CampaignTest extends TestCase {
 			$this->getVariantBucket()
 		);
 
-		$this->assertTrue( $campaign->isInDisplayRange(0 ) );
-		$this->assertTrue( $campaign->isInDisplayRange(999999 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 0 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 999999 ) );
 	}
 
 	public function test_given_desktop_campaign_then_width_is_limited(): void {
@@ -196,9 +196,9 @@ class CampaignTest extends TestCase {
 			$this->getVariantBucket()
 		);
 
-		$this->assertFalse( $campaign->isInDisplayRange(1024 ) );
-		$this->assertTrue( $campaign->isInDisplayRange(1025 ) );
-		$this->assertTrue( $campaign->isInDisplayRange(999999 ) );
+		$this->assertFalse( $campaign->isInDisplayRange( 1024 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 1025 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 999999 ) );
 	}
 
 	public function test_given_mobile_campaign_then_width_is_limited(): void {
@@ -215,8 +215,8 @@ class CampaignTest extends TestCase {
 			$this->getVariantBucket()
 		);
 
-		$this->assertTrue( $campaign->isInDisplayRange(0 ) );
-		$this->assertTrue( $campaign->isInDisplayRange(1024 ) );
-		$this->assertFalse( $campaign->isInDisplayRange(1025 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 0 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 1024 ) );
+		$this->assertFalse( $campaign->isInDisplayRange( 1025 ) );
 	}
 }

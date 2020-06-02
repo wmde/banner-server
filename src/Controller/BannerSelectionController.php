@@ -57,7 +57,7 @@ class BannerSelectionController {
 		return new Visitor(
 			$request->cookies->getInt( self::IMPRESSION_COUNT_COOKIE, 0 ),
 			$request->cookies->get( self::BUCKET_COOKIE, null ),
-			$request->query->getInt('vWidth'),
+			$request->query->getInt( 'vWidth' ),
 			...$categories
 		);
 	}

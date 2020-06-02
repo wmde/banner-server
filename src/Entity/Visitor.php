@@ -17,8 +17,7 @@ class Visitor {
 	/**
 	 * @param int $totalImpressionCount How many banners the visitor has seen overall
 	 * @param string|null $bucketIdentifier Last bucket identifier of the visitor (to put recurring visitors in the same buckets, but only per-campaign)
-	 * @param int|null $minDisplayWidth Minimum window size to display the banner in.
-	 * @param int|null $maxDisplayWidth Maximum window size to display the banner in.
+	 * @param int $displayWidth Viewport width of the visitor's browser window.
 	 * @param string ...$activeCategories
 	 */
 	public function __construct(

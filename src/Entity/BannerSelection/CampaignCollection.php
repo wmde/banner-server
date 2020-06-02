@@ -33,12 +33,12 @@ class CampaignCollection {
 
 	public function getFirstCampaign(): Campaign {
 		if( $this->isEmpty() ) {
-			throw new \OutOfBoundsException("No campaigns found.");
+			throw new \OutOfBoundsException( 'No campaigns found.' );
 		}
 		return $this->campaigns[0];
 	}
 
 	public function isEmpty(): bool {
-		return count ( $this->campaigns ) === 0;
+		return count( $this->campaigns ) === 0;
 	}
 }
