@@ -28,6 +28,8 @@ class CampaignFixture {
 			$displayPercentage,
 			self::TEST_CATEGORY,
 			new SystemRandomIntegerGenerator(),
+			null,
+			null,
 			BucketFixture::getTestBucket()
 		);
 	}
@@ -35,6 +37,26 @@ class CampaignFixture {
 	public static function getTrueRandomTestCampaignCollection( int $displayPercentage = 100 ): CampaignCollection {
 		return new CampaignCollection(
 			self::getTrueRandomTestCampaign( $displayPercentage )
+		);
+	}
+
+	public static function getMaxViewportWidthCampaign( int $maxWidthDesktop ): Campaign {
+		return new Campaign(
+			'C18_WMDE_Test',
+			self::getTestCampaignStartDate(),
+			self::getTestCampaignEndDate(),
+			100,
+			self::TEST_CATEGORY,
+			new SystemRandomIntegerGenerator(),
+			null,
+			$maxWidthDesktop,
+			BucketFixture::getTestBucket()
+		);
+	}
+
+	public static function getFixedViewportWidthCampaignCollection( int $maxViewportWidth ): CampaignCollection {
+		return new CampaignCollection(
+			self::getMaxViewportWidthCampaign( $maxViewportWidth )
 		);
 	}
 }

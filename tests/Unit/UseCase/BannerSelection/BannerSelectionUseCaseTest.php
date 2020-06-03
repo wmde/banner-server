@@ -65,7 +65,12 @@ class BannerSelectionUseCaseTest extends TestCase {
 			new ImpressionThreshold( 10 ),
 			new SystemRandomIntegerGenerator()
 		);
-		$visitor = new Visitor( 0, null, CampaignFixture::TEST_CATEGORY, 'another-irrelevant-category' );
+		$visitor = new Visitor( 0,
+			null,
+			500,
+			CampaignFixture::TEST_CATEGORY,
+			'another-irrelevant-category'
+		);
 
 		$bannerSelectionData = $useCase->selectBanner( $visitor );
 
@@ -101,4 +106,24 @@ class BannerSelectionUseCaseTest extends TestCase {
 			$bannerSelectionData->getVisitorData()->getTotalImpressionCount()
 		);
 	}
+
+
+	public function test_given_display_width_range_filters_banners(): void {
+		$smallMobileMaxWidth = 400;
+
+		$useCase = new BannerSelectionUseCase(
+			CampaignFixture::getFixedViewportWidthCampaignCollection( $smallMobileMaxWidth ),
+			new ImpressionThreshold( 10 ),
+			new SystemRandomIntegerGenerator()
+		);
+
+		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getTestVisitor() );
+
+		$this->assertFalse( $bannerSelectionData->displayBanner(),
+			'No banner should be selected, because campaign was for mobile, visitor was desktop width.' );
+	}
+
+
+
+
 }

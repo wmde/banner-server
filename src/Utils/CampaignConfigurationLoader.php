@@ -47,6 +47,13 @@ class CampaignConfigurationLoader {
 		if ( empty( $campaignData['start'] ) || empty( $campaignData['end'] ) || !isset( $campaignData['trafficLimit'] ) ) {
 			throw new \DomainException( 'Campaign data is incomplete.' );
 		}
+		if ( is_numeric( $campaignData['minDisplayWidth'] ) && is_numeric( $campaignData['maxDisplayWidth'] ) ) {
+			if ( $campaignData['minDisplayWidth'] > $campaignData['maxDisplayWidth'] ) {
+				throw new \DomainException(
+					'Campaign data display width values are invalid (if defined, max must be higher than min).'
+				);
+			}
+		}
 		return new Campaign(
 			$campaignName,
 			new \DateTime( $campaignData['start'] ),
@@ -54,6 +61,8 @@ class CampaignConfigurationLoader {
 			(int)$campaignData['trafficLimit'],
 			$campaignData['category']?? 'default',
 			new SystemRandomIntegerGenerator(),
+			(int)$campaignData['minDisplayWidth'],
+			(int)$campaignData['maxDisplayWidth'],
 			array_shift( $buckets ),
 			...$buckets
 		);

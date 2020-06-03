@@ -1,15 +1,17 @@
 # Campaign configuration file for unit tests
 # See campaigns.yml of banner repository for actual campaigns
 B18WPDE_BROKEN_BANNER:
-  description: This campaign is missing banners in a bucket
+  description: This campaign has invalid an invalid min - max amount relation
   start: "2018-11-31 01:23:45"
   end: "2019-01-01 14:00:00"
   trafficLimit: 10
-  minDisplayWidth: 0
-  maxDisplayWidth: null
+  minDisplayWidth: 400
+  maxDisplayWidth: 100
   buckets:
   - name: B18WPDE_01_180131_ctrl
     banners:
+      - B18WPDE_01_180131_fulltop_ctrl
+      - B18WPDE_01_180131_top_ctrl
   - name: B18WPDE_01_180131_var
     banners:
     - B18WPDE_01_180131_fulltop_var

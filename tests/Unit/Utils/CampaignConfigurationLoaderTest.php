@@ -17,6 +17,7 @@ class CampaignConfigurationLoaderTest extends TestCase {
 	const TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_bucket_campaign.yml';
 	const TEST_BROKEN_BANNER_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_banner_campaign.yml';
 	const TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_data_campaign.yml';
+	const TEST_BROKEN_DISPLAYWIDTH_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_displayWidth_campaign.yml';
 
 	public function test_given_campaigns_are_loaded_then_loaded_campaign_data_is_correct(): void {
 		$loader = new CampaignConfigurationLoader( self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );
@@ -63,6 +64,14 @@ class CampaignConfigurationLoaderTest extends TestCase {
 			self::TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE
 		);
 		$this->expectExceptionMessage( 'Campaign data is incomplete.' );
+		$loader->getCampaignCollection();
+	}
+
+	public function test_given_display_widths_max_is_larger_than_min_or_undefined(): void {
+		$loader = new CampaignConfigurationLoader(
+			self::TEST_BROKEN_DISPLAYWIDTH_CAMPAIGN_CONFIGURATION_FILE
+		);
+		$this->expectExceptionMessage( 'Campaign data display width values are invalid (if defined, max must be higher than min)' );
 		$loader->getCampaignCollection();
 	}
 

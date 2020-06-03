@@ -39,6 +39,8 @@ class CampaignTest extends TestCase {
 			1,
 			'default',
 			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -65,6 +67,8 @@ class CampaignTest extends TestCase {
 			1,
 			'default',
 			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -90,6 +94,8 @@ class CampaignTest extends TestCase {
 			1,
 			'default',
 			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -107,6 +113,8 @@ class CampaignTest extends TestCase {
 			1,
 			'default',
 			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -124,6 +132,8 @@ class CampaignTest extends TestCase {
 			1,
 			'default',
 			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
@@ -144,11 +154,69 @@ class CampaignTest extends TestCase {
 			$displayPercentage,
 			'default',
 			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
 			$this->getControlBucket(),
 			$this->getVariantBucket()
 		);
 		$this->assertEquals( $identifier, $campaign->getIdentifier() );
 		$this->assertEquals( $displayPercentage, $campaign->getDisplayPercentage() );
 		$this->assertEquals( $endDate, $campaign->getEnd() );
+	}
+
+	public function test_given_no_mindisplaywidth_and_no_maxdisplaywidth_then_width_is_always_in_range(): void {
+		$campaign = new Campaign(
+			'C18_WMDE_Test',
+			new \DateTime( '2018-10-01 14:00:00' ),
+			new \DateTime( '2018-10-31 14:00:00' ),
+			1,
+			'default',
+			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			null,
+			$this->getControlBucket(),
+			$this->getVariantBucket()
+		);
+
+		$this->assertTrue( $campaign->isInDisplayRange( 0 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 999999 ) );
+	}
+
+	public function test_given_desktop_campaign_then_width_is_limited(): void {
+		$campaign = new Campaign(
+			'C18_WMDE_Test',
+			new \DateTime( '2018-10-01 14:00:00' ),
+			new \DateTime( '2018-10-31 14:00:00' ),
+			1,
+			'default',
+			new FakeRandomIntegerGenerator( 1 ),
+			1025,
+			null,
+			$this->getControlBucket(),
+			$this->getVariantBucket()
+		);
+
+		$this->assertFalse( $campaign->isInDisplayRange( 1024 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 1025 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 999999 ) );
+	}
+
+	public function test_given_mobile_campaign_then_width_is_limited(): void {
+		$campaign = new Campaign(
+			'C18_WMDE_Test',
+			new \DateTime( '2018-10-01 14:00:00' ),
+			new \DateTime( '2018-10-31 14:00:00' ),
+			1,
+			'default',
+			new FakeRandomIntegerGenerator( 1 ),
+			null,
+			1024,
+			$this->getControlBucket(),
+			$this->getVariantBucket()
+		);
+
+		$this->assertTrue( $campaign->isInDisplayRange( 0 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 1024 ) );
+		$this->assertFalse( $campaign->isInDisplayRange( 1025 ) );
 	}
 }

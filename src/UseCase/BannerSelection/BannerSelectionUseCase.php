@@ -31,14 +31,25 @@ class BannerSelectionUseCase {
 	}
 
 	public function selectBanner( Visitor $visitor ): BannerSelectionData {
-		if ( $this->getCurrentCampaign() === null ||
-			$this->impressionThreshold->isThresholdReached( $visitor->getTotalImpressionCount() ) ||
-			$visitor->inCategory( $this->getCurrentCampaign()->getCategory() ) ||
-			$this->isRatioLimited( $this->getCurrentCampaign()->getDisplayPercentage() ) ) {
+		$remainingCampaigns = $this->campaignCollection->filter(
+			function ( Campaign $campaign ) use ( $visitor ): bool {
+				return (
+					$campaign->isInActiveDateRange( new \DateTime() ) &&
+					$campaign->isInDisplayRange( $visitor->getDisplayWidth() ) &&
+					!$this->impressionThreshold->isThresholdReached( $visitor->getTotalImpressionCount() ) &&
+					!$visitor->inCategory( $campaign->getCategory() ) &&
+					!$this->isRatioLimited( $campaign->getDisplayPercentage() )
+				);
+			}
+		);
+
+		if ( $remainingCampaigns->isEmpty() ) {
 			return new EmptyBannerSelectionData( $visitor );
 		}
 
-		$visitorBucket = $this->getCurrentCampaign()->selectBucket(
+		$selectedCampaign = $remainingCampaigns->getFirstCampaign();
+
+		$visitorBucket = $selectedCampaign->selectBucket(
 			$visitor->getBucketIdentifier()
 		);
 
@@ -46,18 +57,12 @@ class BannerSelectionUseCase {
 			new Visitor(
 				$visitor->getTotalImpressionCount() + 1,
 				$visitorBucket->getIdentifier(),
+				$visitor->getDisplayWidth(),
 				...$visitor->getCategories()
 			),
 			$visitorBucket->getBanner( $visitor->getTotalImpressionCount() ),
-			$this->getCurrentCampaign()->getEnd()
+			$selectedCampaign->getEnd()
 		);
-	}
-
-	private function getCurrentCampaign(): ?Campaign {
-		if ( $this->currentCampaign === null ) {
-			$this->currentCampaign = $this->campaignCollection->getCampaign( new \DateTime() );
-		}
-		return $this->currentCampaign;
 	}
 
 	private function isRatioLimited( int $campaignDisplayPercent ): bool {

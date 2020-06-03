@@ -5,6 +5,8 @@ B18WPDE_BROKEN_BUCKET:
   start: "2018-11-31 01:23:45"
   end: "2019-01-01 14:00:00"
   trafficLimit: 10
+  minDisplayWidth: 0
+  maxDisplayWidth: null
   buckets:
   - name:
     banners:

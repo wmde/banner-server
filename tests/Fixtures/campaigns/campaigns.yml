@@ -5,6 +5,8 @@ B18WPDE_01_180131:
   start: "2018-11-31 01:23:45"
   end: "2019-01-01 14:00:00"
   trafficLimit: 10
+  minDisplayWidth: 0
+  maxDisplayWidth: 600
   buckets:
     - name: B18WPDE_01_180131_ctrl
       banners:
@@ -24,6 +26,8 @@ B20WPDE_01_201111:
   end: "2020-11-25 14:00:00"
   trafficLimit: 10
   category: fundraising_2020
+  minDisplayWidth: 600
+  maxDisplayWidth: null
   buckets:
     - name: B20WPDE_01_201111_ctrl
       banners:
