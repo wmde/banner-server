@@ -46,7 +46,7 @@ services:
         tags: ['controller.service_arguments']
 
     WMDE\BannerServer\Entity\BannerSelection\CampaignCollection:
-        factory: 'WMDE\BannerServer\Utils\CampaignConfigurationLoader:getCampaignCollection'
+        factory: ['@WMDE\BannerServer\Utils\CampaignConfigurationLoader', 'getCampaignCollection']
 
     # Campaign configuration file can be found at https://github.com/wmde/wikipedia.de-banners
     WMDE\BannerServer\Utils\CampaignConfigurationLoader:
