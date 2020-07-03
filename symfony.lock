@@ -1,12 +1,18 @@
 {
+    "composer/semver": {
+        "version": "2.0.0"
+    },
+    "composer/spdx-licenses": {
+        "version": "1.5.3"
+    },
     "composer/xdebug-handler": {
         "version": "1.3.0"
     },
     "doctrine/instantiator": {
         "version": "1.1.0"
     },
-    "jeroen/nyancat-phpunit-resultprinter": {
-        "version": "v2.2.0"
+    "mediawiki/mediawiki-codesniffer": {
+        "version": "v31.0.0"
     },
     "monolog/monolog": {
         "version": "1.24.0"
@@ -124,9 +130,6 @@
     },
     "sebastian/version": {
         "version": "2.0.1"
-    },
-    "slevomat/coding-standard": {
-        "version": "4.8.5"
     },
     "squizlabs/php_codesniffer": {
         "version": "3.0",
@@ -266,10 +269,7 @@
     "webmozart/assert": {
         "version": "1.3.0"
     },
-    "whatthejeff/fab": {
+    "wmde/fundraising-phpcs": {
         "version": "v1.0.0"
-    },
-    "whatthejeff/nyancat-scoreboard": {
-        "version": "v1.1.1"
     }
 }
