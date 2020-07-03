@@ -20,7 +20,7 @@ class VisitorTest extends TestCase {
 		$visitor = new Visitor(
 			self::TEST_IMPRESSION_COUNT,
 			self::TEST_BUCKET,
-			self::TEST_DISPLAY_WIDTH);
+			self::TEST_DISPLAY_WIDTH );
 		$this->assertEquals( self::TEST_IMPRESSION_COUNT, $visitor->getTotalImpressionCount() );
 		$this->assertEquals( self::TEST_BUCKET, $visitor->getBucketIdentifier() );
 		$this->assertFalse( $visitor->inCategory( 'default' ) );

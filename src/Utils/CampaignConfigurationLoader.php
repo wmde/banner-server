@@ -11,7 +11,7 @@ use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class CampaignConfigurationLoader {
 
@@ -59,7 +59,7 @@ class CampaignConfigurationLoader {
 			new \DateTime( $campaignData['start'] ),
 			new \DateTime( $campaignData['end'] ),
 			(int)$campaignData['trafficLimit'],
-			$campaignData['category']?? 'default',
+			$campaignData['category'] ?? 'default',
 			new SystemRandomIntegerGenerator(),
 			(int)$campaignData['minDisplayWidth'],
 			(int)$campaignData['maxDisplayWidth'],

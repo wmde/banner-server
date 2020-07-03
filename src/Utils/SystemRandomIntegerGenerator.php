@@ -7,7 +7,7 @@ namespace WMDE\BannerServer\Utils;
 use WMDE\BannerServer\Entity\BannerSelection\RandomIntegerGenerator;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class SystemRandomIntegerGenerator implements RandomIntegerGenerator {
 

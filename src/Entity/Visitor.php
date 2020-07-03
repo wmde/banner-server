@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace WMDE\BannerServer\Entity;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class Visitor {
 

@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace WMDE\BannerServer\Entity\BannerSelection;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class Campaign {
 
@@ -34,7 +34,6 @@ class Campaign {
 		?int $maxDisplayWidth = null,
 		Bucket $firstBucket,
 		Bucket ...$additionalBuckets ) {
-
 		$this->identifier = $identifier;
 		$this->start = $start;
 		$this->end = $end;
@@ -43,7 +42,7 @@ class Campaign {
 		$this->rng = $rng;
 		$this->minDisplayWidth = $minDisplayWidth;
 		$this->maxDisplayWidth = $maxDisplayWidth;
-		$this->buckets = array_merge( [$firstBucket], $additionalBuckets );
+		$this->buckets = array_merge( [ $firstBucket ], $additionalBuckets );
 	}
 
 	public function getIdentifier(): string {
@@ -77,11 +76,10 @@ class Campaign {
 	}
 
 	public function isInDisplayRange( int $width ): bool {
-
 		if ( $this->minDisplayWidth !== null && $width < $this->minDisplayWidth ) {
 			return false;
 		}
-		if( $this->maxDisplayWidth !== null && $width > $this->maxDisplayWidth ){
+		if ( $this->maxDisplayWidth !== null && $width > $this->maxDisplayWidth ) {
 			return false;
 		}
 		return true;

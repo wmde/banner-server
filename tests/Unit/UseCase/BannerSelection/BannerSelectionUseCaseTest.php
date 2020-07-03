@@ -27,7 +27,7 @@ class BannerSelectionUseCaseTest extends TestCase {
 
 		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getFirstTimeVisitor() );
 		$this->assertEquals( 'test', $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
-		$this->assertEquals( 1, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
+		$this->assertSame( 1, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
 		$this->assertEquals( 'TestBanner', $bannerSelectionData->getBannerIdentifier() );
 		$this->assertEquals( CampaignFixture::getTestCampaignEndDate(), $bannerSelectionData->getCampaignEnd() );
 	}
@@ -41,7 +41,7 @@ class BannerSelectionUseCaseTest extends TestCase {
 
 		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getFirstTimeVisitor() );
 		$this->assertEquals( 'test', $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
-		$this->assertEquals( 1, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
+		$this->assertSame( 1, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
 		$this->assertEquals( 'TestBanner', $bannerSelectionData->getBannerIdentifier() );
 		$this->assertEquals( CampaignFixture::getTestCampaignEndDate(), $bannerSelectionData->getCampaignEnd() );
 	}
@@ -54,9 +54,9 @@ class BannerSelectionUseCaseTest extends TestCase {
 		);
 
 		$bannerSelectionData = $useCase->selectBanner( VisitorFixture::getFirstTimeVisitor() );
-		$this->assertEquals( false, $bannerSelectionData->displayBanner() );
-		$this->assertEquals( null, $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
-		$this->assertEquals( 0, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
+		$this->assertFalse( $bannerSelectionData->displayBanner() );
+		$this->assertNull( $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
+		$this->assertSame( 0, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
 	}
 
 	public function test_given_visitor_with_category_of_campaign_then_no_banner_is_shown(): void {
@@ -75,8 +75,8 @@ class BannerSelectionUseCaseTest extends TestCase {
 		$bannerSelectionData = $useCase->selectBanner( $visitor );
 
 		$this->assertFalse( $bannerSelectionData->displayBanner(), 'No banner should be selected' );
-		$this->assertEquals( null, $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
-		$this->assertEquals( 0, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
+		$this->assertNull( $bannerSelectionData->getVisitorData()->getBucketIdentifier() );
+		$this->assertSame( 0, $bannerSelectionData->getVisitorData()->getTotalImpressionCount() );
 	}
 
 	public function test_when_banner_is_returned_then_view_count_is_incremented(): void {
@@ -107,7 +107,6 @@ class BannerSelectionUseCaseTest extends TestCase {
 		);
 	}
 
-
 	public function test_given_display_width_range_filters_banners(): void {
 		$smallMobileMaxWidth = 400;
 
@@ -122,8 +121,5 @@ class BannerSelectionUseCaseTest extends TestCase {
 		$this->assertFalse( $bannerSelectionData->displayBanner(),
 			'No banner should be selected, because campaign was for mobile, visitor was desktop width.' );
 	}
-
-
-
 
 }

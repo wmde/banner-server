@@ -61,7 +61,7 @@ class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$this->assertEquals( BannerSelectionController::IMPRESSION_COUNT_COOKIE, $cookies[1]->getName() );
-		$this->assertEquals( '1', $cookies[1]->getValue() );
+		$this->assertSame( '1', $cookies[1]->getValue() );
 		$this->assertEquals(
 			( new \DateTime( 'midnight first day of january next year' ) )->getTimestamp(),
 			$cookies[1]->getExpiresTime(),

@@ -8,11 +8,11 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
 use WMDE\BannerServer\Entity\Visitor;
+use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class BannerSelectionController {
 
