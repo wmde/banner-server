@@ -7,7 +7,7 @@ namespace WMDE\BannerServer\UseCase\BannerSelection;
 use WMDE\BannerServer\Entity\Visitor;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class ActiveBannerSelectionData implements BannerSelectionData {
 

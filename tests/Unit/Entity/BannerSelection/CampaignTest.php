@@ -56,7 +56,6 @@ class CampaignTest extends TestCase {
 			$campaign->isInActiveDateRange( new \DateTime( '2018-10-31 14:00:00' ) ),
 			'date given is exactly the end date of the campaign'
 		);
-
 	}
 
 	public function test_given_time_in_the_date_range_then_campaign_is_active(): void {

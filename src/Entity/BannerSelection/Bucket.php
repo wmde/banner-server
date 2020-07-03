@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace WMDE\BannerServer\Entity\BannerSelection;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class Bucket {
 
@@ -17,7 +17,7 @@ class Bucket {
 
 	public function __construct( string $identifier, Banner $firstBanner, Banner ...$additionalBanners ) {
 		$this->identifier = $identifier;
-		$this->banners = array_merge( [$firstBanner], $additionalBanners );
+		$this->banners = array_merge( [ $firstBanner ], $additionalBanners );
 	}
 
 	public function getIdentifier(): string {

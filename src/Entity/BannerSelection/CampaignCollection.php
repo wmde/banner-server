@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace WMDE\BannerServer\Entity\BannerSelection;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  */
 class CampaignCollection {
 
@@ -32,7 +32,7 @@ class CampaignCollection {
 	}
 
 	public function getFirstCampaign(): Campaign {
-		if( $this->isEmpty() ) {
+		if ( $this->isEmpty() ) {
 			throw new \OutOfBoundsException( 'No campaigns found.' );
 		}
 		return $this->campaigns[0];
