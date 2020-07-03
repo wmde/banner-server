@@ -18,16 +18,21 @@
         "monolog/monolog": "~1.24"
     },
     "require-dev": {
-        "jeroen/nyancat-phpunit-resultprinter": "~2.2",
-        "ockcyp/covers-validator": "~1.0",
+        "ockcyp/covers-validator": "~1.2",
         "phpmd/phpmd": "~2.6",
         "phpstan/phpstan": "^0.12.5",
         "phpstan/phpstan-phpunit": "^0.12.5",
-        "slevomat/coding-standard": "^4.6",
-        "squizlabs/php_codesniffer": "~3.3",
         "symfony/dotenv": "*",
-        "symfony/test-pack": "^1.0"
+        "symfony/test-pack": "^1.0",
+		"wmde/fundraising-phpcs": "~1.0"
     },
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/wmde/fundraising-phpcs",
+			"no-api": true
+		}
+	],
     "config": {
         "preferred-install": {
             "*": "dist"
