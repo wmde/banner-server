@@ -67,7 +67,11 @@ class BannerSelectionController {
 	}
 
 	/**
+	 * @param Visitor $visitor
+	 * @param \DateTime $cookieExpirationDate
+	 *
 	 * @return Cookie[]
+	 * @throws \Exception
 	 */
 	private function getCookies( Visitor $visitor, \DateTime $cookieExpirationDate ): array {
 		return [

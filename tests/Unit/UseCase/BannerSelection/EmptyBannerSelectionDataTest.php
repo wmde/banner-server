@@ -4,16 +4,14 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\UseCase\BannerSelection;
 
+use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Tests\Fixtures\VisitorFixture;
 use WMDE\BannerServer\UseCase\BannerSelection\EmptyBannerSelectionData;
 
 /**
  * @covers \WMDE\BannerServer\UseCase\BannerSelection\EmptyBannerSelectionData
  */
-class EmptyBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
-
-	const BANNER_TEST_IDENTIFIER = 'testIdentifier';
-	const TEST_DATETIME = '19-06-1992 01:02:03';
+class EmptyBannerSelectionDataTest extends TestCase {
 
 	public function test_given_inactive_campaign_for_visitor_then_banner_is_not_displayed(): void {
 		$bannerSelectionData = new EmptyBannerSelectionData(

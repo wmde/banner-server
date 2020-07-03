@@ -30,6 +30,10 @@ class Bucket {
 
 	/**
 	 * Decides which banner to return based on visitor's impression count
+	 *
+	 * @param int $visitorImpressionCount
+	 *
+	 * @return string
 	 */
 	public function getBanner( int $visitorImpressionCount ): string {
 		if ( $visitorImpressionCount >= count( $this->banners ) ) {
