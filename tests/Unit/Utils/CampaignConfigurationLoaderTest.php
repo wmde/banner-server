@@ -13,11 +13,11 @@ use WMDE\BannerServer\Utils\CampaignConfigurationLoader;
  */
 class CampaignConfigurationLoaderTest extends TestCase {
 
-	const TEST_VALID_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/campaigns.yml';
-	const TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_bucket_campaign.yml';
-	const TEST_BROKEN_BANNER_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_banner_campaign.yml';
-	const TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_data_campaign.yml';
-	const TEST_BROKEN_DISPLAYWIDTH_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_displayWidth_campaign.yml';
+	private const TEST_VALID_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/campaigns.yml';
+	private const TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_bucket_campaign.yml';
+	private const TEST_BROKEN_BANNER_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_banner_campaign.yml';
+	private const TEST_BROKEN_DATA_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_data_campaign.yml';
+	private const TEST_BROKEN_DISPLAYWIDTH_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/broken_displayWidth_campaign.yml';
 
 	public function test_given_campaigns_are_loaded_then_loaded_campaign_data_is_correct(): void {
 		$loader = new CampaignConfigurationLoader( self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );

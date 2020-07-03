@@ -13,5 +13,11 @@
     <arg value="s"/>
     <arg value="p"/>
 
-	<rule ref="vendor/wmde/fundraising-phpcs/WMDE/Fundraising" />
+	<rule ref="vendor/wmde/fundraising-phpcs/WMDE/Fundraising" >
+		<exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
+	</rule>
+	
+	<rule name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName">
+		<exclude-pattern>*/tests/*</exclude-pattern>
+	</rule>
 </ruleset>

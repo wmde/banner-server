@@ -12,9 +12,9 @@ use WMDE\BannerServer\Entity\Visitor;
  */
 class VisitorTest extends TestCase {
 
-	const TEST_IMPRESSION_COUNT = 2;
-	const TEST_BUCKET = 'TEST_BUCKET123';
-	const TEST_DISPLAY_WIDTH = 500;
+	private const TEST_IMPRESSION_COUNT = 2;
+	private const TEST_BUCKET = 'TEST_BUCKET123';
+	private const TEST_DISPLAY_WIDTH = 500;
 
 	public function test_given_visitor_without_categories_then_correct_values_are_returned(): void {
 		$visitor = new Visitor(

@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use WMDE\BannerServer\Tests\Utils\TestCookieController;
 
+/**
+ * @covers \WMDE\BannerServer\Controller\AbstractCookieController
+ */
 class CookieControllerTest extends TestCase {
 
 	public function test_given_no_category_then_no_cookie_is_set(): void {

@@ -4,14 +4,13 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
+use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold;
 
 /**
  * @covers \WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold
  */
-class ImpressionThresholdTest extends \PHPUnit\Framework\TestCase {
-
-	const BANNER_TEST_IDENTIFIER = 'testIdentifier';
+class ImpressionThresholdTest extends TestCase {
 
 	public function test_given_impression_value_then_correct_threshold_reached_state_is_returned(): void {
 		$threshold = new ImpressionThreshold( 10 );

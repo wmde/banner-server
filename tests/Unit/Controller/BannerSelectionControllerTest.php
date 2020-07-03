@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Controller;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
 /**
  * @covers \WMDE\BannerServer\Controller\BannerSelectionController
  */
-class BannerSelectionControllerTest extends \PHPUnit\Framework\TestCase {
+class BannerSelectionControllerTest extends TestCase {
 
 	private const BANNER_PATH = '/test_banners/';
 

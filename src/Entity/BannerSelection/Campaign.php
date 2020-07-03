@@ -30,8 +30,8 @@ class Campaign {
 		int $displayPercentage,
 		string $category,
 		RandomIntegerGenerator $rng,
-		?int $minDisplayWidth = null,
-		?int $maxDisplayWidth = null,
+		?int $minDisplayWidth,
+		?int $maxDisplayWidth,
 		Bucket $firstBucket,
 		Bucket ...$additionalBuckets ) {
 		$this->identifier = $identifier;
