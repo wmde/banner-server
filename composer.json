@@ -15,7 +15,7 @@
         "symfony/asset": "^5.1",
 
         "psr/log": "~1.0",
-        "monolog/monolog": "~1.24"
+        "monolog/monolog": "~2.1"
     },
     "require-dev": {
         "ockcyp/covers-validator": "~1.2",
