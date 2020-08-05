@@ -6,13 +6,10 @@ services:
 install:
   - travis_retry make install-php
 
-before_script:
-  - if [ ! -f "$HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar" ]; then mkdir -p $HOME/phpstan; curl -L https://github.com/phpstan/phpstan/releases/download/$PHPSTAN_VERSION/phpstan.phar > $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar; chmod +x $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar; fi
-
 script:
   - make ci-with-coverage
   - make install-php COMPOSER_FLAGS="--no-dev -q --no-scripts" # Remove dev dependencies to make sure PHPStan creates errors if prod code depends on dev classes
-  - docker-compose run --rm app -v $HOME/phpstan/phpstan_$PHPSTAN_VERSION.phar:/usr/share/nginx/www/banner.wikipedia.de/current/phpstan phpstan analyse --level=7 --no-progress src/ tests/
+  - docker run -v $PWD:/app --rm  wikimediade/fundraising-frontend:stan analyse --configuration=phpstan.prod.neon --level 7 --no-progress src/
 
 after_success:
   - bash build/travis/uploadCoverage.sh
@@ -26,7 +23,3 @@ notifications:
   email:
     on_success: change
     on_failure: always
-
-env:
-  global:
-    - PHPSTAN_VERSION=0.12.5
