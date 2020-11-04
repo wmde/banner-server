@@ -27,11 +27,11 @@ class VisitorFixture {
 		);
 	}
 
-	public static function getTestVisitor(): Visitor {
+	public static function getTestVisitor( ?int $displayWidth = null ): Visitor {
 		return new Visitor(
 			self::VISITOR_TEST_IMPRESSION_COUNT,
 			self::VISITOR_TEST_BUCKET,
-			self::VISITOR_TEST_DISPLAY_WIDTH,
+			$displayWidth ?? self::VISITOR_TEST_DISPLAY_WIDTH,
 			self::VISITOR_TEST_DONATION_CATEGORY
 		);
 	}

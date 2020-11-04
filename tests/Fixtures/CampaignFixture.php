@@ -40,7 +40,7 @@ class CampaignFixture {
 		);
 	}
 
-	public static function getMaxViewportWidthCampaign( int $maxWidthDesktop ): Campaign {
+	public static function getMaxViewportWidthCampaign( int $maxWidthDesktop, ?string $bannerIdentifier = null ): Campaign {
 		return new Campaign(
 			'C18_WMDE_Test',
 			self::getTestCampaignStartDate(),
@@ -50,13 +50,34 @@ class CampaignFixture {
 			new SystemRandomIntegerGenerator(),
 			null,
 			$maxWidthDesktop,
-			BucketFixture::getTestBucket()
+			BucketFixture::getTestBucket( $bannerIdentifier )
+		);
+	}
+
+	public static function getMinViewportWidthCampaign( int $minWidth, ?string $bannerIdentifier = null ): Campaign {
+		return new Campaign(
+			'C18_WMDE_Test',
+			self::getTestCampaignStartDate(),
+			self::getTestCampaignEndDate(),
+			100,
+			self::TEST_CATEGORY,
+			new SystemRandomIntegerGenerator(),
+			$minWidth,
+			null,
+			BucketFixture::getTestBucket( $bannerIdentifier )
 		);
 	}
 
 	public static function getFixedViewportWidthCampaignCollection( int $maxViewportWidth ): CampaignCollection {
 		return new CampaignCollection(
 			self::getMaxViewportWidthCampaign( $maxViewportWidth )
+		);
+	}
+
+	public static function getMixedFixedViewportWidthCampaignCollection( int $minViewportWidth, int $maxViewportWidth, string $minIdentifier, string $maxIdentifier ): CampaignCollection {
+		return new CampaignCollection(
+			self::getMinViewportWidthCampaign( $minViewportWidth, $minIdentifier ),
+			self::getMaxViewportWidthCampaign( $maxViewportWidth, $maxIdentifier )
 		);
 	}
 }
