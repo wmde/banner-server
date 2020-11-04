@@ -122,4 +122,22 @@ class BannerSelectionUseCaseTest extends TestCase {
 			'No banner should be selected, because campaign was for mobile, visitor was desktop width.' );
 	}
 
+	public function test_given_display_width_range_with_multiple_banners_selects_correct_banner(): void {
+		$desktopMinWidth = 600;
+		$desktopIdentifier = 'C20_WMDE_Test_01';
+		$mobileMaxWidth = 600;
+		$mobileIdentifier = 'C20_WMDE_Test_Mobile_01';
+
+		$useCase = new BannerSelectionUseCase(
+			CampaignFixture::getMixedFixedViewportWidthCampaignCollection( $desktopMinWidth, $mobileMaxWidth, $desktopIdentifier, $mobileIdentifier ),
+			new ImpressionThreshold( 10 ),
+			new SystemRandomIntegerGenerator()
+		);
+
+		$desktopSelectionData = $useCase->selectBanner( VisitorFixture::getTestVisitor( 1000 ) );
+		$mobileSelectionData = $useCase->selectBanner( VisitorFixture::getTestVisitor( 320 ) );
+
+		$this->assertEquals( $desktopIdentifier, $desktopSelectionData->getBannerIdentifier() );
+		$this->assertEquals( $mobileIdentifier, $mobileSelectionData->getBannerIdentifier() );
+	}
 }

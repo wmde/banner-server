@@ -215,7 +215,7 @@ class CampaignTest extends TestCase {
 		);
 
 		$this->assertTrue( $campaign->isInDisplayRange( 0 ) );
-		$this->assertTrue( $campaign->isInDisplayRange( 1024 ) );
-		$this->assertFalse( $campaign->isInDisplayRange( 1025 ) );
+		$this->assertTrue( $campaign->isInDisplayRange( 1023 ) );
+		$this->assertFalse( $campaign->isInDisplayRange( 1024 ) );
 	}
 }

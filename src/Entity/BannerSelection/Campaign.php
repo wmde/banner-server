@@ -79,7 +79,7 @@ class Campaign {
 		if ( $this->minDisplayWidth !== null && $width < $this->minDisplayWidth ) {
 			return false;
 		}
-		if ( $this->maxDisplayWidth !== null && $width > $this->maxDisplayWidth ) {
+		if ( $this->maxDisplayWidth !== null && $width >= $this->maxDisplayWidth ) {
 			return false;
 		}
 		return true;
