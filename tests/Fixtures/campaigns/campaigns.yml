@@ -35,3 +35,18 @@ B20WPDE_01_201111:
     - name: B20WPDE_01_201111_var
       banners:
         - B20WPDE_01_201111_var
+            
+B20WPDE_02_201125:
+  description: This is a simple campaign without size limits
+  start: "2020-11-25 14:00:00"
+  end: "2020-11-31 14:00:00"
+  trafficLimit: 10
+  minDisplayWidth: null
+  maxDisplayWidth: null
+  buckets:
+    - name: B20WPDE_02_201125_ctrl
+      banners:
+        - B20WPDE_02_201125_ctrl
+    - name: B20WPDE_02_201125_var
+      banners:
+        - B20WPDE_02_201125_var

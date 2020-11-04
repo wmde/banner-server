@@ -6,6 +6,7 @@ namespace WMDE\BannerServer\Tests\Unit\Utils;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Exception\ParseException;
+use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Utils\CampaignConfigurationLoader;
 
 /**
@@ -81,5 +82,20 @@ class CampaignConfigurationLoaderTest extends TestCase {
 		);
 		$this->expectException( ParseException::class );
 		$loader->getCampaignCollection();
+	}
+
+	public function test_given_empty_display_limits_they_are_set_to_null(): void {
+		$loader = new CampaignConfigurationLoader( self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );
+		$collection = $loader->getCampaignCollection();
+		// Using $campaign->isInDisplayRange instead of private property access wouldn't test reliably for null values,
+		// adding getters for min/max width would break domain encapsulation, so we're cheating here in the test
+		$readPrivateProperty = \Closure::bind( function ( Campaign $campaign, string $propertyName ) {
+			return $campaign->$propertyName;
+		}, null, Campaign::class );
+
+		$campaign = $collection->getCampaign( new \DateTime( '2020-11-26' ) );
+
+		$this->assertNull( $readPrivateProperty( $campaign, 'minDisplayWidth' ) );
+		$this->assertNull( $readPrivateProperty( $campaign, 'maxDisplayWidth' ) );
 	}
 }
