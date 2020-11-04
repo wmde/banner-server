@@ -38,12 +38,12 @@ class CampaignConfigurationLoader {
 		if ( empty( $campaignData['start'] ) || empty( $campaignData['end'] ) || !isset( $campaignData['trafficLimit'] ) ) {
 			throw new \DomainException( 'Campaign data is incomplete.' );
 		}
-		if ( is_numeric( $campaignData['minDisplayWidth'] ) && is_numeric( $campaignData['maxDisplayWidth'] ) ) {
-			if ( $campaignData['minDisplayWidth'] > $campaignData['maxDisplayWidth'] ) {
-				throw new \DomainException(
-					'Campaign data display width values are invalid (if defined, max must be higher than min).'
-				);
-			}
+		$minDisplayWidth = $this->integerOrNullValue( $campaignData, 'minDisplayWidth' );
+		$maxDisplayWidth = $this->integerOrNullValue( $campaignData, 'maxDisplayWidth' );
+		if ( $minDisplayWidth && $maxDisplayWidth && $minDisplayWidth > $maxDisplayWidth ) {
+			throw new \DomainException(
+				'Campaign data display width values are invalid (if defined, max must be higher than min).'
+			);
 		}
 		return new Campaign(
 			$campaignName,
@@ -52,8 +52,8 @@ class CampaignConfigurationLoader {
 			(int)$campaignData['trafficLimit'],
 			$campaignData['category'] ?? 'default',
 			new SystemRandomIntegerGenerator(),
-			(int)$campaignData['minDisplayWidth'],
-			(int)$campaignData['maxDisplayWidth'],
+			$minDisplayWidth,
+			$maxDisplayWidth,
 			array_shift( $buckets ),
 			...$buckets
 		);
@@ -95,5 +95,16 @@ class CampaignConfigurationLoader {
 
 	private function parseConfiguration(): array {
 		return Yaml::parseFile( $this->configFile );
+	}
+
+	private function integerOrNullValue( array $campaignData, string $key ): ?int {
+		if ( !isset( $campaignData[$key] ) ) {
+			return null;
+		}
+		$value = $campaignData[$key];
+		if ( !is_numeric( $value ) ) {
+			return null;
+		}
+		return intval( $value );
 	}
 }
