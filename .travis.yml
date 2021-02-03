@@ -4,7 +4,7 @@ services:
   - docker
 
 install:
-  - travis_retry make install-php
+  - travis_retry make install-php COMPOSER_FLAGS="-q --no-scripts"
 
 script:
   - make ci-with-coverage

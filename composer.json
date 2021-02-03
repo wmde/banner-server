@@ -18,7 +18,6 @@
         "monolog/monolog": "~2.1"
     },
     "require-dev": {
-        "ockcyp/covers-validator": "~1.2",
         "phpmd/phpmd": "~2.6",
         "phpstan/phpstan": "^0.12.5",
         "phpstan/phpstan-phpunit": "^0.12.5",
