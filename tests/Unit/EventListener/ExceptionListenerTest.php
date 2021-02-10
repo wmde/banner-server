@@ -6,6 +6,7 @@ namespace WMDE\BannerServer\Tests\Unit\EventListener;
 
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
+use PHPUnit\Framework\Constraint\Callback;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,16 +26,16 @@ class ExceptionListenerTest extends \PHPUnit\Framework\TestCase {
 			$this->newRequestMock( 'some/url/which/implies/javascript.js' )
 		);
 
+		$callback = new Callback(
+			function ( $response ): bool {
+				return $response->getContent() === '' &&
+					$response->getStatusCode() === Response::HTTP_INTERNAL_SERVER_ERROR;
+			}
+		);
+
 		$event->expects( $this->once() )
 			->method( 'setResponse' )
-			->with(
-				$this->callback(
-					function ( $response ) {
-						return $response->getContent() === '' &&
-							$response->getStatusCode() === Response::HTTP_INTERNAL_SERVER_ERROR;
-					}
-				)
-			);
+			->with( $callback );
 
 		$listener = new ExceptionListener( new Logger( 'TestLogger', [ $testHandler ] ) );
 		$listener->onKernelException( $event );
