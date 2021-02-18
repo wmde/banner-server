@@ -67,6 +67,7 @@ class ExceptionListenerTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @param Request $request
 	 * @return ExceptionEvent|MockObject
 	 */
 	private function newGetResponseForExceptionEventMock( Request $request ): ExceptionEvent {

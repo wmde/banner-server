@@ -26,7 +26,7 @@
 
         "symfony/dotenv": "*",
         "symfony/test-pack": "^1.0",
-		"wmde/fundraising-phpcs": "~1.0"
+		"wmde/fundraising-phpcs": "~2.0"
     },
 	"repositories": [
 		{
