@@ -51,7 +51,7 @@ class BannerSelectionControllerTest extends TestCase {
 
 		$cookies = $response->headers->getCookies();
 
-		$this->assertEquals( 2, count( $cookies ) );
+		$this->assertCount( 2, $cookies );
 
 		$this->assertEquals( BannerSelectionController::BUCKET_COOKIE, $cookies[0]->getName() );
 		$this->assertEquals( 'test', $cookies[0]->getValue() );
