@@ -35,4 +35,11 @@ stan:
 update-php:
 	docker run --rm $(DOCKER_FLAGS) --volume $(BUILD_DIR):/app -w /app --volume ~/.composer:/composer --user $(current_user):$(current_group) composer update --ignore-platform-reqs $(COMPOSER_FLAGS)
 
+clear:
+	rm -rf var/cache/
+	docker-compose run --rm --no-deps app rm -rf var/cache/
+
+# n alias to avoid frequent typo
+clean: clear
+
 ci-with-coverage: phpunit-with-coverage cs stan
