@@ -7,12 +7,13 @@ install:
   - travis_retry make install-php COMPOSER_FLAGS="-q --no-scripts"
 
 script:
-  - make ci-with-coverage
+  - make ci-with-coverage COVERAGE_FLAGS="--coverage-clover coverage.clover"
   - make install-php COMPOSER_FLAGS="--no-dev -q --no-scripts" # Remove dev dependencies to make sure PHPStan creates errors if prod code depends on dev classes
   - docker run -v $PWD:/app --rm  wikimediade/fundraising-frontend:stan analyse --configuration=phpstan.prod.neon --level 7 --no-progress src/
 
 after_success:
-  - bash build/travis/uploadCoverage.sh
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 cache:
   directories:
