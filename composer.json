@@ -4,7 +4,7 @@
     "type": "project",
     "license": "GPL-2.0+",
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
 
@@ -15,6 +15,7 @@
         "symfony/asset": "^5.1",
 
         "psr/log": "~1.0",
+        "psr/cache": "~1.0",
         "monolog/monolog": "~2.1"
     },
     "require-dev": {
