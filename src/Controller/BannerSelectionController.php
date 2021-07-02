@@ -52,11 +52,11 @@ class BannerSelectionController {
 	}
 
 	private function buildValuesFromRequest( Request $request ): Visitor {
-		$rawCategories = $request->cookies->get( self::CATEGORY_COOKIE, '' );
+		$rawCategories = $request->cookies->get( (string)self::CATEGORY_COOKIE, '' );
 		$categories = array_filter( explode( ',', $rawCategories ) );
 		return new Visitor(
 			$request->cookies->getInt( self::IMPRESSION_COUNT_COOKIE, 0 ),
-			$request->cookies->get( self::BUCKET_COOKIE, null ),
+			(string)$request->cookies->get( self::BUCKET_COOKIE, null ) ?: null,
 			$request->query->getInt( 'vWidth' ),
 			...$categories
 		);
