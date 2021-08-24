@@ -14,6 +14,7 @@ services:
       context: ./build/app
       target: app_debug
     environment:
+      - XDEBUG_MODE=coverage
       - XDEBUG_CONFIG=remote_host=${LOCAL_IP} # This won't work for PHPStorm CLI runs until https://youtrack.jetbrains.com/issue/WI-41043 is fixed
       - PHP_IDE_CONFIG=serverName=banner.wikipedia.de
     expose:
