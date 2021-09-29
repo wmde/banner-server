@@ -11,7 +11,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use WMDE\BannerServer\EventListener\ExceptionListener;
 
 /**
@@ -27,7 +26,7 @@ class ExceptionListenerTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$callback = new Callback(
-			function ( $response ): bool {
+			static function ( $response ): bool {
 				return $response->getContent() === '' &&
 					$response->getStatusCode() === Response::HTTP_INTERNAL_SERVER_ERROR;
 			}

@@ -89,7 +89,7 @@ class CampaignConfigurationLoaderTest extends TestCase {
 		$collection = $loader->getCampaignCollection();
 		// Using $campaign->isInDisplayRange instead of private property access wouldn't test reliably for null values,
 		// adding getters for min/max width would break domain encapsulation, so we're cheating here in the test
-		$readPrivateProperty = \Closure::bind( function ( Campaign $campaign, string $propertyName ) {
+		$readPrivateProperty = \Closure::bind( static function ( Campaign $campaign, string $propertyName ) {
 			return $campaign->$propertyName;
 		}, null, Campaign::class );
 
