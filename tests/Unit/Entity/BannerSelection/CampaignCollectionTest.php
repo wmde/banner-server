@@ -129,7 +129,7 @@ class CampaignCollectionTest extends TestCase {
 		);
 
 		$filteredCampaignCollection = $campaignCollection->filter(
-			function ( Campaign $campaign ) {
+			static function ( Campaign $campaign ) {
 				return $campaign->getIdentifier() === 'C18_WMDE_Test_past';
 			}
 			);
