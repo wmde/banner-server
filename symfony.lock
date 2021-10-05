@@ -157,9 +157,6 @@
     "symfony/asset": {
         "version": "v5.2.10"
     },
-    "symfony/browser-kit": {
-        "version": "v5.2.3"
-    },
     "symfony/cache": {
         "version": "v5.2.3"
     },
@@ -182,9 +179,6 @@
             "config/bootstrap.php"
         ]
     },
-    "symfony/css-selector": {
-        "version": "v5.2.3"
-    },
     "symfony/debug": {
         "version": "v4.4.25"
     },
@@ -193,9 +187,6 @@
     },
     "symfony/deprecation-contracts": {
         "version": "v2.4.0"
-    },
-    "symfony/dom-crawler": {
-        "version": "v5.2.3"
     },
     "symfony/dotenv": {
         "version": "v5.2.10"
