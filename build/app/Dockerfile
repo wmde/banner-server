@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-buster as app
+FROM php:8.1-fpm-buster as app
 
 RUN mkdir -p /usr/share/nginx/www/banner.wikipedia.de/current/var/cache \
     && mkdir -p /usr/share/nginx/www/banner.wikipedia.de/current/var/log \
