@@ -13,7 +13,7 @@ RUN curl https://getcomposer.org/installer | php -- --filename=composer --instal
 
 FROM app as app_debug
 
-RUN pecl install xdebug-3.0.4 \
+RUN pecl install xdebug-3.1.2 \
     && docker-php-ext-enable xdebug \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini

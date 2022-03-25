@@ -35,8 +35,8 @@ class CampaignConfigurationLoaderTest extends TestCase {
 
 		$bucketA = $campaign->selectBucket( 'B18WPDE_01_180131_ctrl' );
 		$bucketB = $campaign->selectBucket( 'B18WPDE_01_180131_var' );
-		$this->assertEquals( $bucketA->getIdentifier(), 'B18WPDE_01_180131_ctrl' );
-		$this->assertEquals( $bucketB->getIdentifier(), 'B18WPDE_01_180131_var' );
+		$this->assertEquals( 'B18WPDE_01_180131_ctrl', $bucketA->getIdentifier() );
+		$this->assertEquals( 'B18WPDE_01_180131_var', $bucketB->getIdentifier() );
 
 		$this->assertEquals( 'B18WPDE_01_180131_fulltop_ctrl', $bucketA->getBanner( 0 ) );
 		$this->assertEquals( 'B18WPDE_01_180131_top_ctrl2', $bucketA->getBanner( 1 ) );

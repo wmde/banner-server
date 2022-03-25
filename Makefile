@@ -25,6 +25,9 @@ phpunit:
 phpunit-with-coverage:
 	docker-compose -f docker-compose.yml -f docker-compose.debug.yml run --rm app_debug ./vendor/bin/phpunit --configuration=phpunit.xml.dist $(COVERAGE_FLAGS)
 
+docker-build:
+	docker-compose -f docker-compose.yml -f docker-compose.debug.yml build
+
 ci: test cs phpcs stan
 
 ci-with-coverage: phpunit-with-coverage cs stan
