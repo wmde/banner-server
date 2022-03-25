@@ -19,7 +19,7 @@ filter:
 build:
     environment:
         php:
-            version: '7.4'
+            version: '8.1'
     nodes:
         analysis:
             tests:

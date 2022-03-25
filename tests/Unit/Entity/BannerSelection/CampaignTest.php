@@ -99,8 +99,8 @@ class CampaignTest extends TestCase {
 			$this->getVariantBucket()
 		);
 		$this->assertEquals(
-			$campaign->selectBucket( 'C18_WMDE_Test_var' )->getIdentifier(),
-			'C18_WMDE_Test_var'
+			'C18_WMDE_Test_var',
+			$campaign->selectBucket( 'C18_WMDE_Test_var' )->getIdentifier()
 		);
 	}
 
@@ -118,8 +118,8 @@ class CampaignTest extends TestCase {
 			$this->getVariantBucket()
 		);
 		$this->assertEquals(
-			$campaign->selectBucket( 'C18_WMDE_Test_var_666' )->getIdentifier(),
-			'C18_WMDE_Test_var'
+			'C18_WMDE_Test_var',
+			$campaign->selectBucket( 'C18_WMDE_Test_var_666' )->getIdentifier()
 		);
 	}
 
@@ -137,8 +137,8 @@ class CampaignTest extends TestCase {
 			$this->getVariantBucket()
 		);
 		$this->assertEquals(
-			$campaign->selectBucket( null )->getIdentifier(),
-			'C18_WMDE_Test_var'
+			'C18_WMDE_Test_var',
+			$campaign->selectBucket( null )->getIdentifier()
 		);
 	}
 
