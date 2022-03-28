@@ -54,3 +54,5 @@ coverage/
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+wikipedia.de-banners
