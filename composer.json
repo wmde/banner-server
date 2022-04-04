@@ -24,7 +24,7 @@
         "phpunit/phpunit": "~9.5.0",
         "symfony/dotenv": "~6.0",
         "symfony/phpunit-bridge": "^6.0",
-        "wmde/fundraising-phpcs": "~5.0"
+        "wmde/fundraising-phpcs": "~6.0"
     },
 	"repositories": [
 		{
