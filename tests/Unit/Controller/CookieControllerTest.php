@@ -20,7 +20,7 @@ class CookieControllerTest extends TestCase {
 
 		$response = $controller->index( new Request() );
 
-		$this->assertEmpty( $response->headers->getCookies( ResponseHeaderBag::COOKIES_FLAT ) );
+		$this->assertCount( 0, $response->headers->getCookies( ResponseHeaderBag::COOKIES_FLAT ) );
 		$this->assertNotSame( Response::HTTP_OK, $response->getStatusCode() );
 	}
 
@@ -29,7 +29,7 @@ class CookieControllerTest extends TestCase {
 
 		$response = $controller->index( new Request( [ 'c' => ':break-my-yaml!' ] ) );
 
-		$this->assertEmpty( $response->headers->getCookies( ResponseHeaderBag::COOKIES_FLAT ) );
+		$this->assertCount( 0, $response->headers->getCookies( ResponseHeaderBag::COOKIES_FLAT ) );
 		$this->assertNotSame( Response::HTTP_OK, $response->getStatusCode() );
 	}
 
