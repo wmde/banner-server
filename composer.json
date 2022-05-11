@@ -15,7 +15,7 @@
         "symfony/asset": "^6.0",
 
         "psr/log": "~3.0",
-        "monolog/monolog": "~2.1"
+        "monolog/monolog": "~3.0"
     },
     "require-dev": {
         "phpmd/phpmd": "~2.6",
