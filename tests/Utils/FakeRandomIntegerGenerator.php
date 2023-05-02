@@ -11,10 +11,9 @@ use WMDE\BannerServer\Entity\BannerSelection\RandomIntegerGenerator;
  */
 class FakeRandomIntegerGenerator implements RandomIntegerGenerator {
 
-	private $returnValue;
-
-	public function __construct( int $returnValue ) {
-		$this->returnValue = $returnValue;
+	public function __construct(
+		private readonly int $returnValue
+	) {
 	}
 
 	public function getRandomInteger( int $min, int $max ): int {

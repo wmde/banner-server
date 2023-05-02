@@ -20,12 +20,10 @@ class BannerSelectionController {
 	public const BUCKET_COOKIE = 'b';
 	public const CATEGORY_COOKIE = 'cat';
 
-	private $useCase;
-	private $bannerPath;
-
-	public function __construct( BannerSelectionUseCase $useCase, string $bannerPath ) {
-		$this->useCase = $useCase;
-		$this->bannerPath = $bannerPath;
+	public function __construct(
+		private readonly BannerSelectionUseCase $useCase,
+		private readonly string $bannerPath
+	) {
 	}
 
 	public function selectBanner( Request $request ): Response {

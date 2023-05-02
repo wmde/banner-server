@@ -26,6 +26,7 @@ var/
 wikipedia.de-banners/
 
 .phpunit.result.cache
+.phpunit.cache
 
 coverage.clover
 coverage/
