@@ -9,10 +9,9 @@ namespace WMDE\BannerServer\Entity\BannerSelection;
  */
 class ImpressionThreshold {
 
-	private $seasonalLimit;
-
-	public function __construct( int $seasonalLimit ) {
-		$this->seasonalLimit = $seasonalLimit;
+	public function __construct(
+		private readonly int $seasonalLimit
+	) {
 	}
 
 	public function isThresholdReached( int $impressions ): bool {

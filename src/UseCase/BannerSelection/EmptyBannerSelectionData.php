@@ -11,10 +11,9 @@ use WMDE\BannerServer\Entity\Visitor;
  */
 class EmptyBannerSelectionData implements BannerSelectionData {
 
-	private $visitorData;
-
-	public function __construct( Visitor $visitorData ) {
-		$this->visitorData = $visitorData;
+	public function __construct(
+		private readonly Visitor $visitorData
+	) {
 	}
 
 	public function displayBanner(): bool {

@@ -13,10 +13,9 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
  */
 class ExceptionListener {
 
-	private $logger;
-
-	public function __construct( LoggerInterface $logger ) {
-		$this->logger = $logger;
+	public function __construct(
+		private readonly LoggerInterface $logger
+	) {
 	}
 
 	public function onKernelException( ExceptionEvent $event ): void {

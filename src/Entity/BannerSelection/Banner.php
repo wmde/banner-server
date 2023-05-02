@@ -9,10 +9,9 @@ namespace WMDE\BannerServer\Entity\BannerSelection;
  */
 class Banner {
 
-	private $identifier;
-
-	public function __construct( string $identifier ) {
-		$this->identifier = $identifier;
+	public function __construct(
+		private readonly string $identifier
+	) {
 	}
 
 	public function getIdentifier(): string {

@@ -11,14 +11,11 @@ use WMDE\BannerServer\Entity\Visitor;
  */
 class ActiveBannerSelectionData implements BannerSelectionData {
 
-	private $bannerIdentifier;
-	private $visitorData;
-	private $campaignEnd;
-
-	public function __construct( Visitor $visitorData, string $bannerIdentifier, \DateTime $campaignEnd ) {
-		$this->visitorData = $visitorData;
-		$this->bannerIdentifier = $bannerIdentifier;
-		$this->campaignEnd = $campaignEnd;
+	public function __construct(
+		private readonly Visitor $visitorData,
+		private readonly string $bannerIdentifier,
+		private readonly \DateTime $campaignEnd
+	) {
 	}
 
 	public function displayBanner(): bool {

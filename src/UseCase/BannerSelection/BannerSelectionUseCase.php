@@ -15,14 +15,11 @@ use WMDE\BannerServer\Entity\Visitor;
  */
 class BannerSelectionUseCase {
 
-	private $campaignCollection;
-	private $impressionThreshold;
-	private $rng;
-
-	public function __construct( CampaignCollection $campaignCollection, ImpressionThreshold $impressionThreshold, RandomIntegerGenerator $rng ) {
-		$this->campaignCollection = $campaignCollection;
-		$this->impressionThreshold = $impressionThreshold;
-		$this->rng = $rng;
+	public function __construct(
+		private readonly CampaignCollection $campaignCollection,
+		private readonly ImpressionThreshold $impressionThreshold,
+		private readonly RandomIntegerGenerator $rng
+	) {
 	}
 
 	public function selectBanner( Visitor $visitor ): BannerSelectionData {
