@@ -9,6 +9,7 @@ use WMDE\BannerServer\Entity\BannerSelection\Banner;
 use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
+use WMDE\BannerServer\InvalidConfigurationValueException;
 
 /**
  * @license GPL-2.0-or-later
@@ -33,15 +34,15 @@ class CampaignConfigurationLoader {
 	private function buildCampaignFromData( string $campaignName, array $campaignData ): Campaign {
 		$buckets = $this->buildBucketsFromData( $campaignData );
 		if ( empty( $buckets ) ) {
-			throw new \DomainException( 'Campaign contains no buckets.' );
+			throw new InvalidConfigurationValueException( 'Campaign contains no buckets.' );
 		}
 		if ( empty( $campaignData['start'] ) || empty( $campaignData['end'] ) || !isset( $campaignData['trafficLimit'] ) ) {
-			throw new \DomainException( 'Campaign data is incomplete.' );
+			throw new InvalidConfigurationValueException( 'Campaign data is incomplete.' );
 		}
 		$minDisplayWidth = $this->integerOrNullValue( $campaignData, 'minDisplayWidth' );
 		$maxDisplayWidth = $this->integerOrNullValue( $campaignData, 'maxDisplayWidth' );
 		if ( $minDisplayWidth && $maxDisplayWidth && $minDisplayWidth > $maxDisplayWidth ) {
-			throw new \DomainException(
+			throw new InvalidConfigurationValueException(
 				'Campaign data display width values are invalid (if defined, max must be higher than min).'
 			);
 		}
@@ -70,14 +71,14 @@ class CampaignConfigurationLoader {
 
 	private function buildBucketFromData( array $bucketData ): Bucket {
 		if ( !isset( $bucketData['name'] ) ) {
-			throw new \DomainException( 'A configured bucket has no name.' );
+			throw new InvalidConfigurationValueException( 'A configured bucket has no name.' );
 		}
 		if ( !isset( $bucketData['banners'] ) ) {
-			throw new \DomainException( 'A configured bucket has no associated banners.' );
+			throw new InvalidConfigurationValueException( 'A configured bucket has no associated banners.' );
 		}
 		$banners = $this->buildBannersFromData( $bucketData['banners'] );
 		if ( empty( $banners ) ) {
-			throw new \DomainException( 'A configured bucket has no valid banners associated with it.' );
+			throw new InvalidConfigurationValueException( 'A configured bucket has no valid banners associated with it.' );
 		}
 		return new Bucket( $bucketData['name'], array_shift( $banners ), ...$banners );
 	}
@@ -86,7 +87,7 @@ class CampaignConfigurationLoader {
 		$banners = [];
 		foreach ( $bannerData as $bannerIdentifier ) {
 			if ( !$bannerIdentifier ) {
-				throw new \DomainException( 'A configured banner has an empty name.' );
+				throw new InvalidConfigurationValueException( 'A configured banner has an empty name.' );
 			}
 			$banners[] = new Banner( $bannerIdentifier );
 		}
