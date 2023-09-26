@@ -55,7 +55,7 @@ class ExceptionListenerTest extends KernelTestCase {
 		$request = $this->createMock( Request::class );
 		$request->expects( $this->once() )
 			->method( 'getPathInfo' )
-			->will( $this->returnValue( $requestUrl ) );
+			->willReturn( $requestUrl );
 		return $request;
 	}
 
