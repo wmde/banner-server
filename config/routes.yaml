@@ -9,3 +9,7 @@ banner_server_finish_donation:
 banner_server_close_banner:
   path: /close-banner
   controller: WMDE\BannerServer\Controller\BannerClosedController::index
+
+banner_server_maybe_later:
+  path: /maybe-later
+  controller: WMDE\BannerServer\Controller\MaybeLaterController::index
