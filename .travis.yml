@@ -8,8 +8,11 @@ install:
 
 script:
   - make ci-with-coverage COVERAGE_FLAGS="--coverage-clover coverage.clover"
-  - make install-php COMPOSER_FLAGS="--no-dev -q --no-scripts" # Remove dev dependencies to make sure PHPStan creates errors if prod code depends on dev classes
-  - docker run -v $PWD:/app --rm registry.gitlab.com/fun-tech/fundraising-frontend-docker/php-8.1:stan analyse --configuration=phpstan.prod.neon --level 7 --no-progress src/
+    # Remove dev dependencies to make sure PHPStan creates errors if prod code depends on dev classes
+    # TODO: Replace with deptrac, see https://phabricator.wikimedia.org/T277873
+  - make install-php COMPOSER_FLAGS="--no-dev -q --no-scripts"
+  - wget https://github.com/phpstan/phpstan/releases/download/1.10.57/phpstan.phar -O $PWD/phpstan.phar
+  - docker run -v $PWD:/app -w /app --rm php:8.1-fpm-buster php phpstan.phar analyse --configuration=phpstan.prod.neon --level 7 --no-progress --no-interaction --memory-limit=1024M src/
 
 after_success:
   - wget https://scrutinizer-ci.com/ocular.phar
@@ -18,7 +21,6 @@ after_success:
 cache:
   directories:
   - "$HOME/.composer/cache"
-  - "$HOME/phpstan"
 
 notifications:
   email:
