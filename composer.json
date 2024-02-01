@@ -24,7 +24,7 @@
         "phpunit/phpunit": "~10.5.9",
         "symfony/dotenv": "~6.0",
         "symfony/phpunit-bridge": "^7.0",
-        "wmde/fundraising-phpcs": "~9.0"
+        "wmde/fundraising-phpcs": "~10.0"
     },
 	"repositories": [
 		{
@@ -39,7 +39,8 @@
         },
         "sort-packages": true,
         "allow-plugins": {
-            "symfony/flex": true
+            "symfony/flex": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "autoload": {
