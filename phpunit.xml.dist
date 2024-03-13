@@ -11,6 +11,7 @@
 	stopOnFailure="false"
 	stopOnIncomplete="false"
 	backupStaticProperties="false"
+	requireCoverageMetadata="true"
 >
   <coverage/>
   <php>
