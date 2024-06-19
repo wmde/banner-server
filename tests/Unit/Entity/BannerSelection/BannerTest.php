@@ -4,12 +4,12 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Entity\BannerSelection\Banner;
 
-/**
- * @covers \WMDE\BannerServer\Entity\BannerSelection\Banner
- */
-class BannerTest extends \PHPUnit\Framework\TestCase {
+#[CoversClass( Banner::class )]
+class BannerTest extends TestCase {
 
 	private const BANNER_TEST_IDENTIFIER = 'testIdentifier';
 

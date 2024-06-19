@@ -4,13 +4,12 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\UseCase\BannerSelection;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Tests\Fixtures\VisitorFixture;
 use WMDE\BannerServer\UseCase\BannerSelection\EmptyBannerSelectionData;
 
-/**
- * @covers \WMDE\BannerServer\UseCase\BannerSelection\EmptyBannerSelectionData
- */
+#[CoversClass( EmptyBannerSelectionData::class )]
 class EmptyBannerSelectionDataTest extends TestCase {
 
 	public function test_given_inactive_campaign_for_visitor_then_banner_is_not_displayed(): void {

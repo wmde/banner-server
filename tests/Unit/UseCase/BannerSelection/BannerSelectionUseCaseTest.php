@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\UseCase\BannerSelection;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold;
 use WMDE\BannerServer\Entity\Visitor;
@@ -13,9 +14,7 @@ use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
 use WMDE\BannerServer\Utils\SystemRandomIntegerGenerator;
 
-/**
- * @covers \WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase
- */
+#[CoversClass( BannerSelectionUseCase::class )]
 class BannerSelectionUseCaseTest extends TestCase {
 
 	public function test_given_max_percentage_then_limit_is_not_applied(): void {

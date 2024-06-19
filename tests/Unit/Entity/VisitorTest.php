@@ -4,12 +4,11 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Entity;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Entity\Visitor;
 
-/**
- * @covers \WMDE\BannerServer\Entity\Visitor
- */
+#[CoversClass( Visitor::class )]
 class VisitorTest extends TestCase {
 
 	private const TEST_IMPRESSION_COUNT = 2;

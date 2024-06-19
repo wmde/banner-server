@@ -4,13 +4,12 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Entity\BannerSelection\Banner;
 use WMDE\BannerServer\Entity\BannerSelection\Bucket;
 
-/**
- * @covers \WMDE\BannerServer\Entity\BannerSelection\Bucket
- */
+#[CoversClass( Bucket::class )]
 class BucketTest extends TestCase {
 
 	public function test_given_first_time_visitor_then_main_banner_is_returned(): void {

@@ -4,15 +4,17 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Controller;
 
+use DateInterval;
+use DateTime;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use WMDE\BannerServer\Controller\AbstractCookieController;
 use WMDE\BannerServer\Tests\Utils\TestCookieController;
 
-/**
- * @covers \WMDE\BannerServer\Controller\AbstractCookieController
- */
+#[CoversClass( AbstractCookieController::class )]
 class CookieControllerTest extends TestCase {
 
 	public function test_given_no_category_then_no_cookie_is_set(): void {
@@ -40,7 +42,7 @@ class CookieControllerTest extends TestCase {
 
 		$this->assertSame( Response::HTTP_OK, $response->getStatusCode() );
 		$firstCookie = $response->headers->getCookies( ResponseHeaderBag::COOKIES_FLAT )[0];
-		$expectedDate = ( new \DateTime() )->add( new \DateInterval( 'P180D' ) );
+		$expectedDate = ( new DateTime() )->add( new DateInterval( 'P180D' ) );
 
 		$this->assertSame( 'fundraising,fundraising_next', $firstCookie->getValue() );
 		$this->assertEqualsWithDelta( $expectedDate->getTimestamp(), $firstCookie->getExpiresTime(), 5 );
