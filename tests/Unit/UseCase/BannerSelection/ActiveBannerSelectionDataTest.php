@@ -4,13 +4,14 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\UseCase\BannerSelection;
 
+use DateTime;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Tests\Fixtures\VisitorFixture;
 use WMDE\BannerServer\UseCase\BannerSelection\ActiveBannerSelectionData;
 
-/**
- * @covers \WMDE\BannerServer\UseCase\BannerSelection\ActiveBannerSelectionData
- */
-class ActiveBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
+#[CoversClass( ActiveBannerSelectionData::class )]
+class ActiveBannerSelectionDataTest extends TestCase {
 
 	private const BANNER_TEST_IDENTIFIER = 'testIdentifier';
 	private const TEST_DATETIME = '19-06-1992 01:02:03';
@@ -19,10 +20,10 @@ class ActiveBannerSelectionDataTest extends \PHPUnit\Framework\TestCase {
 		$bannerSelectionData = new ActiveBannerSelectionData(
 			VisitorFixture::getTestVisitor(),
 			self::BANNER_TEST_IDENTIFIER,
-			new \DateTime( self::TEST_DATETIME )
+			new DateTime( self::TEST_DATETIME )
 		);
 		$this->assertTrue( $bannerSelectionData->displayBanner() );
-		$this->assertEquals( new \DateTime( self::TEST_DATETIME ), $bannerSelectionData->getCampaignEnd() );
+		$this->assertEquals( new DateTime( self::TEST_DATETIME ), $bannerSelectionData->getCampaignEnd() );
 		$this->assertEquals( self::BANNER_TEST_IDENTIFIER, $bannerSelectionData->getBannerIdentifier() );
 		$this->assertEquals( VisitorFixture::getTestVisitor(), $bannerSelectionData->getVisitorData() );
 	}

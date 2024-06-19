@@ -4,14 +4,15 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Utils;
 
+use Closure;
+use DateTime;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Exception\ParseException;
 use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Utils\CampaignConfigurationLoader;
 
-/**
- * @covers \WMDE\BannerServer\Utils\CampaignConfigurationLoader
- */
+#[CoversClass( CampaignConfigurationLoader::class )]
 class CampaignConfigurationLoaderTest extends TestCase {
 
 	private const TEST_VALID_CAMPAIGN_CONFIGURATION_FILE = 'tests/Fixtures/campaigns/campaigns.yml';
@@ -24,8 +25,8 @@ class CampaignConfigurationLoaderTest extends TestCase {
 		$loader = new CampaignConfigurationLoader( self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );
 		$collection = $loader->getCampaignCollection();
 
-		$campaign = $collection->getCampaign( new \DateTime( '2018-12-12' ) );
-		$categorizedCampaign = $collection->getCampaign( new \DateTime( '2020-11-12' ) );
+		$campaign = $collection->getCampaign( new DateTime( '2018-12-12' ) );
+		$categorizedCampaign = $collection->getCampaign( new DateTime( '2020-11-12' ) );
 		$this->assertNotNull( $campaign );
 		$this->assertEquals( 'B18WPDE_01_180131', $campaign->getIdentifier() );
 		$this->assertEquals( '2019-01-01 14:00:00', $campaign->getEnd()->format( 'Y-m-d H:i:s' ) );
@@ -89,11 +90,11 @@ class CampaignConfigurationLoaderTest extends TestCase {
 		$collection = $loader->getCampaignCollection();
 		// Using $campaign->isInDisplayRange instead of private property access wouldn't test reliably for null values,
 		// adding getters for min/max width would break domain encapsulation, so we're cheating here in the test
-		$readPrivateProperty = \Closure::bind( static function ( Campaign $campaign, string $propertyName ) {
+		$readPrivateProperty = Closure::bind( static function ( Campaign $campaign, string $propertyName ) {
 			return $campaign->$propertyName;
 		}, null, Campaign::class );
 
-		$campaign = $collection->getCampaign( new \DateTime( '2020-11-26' ) );
+		$campaign = $collection->getCampaign( new DateTime( '2020-11-26' ) );
 
 		$this->assertNull( $readPrivateProperty( $campaign, 'minDisplayWidth' ) );
 		$this->assertNull( $readPrivateProperty( $campaign, 'maxDisplayWidth' ) );

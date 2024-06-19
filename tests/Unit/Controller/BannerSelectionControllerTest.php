@@ -4,6 +4,8 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Controller;
 
+use DateTime;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +17,7 @@ use WMDE\BannerServer\Tests\Fixtures\VisitorFixture;
 use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 use WMDE\BannerServer\UseCase\BannerSelection\BannerSelectionUseCase;
 
-/**
- * @covers \WMDE\BannerServer\Controller\BannerSelectionController
- */
+#[CoversClass( BannerSelectionController::class )]
 class BannerSelectionControllerTest extends TestCase {
 
 	private const BANNER_PATH = '/test_banners/';
@@ -56,7 +56,7 @@ class BannerSelectionControllerTest extends TestCase {
 		$this->assertEquals( BannerSelectionController::BUCKET_COOKIE, $cookies[0]->getName() );
 		$this->assertEquals( 'test', $cookies[0]->getValue() );
 		$this->assertEquals(
-			( new \DateTime( '2099-12-31 23:59:59' ) )->modify( '+2 week' )->getTimestamp(),
+			( new DateTime( '2099-12-31 23:59:59' ) )->modify( '+2 week' )->getTimestamp(),
 			$cookies[0]->getExpiresTime(),
 			'Cookie life-time should be the campaign expiration date plus two weeks.'
 		);
@@ -64,7 +64,7 @@ class BannerSelectionControllerTest extends TestCase {
 		$this->assertEquals( BannerSelectionController::IMPRESSION_COUNT_COOKIE, $cookies[1]->getName() );
 		$this->assertSame( '1', $cookies[1]->getValue() );
 		$this->assertEquals(
-			( new \DateTime( 'midnight first day of january next year' ) )->getTimestamp(),
+			( new DateTime( 'midnight first day of january next year' ) )->getTimestamp(),
 			$cookies[1]->getExpiresTime(),
 			'Impression cookie should expire after the campaign season has ended.'
 		);

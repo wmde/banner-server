@@ -4,6 +4,8 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\Entity\BannerSelection;
 
+use DateTime;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use WMDE\BannerServer\Entity\BannerSelection\Banner;
 use WMDE\BannerServer\Entity\BannerSelection\Bucket;
@@ -11,9 +13,7 @@ use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
 use WMDE\BannerServer\Tests\Utils\FakeRandomIntegerGenerator;
 
-/**
- * @covers \WMDE\BannerServer\Entity\BannerSelection\CampaignCollection
- */
+#[CoversClass( CampaignCollection::class )]
 class CampaignCollectionTest extends TestCase {
 
 	private function getTestbucket(): Bucket {
@@ -27,8 +27,8 @@ class CampaignCollectionTest extends TestCase {
 		$campaignCollection = new CampaignCollection(
 			new Campaign(
 				'C18_WMDE_Test_future',
-				new \DateTime( '2099-10-01 14:00:00' ),
-				new \DateTime( '2099-10-31 14:00:00' ),
+				new DateTime( '2099-10-01 14:00:00' ),
+				new DateTime( '2099-10-31 14:00:00' ),
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
@@ -38,8 +38,8 @@ class CampaignCollectionTest extends TestCase {
 			),
 			new Campaign(
 				'C18_WMDE_Test_present',
-				new \DateTime( '2018-10-01 14:00:00' ),
-				new \DateTime( '2018-10-31 14:00:00' ),
+				new DateTime( '2018-10-01 14:00:00' ),
+				new DateTime( '2018-10-31 14:00:00' ),
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
@@ -49,8 +49,8 @@ class CampaignCollectionTest extends TestCase {
 			),
 			new Campaign(
 				'C18_WMDE_Test_past',
-				new \DateTime( '1999-10-01 14:00:00' ),
-				new \DateTime( '1999-10-31 14:00:00' ),
+				new DateTime( '1999-10-01 14:00:00' ),
+				new DateTime( '1999-10-31 14:00:00' ),
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
@@ -60,7 +60,7 @@ class CampaignCollectionTest extends TestCase {
 			)
 		);
 
-		$campaign = $campaignCollection->getCampaign( new \DateTime( '2018-10-22 13:59:59' ) );
+		$campaign = $campaignCollection->getCampaign( new DateTime( '2018-10-22 13:59:59' ) );
 		$this->assertNotNull( $campaign );
 		$this->assertEquals( 'C18_WMDE_Test_present', $campaign->getIdentifier() );
 	}
@@ -69,8 +69,8 @@ class CampaignCollectionTest extends TestCase {
 		$campaignCollection = new CampaignCollection(
 			new Campaign(
 				'C18_WMDE_Test_present',
-				new \DateTime( '2018-10-01 14:00:00' ),
-				new \DateTime( '2018-10-31 14:00:00' ),
+				new DateTime( '2018-10-01 14:00:00' ),
+				new DateTime( '2018-10-31 14:00:00' ),
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
@@ -80,8 +80,8 @@ class CampaignCollectionTest extends TestCase {
 			),
 			new Campaign(
 				'C18_WMDE_Test_past',
-				new \DateTime( '1999-10-01 14:00:00' ),
-				new \DateTime( '1999-10-31 14:00:00' ),
+				new DateTime( '1999-10-01 14:00:00' ),
+				new DateTime( '1999-10-31 14:00:00' ),
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),
@@ -92,17 +92,17 @@ class CampaignCollectionTest extends TestCase {
 		);
 
 		$this->assertNull(
-						$campaignCollection->getCampaign( new \DateTime( '2017-09-01 14:00:00' ) )
+						$campaignCollection->getCampaign( new DateTime( '2017-09-01 14:00:00' ) )
 		);
 
-		$this->assertNull( $campaignCollection->getCampaign( new \DateTime( '2017-09-01 14:00:00' ) ) );
+		$this->assertNull( $campaignCollection->getCampaign( new DateTime( '2017-09-01 14:00:00' ) ) );
 	}
 
 	public function test_filter_function_drops_invalid_campaigns(): void {
 		$testCampaign1 = new Campaign(
 			'C18_WMDE_Test_present',
-			new \DateTime( '2018-10-01 14:00:00' ),
-			new \DateTime( '2018-10-31 14:00:00' ),
+			new DateTime( '2018-10-01 14:00:00' ),
+			new DateTime( '2018-10-31 14:00:00' ),
 			1,
 			'default',
 			new FakeRandomIntegerGenerator( 1 ),
@@ -112,8 +112,8 @@ class CampaignCollectionTest extends TestCase {
 		);
 		$testCampaign2 = new Campaign(
 			'C18_WMDE_Test_past',
-			new \DateTime( '1999-10-01 14:00:00' ),
-			new \DateTime( '1999-10-31 14:00:00' ),
+			new DateTime( '1999-10-01 14:00:00' ),
+			new DateTime( '1999-10-31 14:00:00' ),
 			1,
 			'default',
 			new FakeRandomIntegerGenerator( 1 ),
@@ -145,8 +145,8 @@ class CampaignCollectionTest extends TestCase {
 		$nonEmptyCampaignCollection = new CampaignCollection(
 			new Campaign(
 				'C18_WMDE_Test_past',
-				new \DateTime( '1999-10-01 14:00:00' ),
-				new \DateTime( '1999-10-31 14:00:00' ),
+				new DateTime( '1999-10-01 14:00:00' ),
+				new DateTime( '1999-10-31 14:00:00' ),
 				1,
 				'default',
 				new FakeRandomIntegerGenerator( 1 ),

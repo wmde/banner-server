@@ -4,8 +4,10 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Unit\EventListener;
 
+use Exception;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,9 +16,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use WMDE\BannerServer\EventListener\ExceptionListener;
 
-/**
- * @covers \WMDE\BannerServer\EventListener\ExceptionListener
- */
+#[CoversClass( ExceptionListener::class )]
 class ExceptionListenerTest extends KernelTestCase {
 
 	private EventDispatcher $dispatcher;
@@ -69,7 +69,7 @@ class ExceptionListenerTest extends KernelTestCase {
 			self::bootKernel(),
 			$this->newRequestMock( $url ),
 			HttpKernelInterface::MAIN_REQUEST,
-			new \Exception( 'This is the error message' )
+			new Exception( 'This is the error message' )
 		);
 		$this->dispatcher->dispatch( $event, 'onKernelException' );
 		return $event;
