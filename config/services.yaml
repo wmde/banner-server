@@ -47,7 +47,7 @@ services:
 
     WMDE\BannerServer\Controller\MaybeLaterController:
         arguments:
-            $cookieLifetime: 'P6H'
+            $cookieLifetime: 'PT6H'
         tags: [ 'controller.service_arguments' ]
 
     WMDE\BannerServer\Entity\BannerSelection\CampaignCollection:
