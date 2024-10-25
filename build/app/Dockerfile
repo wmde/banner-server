@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-buster as app
+FROM php:8.3-fpm as app
 
 RUN mkdir -p /usr/share/nginx/www/banner.wikipedia.de/current/var/cache \
     && mkdir -p /usr/share/nginx/www/banner.wikipedia.de/current/var/log \
@@ -13,7 +13,7 @@ RUN curl https://getcomposer.org/installer | php -- --filename=composer --instal
 
 FROM app as app_debug
 
-RUN pecl install xdebug-3.1.2 \
+RUN pecl install xdebug-3.3.2 \
     && docker-php-ext-enable xdebug \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
