@@ -11,12 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class AbstractCookieController {
 	public const CATEGORY_PARAM = 'c';
 
-	protected string $cookieLifetime;
-
-	public function __construct( string $cookieLifetime ) {
-		$this->cookieLifetime = $cookieLifetime;
-	}
-
 	public function index( Request $request ): Response {
 		$categories = trim( (string)$request->query->get( self::CATEGORY_PARAM, '' ) );
 		if ( $categories === '' || !preg_match( '/^[-0-9a-zA-Z_,]+$/', $categories ) ) {
@@ -28,7 +22,7 @@ abstract class AbstractCookieController {
 			$response = $this->newHtmlResponse( 'Thank you for donating' );
 		}
 
-		$expiry = ( new \DateTime() )->add( new \DateInterval( $this->cookieLifetime ) );
+		$expiry = ( new \DateTime() )->add( $this->getCookieLifetime() );
 		$response->headers->setCookie( Cookie::create(
 			BannerSelectionController::CATEGORY_COOKIE,
 			$categories,
@@ -42,6 +36,8 @@ abstract class AbstractCookieController {
 		) );
 		return $response;
 	}
+
+	abstract protected function getCookieLifetime(): \DateInterval;
 
 	private function newHtmlResponse( string $message, int $status = Response::HTTP_OK ): Response {
 		$html = "<!DOCTYPE html><html lang='en'><head><title>WMDE Banner Server</title>" .
