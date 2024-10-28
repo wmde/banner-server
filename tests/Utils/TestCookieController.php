@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace WMDE\BannerServer\Tests\Utils;
 
-use WMDE\BannerServer\Controller\AbstractCookieController;
+use WMDE\BannerServer\Controller\AbstractCookieControllerWithFixedLifetime;
 
-class TestCookieController extends AbstractCookieController {
+class TestCookieController extends AbstractCookieControllerWithFixedLifetime {
 
 }
