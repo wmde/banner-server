@@ -11,3 +11,5 @@ updates:
       - "wmde/funtech-core"
     # Turn off dependabot until we move CI from Travis to Drone
     open-pull-requests-limit: 0
+    # Turn off dependabot until we move CI from Travis to Drone
+    open-pull-requests-limit: 0
