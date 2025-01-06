@@ -8,7 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
 
-        "symfony/framework-bundle": "^6.0",
+        "symfony/framework-bundle": "^7.2",
         "symfony/console": "^6.0",
         "symfony/flex": "^2.1",
         "symfony/yaml": "^7.2",
