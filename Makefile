@@ -14,19 +14,19 @@ update-php:
 
 clear:
 	rm -rf var/cache/
-	docker-compose run --rm --no-deps app rm -rf var/cache/
+	docker compose run --rm --no-deps app rm -rf var/cache/
 
 # n alias to avoid frequent typo
 clean: clear
 
 phpunit:
-	docker-compose run --rm app ./vendor/bin/phpunit
+	docker compose run --rm app ./vendor/bin/phpunit
 
 phpunit-with-coverage:
-	docker-compose -f docker-compose.yml -f docker-compose.debug.yml run --rm app_debug ./vendor/bin/phpunit --configuration=phpunit.xml.dist $(COVERAGE_FLAGS)
+	docker compose -f docker-compose.yml -f docker-compose.debug.yml run --rm app_debug ./vendor/bin/phpunit --configuration=phpunit.xml.dist $(COVERAGE_FLAGS)
 
 docker-build:
-	docker-compose -f docker-compose.yml -f docker-compose.debug.yml build
+	docker compose -f docker-compose.yml -f docker-compose.debug.yml build
 
 ci: test cs phpcs stan
 
@@ -37,12 +37,12 @@ test: phpunit
 cs: phpcs
 
 fix-cs:
-	docker-compose run --rm app ./vendor/bin/phpcbf -p -s
+	docker compose run --rm app ./vendor/bin/phpcbf -p -s
 
 phpcs:
-	docker-compose run --rm app ./vendor/bin/phpcs -p -s
+	docker compose run --rm app ./vendor/bin/phpcs -p -s
 
 stan:
-	docker-compose run --rm app ./vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1024M --level=7 --no-progress src/ tests/
+	docker compose run --rm app ./vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1024M --level=7 --no-progress src/ tests/
 
 .PHONY: install-php update-php clean clear phpunit ci ci-with-coverage ci ci-with-coverage test cs fix-cs phpcs stan
