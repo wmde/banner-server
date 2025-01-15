@@ -25,6 +25,11 @@ class ExceptionListenerTest extends KernelTestCase {
 		$this->dispatcher = new EventDispatcher();
 	}
 
+	/** solves tests marked as "risky" by phpunit, error was: "Test code or tested code did not remove its own exception handlers" */
+	public function tearDown(): void {
+		restore_exception_handler();
+	}
+
 	public function testGivenExceptionForJavaScriptUrl_thenEmptyInternalServerErrorMessageIsReturned(): void {
 		$this->withExceptionListener( new TestHandler() );
 
