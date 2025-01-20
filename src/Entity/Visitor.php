@@ -11,6 +11,7 @@ class Visitor {
 
 	private int $totalImpressionCount = 0;
 	private ?string $bucketIdentifier;
+	/** @var string[] */
 	private array $activeCategories;
 	private int $displayWidth;
 
@@ -24,7 +25,8 @@ class Visitor {
 			int $totalImpressionCount,
 			?string $bucketIdentifier,
 			int $displayWidth,
-			string ...$activeCategories ) {
+			string ...$activeCategories
+	) {
 		$this->totalImpressionCount = $totalImpressionCount;
 		$this->bucketIdentifier = $bucketIdentifier;
 		$this->displayWidth = $displayWidth;

@@ -31,6 +31,10 @@ class CampaignConfigurationLoader {
 		return new CampaignCollection( ...$campaigns );
 	}
 
+	/**
+	 * @param string $campaignName
+	 * @param array<string,mixed> $campaignData
+	 */
 	private function buildCampaignFromData( string $campaignName, array $campaignData ): Campaign {
 		$buckets = $this->buildBucketsFromData( $campaignData );
 		if ( empty( $buckets ) ) {
@@ -60,6 +64,10 @@ class CampaignConfigurationLoader {
 		);
 	}
 
+	/**
+	 * @param array<string,mixed> $campaignData
+	 * @return Bucket[]
+	 */
 	private function buildBucketsFromData( array $campaignData ): array {
 		$buckets = [];
 		foreach ( $campaignData['buckets'] as $bucketData ) {
@@ -69,6 +77,10 @@ class CampaignConfigurationLoader {
 		return $buckets;
 	}
 
+	/**
+	 * @param array<string,mixed> $bucketData
+	 * @return Bucket
+	 */
 	private function buildBucketFromData( array $bucketData ): Bucket {
 		if ( !isset( $bucketData['name'] ) ) {
 			throw new InvalidConfigurationValueException( 'A configured bucket has no name.' );
@@ -83,6 +95,10 @@ class CampaignConfigurationLoader {
 		return new Bucket( $bucketData['name'], array_shift( $banners ), ...$banners );
 	}
 
+	/**
+	 * @param string[] $bannerData
+	 * @return Banner[]
+	 */
 	private function buildBannersFromData( array $bannerData ): array {
 		$banners = [];
 		foreach ( $bannerData as $bannerIdentifier ) {
@@ -94,10 +110,16 @@ class CampaignConfigurationLoader {
 		return $banners;
 	}
 
+	/**
+	 * @return array<string,mixed>
+	 */
 	private function parseConfiguration(): array {
 		return Yaml::parseFile( $this->configFile );
 	}
 
+	/**
+	 * @param array<string,mixed> $campaignData
+	 */
 	private function integerOrNullValue( array $campaignData, string $key ): ?int {
 		if ( !isset( $campaignData[$key] ) ) {
 			return null;
