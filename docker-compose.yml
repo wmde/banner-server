@@ -1,5 +1,6 @@
 services:
   app:
+    image: "registry.gitlab.com/fun-tech/fundraising-frontend-docker:latest"
     build:
       context: ./build/app
       target: app
