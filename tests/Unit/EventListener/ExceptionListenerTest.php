@@ -35,8 +35,11 @@ class ExceptionListenerTest extends KernelTestCase {
 
 		$event = $this->makeDispatchedExceptionEvent( 'some/url/which/implies/javascript.js' );
 
-		$this->assertEquals( 'application/javascript; charset=UTF-8', $event->getResponse()->headers->get( 'Content-Type' ) );
-		$this->assertEquals( Response::HTTP_INTERNAL_SERVER_ERROR, $event->getResponse()->getStatusCode() );
+		$response = $event->getResponse();
+
+		$this->assertNotNull( $response );
+		$this->assertEquals( 'application/javascript; charset=UTF-8', $response->headers->get( 'Content-Type' ) );
+		$this->assertEquals( Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode() );
 	}
 
 	public function testGivenExceptionForNonJavaScriptUrl_thenEmptyNotFoundErrorMessageIsReturned(): void {

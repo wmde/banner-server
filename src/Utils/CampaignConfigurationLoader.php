@@ -11,9 +11,6 @@ use WMDE\BannerServer\Entity\BannerSelection\Campaign;
 use WMDE\BannerServer\Entity\BannerSelection\CampaignCollection;
 use WMDE\BannerServer\InvalidConfigurationValueException;
 
-/**
- * @license GPL-2.0-or-later
- */
 class CampaignConfigurationLoader {
 
 	private string $configFile;
@@ -24,11 +21,44 @@ class CampaignConfigurationLoader {
 
 	public function getCampaignCollection(): CampaignCollection {
 		$campaigns = [];
-		foreach ( $this->parseConfiguration() as $campaignName => $campaignData ) {
-				$campaign = $this->buildCampaignFromData( $campaignName, $campaignData );
-				$campaigns[] = $campaign;
+		$configuration = $this->parseConfiguration();
+
+		foreach ( $configuration as $campaignName => $campaignData ) {
+			if ( !is_array( $campaignData ) ) {
+				throw new InvalidConfigurationValueException(
+					"Campaign data for '{$campaignName}' must be an array."
+				);
+			}
+			$campaign = $this->buildCampaignFromData( $campaignName, $campaignData );
+			$campaigns[] = $campaign;
 		}
 		return new CampaignCollection( ...$campaigns );
+	}
+
+	/**
+	 * @param array<string, mixed> $data
+	 * @param string $key
+	 * @return string
+	 * @throws InvalidConfigurationValueException
+	 */
+	private function getStringValue( array $data, string $key ): string {
+		if ( !isset( $data[$key] ) || !is_scalar( $data[$key] ) ) {
+			throw new InvalidConfigurationValueException( "Configuration value for '$key' must be a string." );
+		}
+		return (string)$data[$key];
+	}
+
+	/**
+	 * @param array<string, mixed> $data
+	 * @param string $key
+	 * @return int
+	 * @throws InvalidConfigurationValueException
+	 */
+	private function getIntValue( array $data, string $key ): int {
+		if ( !isset( $data[$key] ) || !is_numeric( $data[$key] ) ) {
+			throw new InvalidConfigurationValueException( "Configuration value for '$key' must be numeric." );
+		}
+		return (int)$data[$key];
 	}
 
 	/**
@@ -36,26 +66,38 @@ class CampaignConfigurationLoader {
 	 * @param array<string,mixed> $campaignData
 	 */
 	private function buildCampaignFromData( string $campaignName, array $campaignData ): Campaign {
+		$start = $this->getStringValue( $campaignData, 'start' );
+		$end   = $this->getStringValue( $campaignData, 'end' );
+
+		if ( !isset( $campaignData['trafficLimit'] ) ) {
+			throw new InvalidConfigurationValueException( 'Campaign data is incomplete.' );
+		}
+		$trafficLimit = $this->getIntValue( $campaignData, 'trafficLimit' );
+
 		$buckets = $this->buildBucketsFromData( $campaignData );
 		if ( empty( $buckets ) ) {
 			throw new InvalidConfigurationValueException( 'Campaign contains no buckets.' );
 		}
-		if ( empty( $campaignData['start'] ) || empty( $campaignData['end'] ) || !isset( $campaignData['trafficLimit'] ) ) {
-			throw new InvalidConfigurationValueException( 'Campaign data is incomplete.' );
-		}
+
 		$minDisplayWidth = $this->integerOrNullValue( $campaignData, 'minDisplayWidth' );
 		$maxDisplayWidth = $this->integerOrNullValue( $campaignData, 'maxDisplayWidth' );
+
 		if ( $minDisplayWidth && $maxDisplayWidth && $minDisplayWidth > $maxDisplayWidth ) {
 			throw new InvalidConfigurationValueException(
 				'Campaign data display width values are invalid (if defined, max must be higher than min).'
 			);
 		}
+
+		$category = isset( $campaignData['category'] ) && is_scalar( $campaignData['category'] )
+			? (string)$campaignData['category']
+			: 'default';
+
 		return new Campaign(
 			$campaignName,
-			new \DateTime( $campaignData['start'] ),
-			new \DateTime( $campaignData['end'] ),
-			(int)$campaignData['trafficLimit'],
-			$campaignData['category'] ?? 'default',
+			new \DateTime( $start ),
+			new \DateTime( $end ),
+			$trafficLimit,
+			$category,
 			new SystemRandomIntegerGenerator(),
 			$minDisplayWidth,
 			$maxDisplayWidth,
@@ -69,10 +111,13 @@ class CampaignConfigurationLoader {
 	 * @return Bucket[]
 	 */
 	private function buildBucketsFromData( array $campaignData ): array {
+		if ( !isset( $campaignData['buckets'] ) || !is_array( $campaignData['buckets'] ) ) {
+			throw new InvalidConfigurationValueException( 'Campaign buckets must be defined as an array.' );
+		}
+
 		$buckets = [];
 		foreach ( $campaignData['buckets'] as $bucketData ) {
-			$bucket = $this->buildBucketFromData( $bucketData );
-			$buckets[] = $bucket;
+			$buckets[] = $this->buildBucketFromData( $bucketData );
 		}
 		return $buckets;
 	}
@@ -85,14 +130,16 @@ class CampaignConfigurationLoader {
 		if ( !isset( $bucketData['name'] ) ) {
 			throw new InvalidConfigurationValueException( 'A configured bucket has no name.' );
 		}
-		if ( !isset( $bucketData['banners'] ) ) {
+
+		$bucketName = $this->getStringValue( $bucketData, 'name' );
+		if ( !isset( $bucketData['banners'] ) || !is_array( $bucketData['banners'] ) ) {
 			throw new InvalidConfigurationValueException( 'A configured bucket has no associated banners.' );
 		}
 		$banners = $this->buildBannersFromData( $bucketData['banners'] );
 		if ( empty( $banners ) ) {
 			throw new InvalidConfigurationValueException( 'A configured bucket has no valid banners associated with it.' );
 		}
-		return new Bucket( $bucketData['name'], array_shift( $banners ), ...$banners );
+		return new Bucket( $bucketName, array_shift( $banners ), ...$banners );
 	}
 
 	/**
@@ -102,8 +149,8 @@ class CampaignConfigurationLoader {
 	private function buildBannersFromData( array $bannerData ): array {
 		$banners = [];
 		foreach ( $bannerData as $bannerIdentifier ) {
-			if ( !$bannerIdentifier ) {
-				throw new InvalidConfigurationValueException( 'A configured banner has an empty name.' );
+			if ( !is_string( $bannerIdentifier ) || !$bannerIdentifier ) {
+				throw new InvalidConfigurationValueException( 'A configured banner has an invalid or empty name.' );
 			}
 			$banners[] = new Banner( $bannerIdentifier );
 		}
@@ -114,7 +161,11 @@ class CampaignConfigurationLoader {
 	 * @return array<string,mixed>
 	 */
 	private function parseConfiguration(): array {
-		return Yaml::parseFile( $this->configFile );
+		$config = Yaml::parseFile( $this->configFile );
+		if ( !is_array( $config ) ) {
+			throw new InvalidConfigurationValueException( 'Configuration file must return an array.' );
+		}
+		return $config;
 	}
 
 	/**
