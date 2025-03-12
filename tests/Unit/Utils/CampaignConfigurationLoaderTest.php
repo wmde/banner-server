@@ -27,6 +27,8 @@ class CampaignConfigurationLoaderTest extends TestCase {
 
 		$campaign = $collection->getCampaign( new DateTime( '2018-12-12' ) );
 		$categorizedCampaign = $collection->getCampaign( new DateTime( '2020-11-12' ) );
+
+		$this->assertNotNull( $categorizedCampaign );
 		$this->assertNotNull( $campaign );
 		$this->assertEquals( 'B18WPDE_01_180131', $campaign->getIdentifier() );
 		$this->assertEquals( '2019-01-01 14:00:00', $campaign->getEnd()->format( 'Y-m-d H:i:s' ) );
@@ -96,6 +98,7 @@ class CampaignConfigurationLoaderTest extends TestCase {
 
 		$campaign = $collection->getCampaign( new DateTime( '2020-11-26' ) );
 
+		$this->assertNotNull( $campaign );
 		$this->assertNull( $readPrivateProperty( $campaign, 'minDisplayWidth' ) );
 		$this->assertNull( $readPrivateProperty( $campaign, 'maxDisplayWidth' ) );
 	}

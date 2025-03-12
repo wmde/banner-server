@@ -50,6 +50,6 @@ phpcs:
 	docker compose run --rm app ./vendor/bin/phpcs -p -s
 
 stan:
-	docker compose run --rm app ./vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1024M --level=7 --no-progress src/ tests/
+	docker compose run --rm app ./vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1024M --level=9 --no-progress src/ tests/
 
 .PHONY: install-php update-php clean clear phpunit ci ci-with-coverage ci ci-with-coverage test cs fix-cs phpcs stan

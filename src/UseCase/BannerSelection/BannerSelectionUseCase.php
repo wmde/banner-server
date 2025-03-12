@@ -10,9 +10,6 @@ use WMDE\BannerServer\Entity\BannerSelection\ImpressionThreshold;
 use WMDE\BannerServer\Entity\BannerSelection\RandomIntegerGenerator;
 use WMDE\BannerServer\Entity\Visitor;
 
-/**
- * @license GPL-2.0-or-later
- */
 class BannerSelectionUseCase {
 
 	public function __construct(
@@ -25,9 +22,11 @@ class BannerSelectionUseCase {
 	public function selectBanner( Visitor $visitor ): BannerSelectionData {
 		$remainingCampaigns = $this->campaignCollection->filter(
 			function ( Campaign $campaign ) use ( $visitor ): bool {
+				$displayWidth = $visitor->getDisplayWidth() ?? 0;
+
 				return (
 					$campaign->isInActiveDateRange( new \DateTime() ) &&
-					$campaign->isInDisplayRange( $visitor->getDisplayWidth() ) &&
+					$campaign->isInDisplayRange( $displayWidth ) &&
 					!$this->impressionThreshold->isThresholdReached( $visitor->getTotalImpressionCount() ) &&
 					!$visitor->inCategory( $campaign->getCategory() ) &&
 					!$this->isRatioLimited( $campaign->getDisplayPercentage() )
@@ -45,11 +44,13 @@ class BannerSelectionUseCase {
 			$visitor->getBucketIdentifier()
 		);
 
+		$displayWidth = $visitor->getDisplayWidth() ?? 0;
+
 		return new ActiveBannerSelectionData(
 			new Visitor(
 				$visitor->getTotalImpressionCount() + 1,
 				$visitorBucket->getIdentifier(),
-				$visitor->getDisplayWidth(),
+				$displayWidth,
 				...$visitor->getCategories()
 			),
 			$visitorBucket->getBanner( $visitor->getTotalImpressionCount() ),
