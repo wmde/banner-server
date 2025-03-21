@@ -17,3 +17,7 @@ banner_server_maybe_later:
 banner_server_already_donated:
   path: /already-donated
   controller: WMDE\BannerServer\Controller\AlreadyDonatedController::index
+
+banner_server_default_route:
+  path: /
+  controller: WMDE\BannerServer\Controller\DefaultRouteController::index
