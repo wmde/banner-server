@@ -29,6 +29,7 @@ class CampaignConfigurationLoader {
 					"Campaign data for '{$campaignName}' must be an array."
 				);
 			}
+			/** @var array<string,mixed> $campaignData */
 			$campaign = $this->buildCampaignFromData( $campaignName, $campaignData );
 			$campaigns[] = $campaign;
 		}
@@ -117,6 +118,7 @@ class CampaignConfigurationLoader {
 
 		$buckets = [];
 		foreach ( $campaignData['buckets'] as $bucketData ) {
+			/** @var array<string,mixed> $bucketData */
 			$buckets[] = $this->buildBucketFromData( $bucketData );
 		}
 		return $buckets;
@@ -135,6 +137,7 @@ class CampaignConfigurationLoader {
 		if ( !isset( $bucketData['banners'] ) || !is_array( $bucketData['banners'] ) ) {
 			throw new InvalidConfigurationValueException( 'A configured bucket has no associated banners.' );
 		}
+		/** @var array<string,array<string>> $bucketData */
 		$banners = $this->buildBannersFromData( $bucketData['banners'] );
 		if ( empty( $banners ) ) {
 			throw new InvalidConfigurationValueException( 'A configured bucket has no valid banners associated with it.' );
@@ -143,7 +146,7 @@ class CampaignConfigurationLoader {
 	}
 
 	/**
-	 * @param string[] $bannerData
+	 * @param array<string,mixed> $bannerData
 	 * @return Banner[]
 	 */
 	private function buildBannersFromData( array $bannerData ): array {
@@ -165,6 +168,7 @@ class CampaignConfigurationLoader {
 		if ( !is_array( $config ) ) {
 			throw new InvalidConfigurationValueException( 'Configuration file must return an array.' );
 		}
+		/** @var array<string,mixed> $config */
 		return $config;
 	}
 
