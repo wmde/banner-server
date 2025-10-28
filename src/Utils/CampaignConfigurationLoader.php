@@ -95,8 +95,8 @@ class CampaignConfigurationLoader {
 
 		return new Campaign(
 			$campaignName,
-			new \DateTime( $start ),
-			new \DateTime( $end ),
+			new \DateTime( $start, new \DateTimeZone( 'Europe/Berlin' ) ),
+			new \DateTime( $end, new \DateTimeZone( 'Europe/Berlin' ) ),
 			$trafficLimit,
 			$category,
 			new SystemRandomIntegerGenerator(),
