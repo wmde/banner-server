@@ -47,6 +47,21 @@ class CampaignConfigurationLoaderTest extends TestCase {
 		$this->assertEquals( 'B18WPDE_02_180511_top_ctrl_last', $bucketA->getBanner( 10 ) );
 	}
 
+	public function test_loaded_campaign_start_end_dates_are_in_CET_Berlin_timezone(): void {
+		$loader = new CampaignConfigurationLoader( self::TEST_VALID_CAMPAIGN_CONFIGURATION_FILE );
+		$collection = $loader->getCampaignCollection();
+		$systemTimezone = date_default_timezone_get();
+		date_default_timezone_set( 'UTC' );
+
+		$campaign = $collection->getCampaign( new DateTime( "2018-11-31 01:23:45", new \DateTimeZone( 'Europe/Berlin' ) ) );
+
+		$this->assertNotNull( $campaign );
+		$this->assertSame( 'Europe/Berlin', $campaign->getEnd()->getTimezone()->getName() );
+
+		// restore system time zone
+		date_default_timezone_set( $systemTimezone );
+	}
+
 	public function test_given_broken_bucket_campaign_configuration_then_errors_are_caught(): void {
 		$loader = new CampaignConfigurationLoader(
 			self::TEST_BROKEN_BUCKET_CAMPAIGN_CONFIGURATION_FILE
