@@ -23,7 +23,7 @@
         "phpstan/phpstan-phpunit": "^2.0.6",
         "phpunit/phpunit": "~12.1",
         "symfony/dotenv": "~7.2",
-        "symfony/phpunit-bridge": "^7.0",
+        "symfony/phpunit-bridge": "^8.0",
         "wmde/fundraising-phpcs": "~13.0"
     },
 	"repositories": [
