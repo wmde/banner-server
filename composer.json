@@ -9,7 +9,7 @@
         "ext-iconv": "*",
 
         "symfony/framework-bundle": "^7.2",
-        "symfony/console": "^7.2",
+        "symfony/console": "^8.0",
         "symfony/flex": "^2.1",
         "symfony/yaml": "^7.2",
         "symfony/asset": "^7.2",
