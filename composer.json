@@ -18,7 +18,7 @@
         "monolog/monolog": "~3.0"
     },
     "require-dev": {
-        "phpmd/phpmd": "~2.6",
+        "phpmd/phpmd": "~3.0",
         "phpstan/phpstan": "^2.1.11",
         "phpstan/phpstan-phpunit": "^2.0.6",
         "phpunit/phpunit": "~12.1",
